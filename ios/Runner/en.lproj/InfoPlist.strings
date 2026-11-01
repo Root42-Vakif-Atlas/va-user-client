@@ -1,0 +1,6 @@
+/* System permission prompt descriptions (English). */
+"NSLocationWhenInUseUsageDescription" = "Your location is used to show foundation monuments near you on the map. On the map your location never leaves your device; it is sent only with a damage report you choose to add it to.";
+"NSCameraUsageDescription" = "The camera is used to take photos you want to share in the Memory Corner and in damage reports. A photo is uploaded only when you share it.";
+"NSPhotoLibraryUsageDescription" = "The photos you pick are used for the Memory Corner and damage reports. Location data is removed from a photo before it is shared.";
+"NSMicrophoneUsageDescription" = "The microphone is used to ask the Digital Guide by voice. No recording is kept, and nothing is sent until you send your question.";
+"NSSpeechRecognitionUsageDescription" = "Your spoken question to the Digital Guide is turned into text by Apple's speech recognition service. The app keeps no recording, and nothing is sent until you send it.";

@@ -1,0 +1,4 @@
+# Vakıf Atlas — vatandaş uygulaması (Flutter). `mise install` ile kurulur.
+[tools]
+flutter = "3.47.7"       # .metadata revizyonu abaf9c5 (Dart 3.13.5 — pubspec `sdk: ^3.13.5`)
+java = "temurin-17"      # Android Gradle: source/target ve jvmTarget 17

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 ve öncesi açılış ekranı. Android 12+ values-v31/styles.xml
+     içindeki SplashScreen API niteliklerini kullanır; ikisi aynı görünür.
+     splash_icon: tool/generate_brand_assets_test.dart ile üretilir. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/splash_background" />
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_icon" />
+    </item>
+</layer-list>

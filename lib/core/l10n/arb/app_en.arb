@@ -1,0 +1,2395 @@
+{
+  "@@locale": "en",
+  "appTitle": "Vakıf Atlas",
+  "appSlogan": "From Roots to the Future",
+  "errorInvalidRequest": "The request is invalid. Please check the information you entered.",
+  "errorUnauthorized": "Your session has expired or you are not authorized for this action.",
+  "errorNotFound": "The requested resource could not be found.",
+  "errorModerationRejected": "Your post did not meet the community guidelines.",
+  "errorServerUnavailable": "The server is temporarily unavailable. Please try again shortly.",
+  "errorOffline": "You are offline. Check your connection and try again.",
+  "errorServerUnreachable": "The Vakıf Atlas server can't be reached right now. Your internet connection is working; please try again shortly.",
+  "offlineBannerMessage": "You're offline. Showing data on this device; changes will sync when you're back online.",
+  "offlineAnnouncement": "Internet connection lost. The app is working in offline mode.",
+  "onlineAnnouncement": "Internet connection restored.",
+  "errorCacheRead": "Local data could not be read; using online sources instead.",
+  "errorSecurityViolation": "The secure connection or device integrity could not be verified.",
+  "errorInvalidCredentials": "The email address or password is incorrect. Check your details and try again.",
+  "errorUnexpected": "An unexpected error occurred. Please try again.",
+  "commonRetry": "Try again",
+  "commonUndo": "Undo",
+  "commonCancel": "Cancel",
+  "commonClose": "Close",
+  "commonLoading": "Loading",
+  "buttonLoadingSemantics": "{label}, in progress",
+  "@buttonLoadingSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "badgeOverflow": "{max}+",
+  "@badgeOverflow": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationCountSemantics": "{count, plural, =0{No new notifications} =1{1 new notification} other{{count} new notifications}}",
+  "@notificationCountSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "navMap": "Map",
+  "navRoutePlanner": "Routes",
+  "navAiAssistant": "Guide",
+  "navProfile": "Profile",
+  "navSettings": "Settings",
+  "navigationSemantics": "Main navigation",
+  "mapDiscoveryTitle": "Discover",
+  "monumentDetailTitle": "Monument Details",
+  "routePlannerTitle": "Route Planner",
+  "memoryCornerTitle": "Memory Corner",
+  "civilProtectionTitle": "Civil Protection",
+  "aiAssistantTitle": "Digital Guide",
+  "profileTitle": "My Profile",
+  "settingsTitle": "Settings",
+  "loginTitle": "Sign In",
+  "featurePendingHeading": "This section is being prepared",
+  "featurePendingBody": "{feature} will be available in the next release.",
+  "@featurePendingBody": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "notFoundTitle": "Page not found",
+  "notFoundBody": "The page you are looking for does not exist or may have moved.",
+  "notFoundAction": "Back to home",
+  "splashLoadingSemantics": "Vakıf Atlas is starting",
+  "loginHeading": "Welcome",
+  "loginSubtitle": "Sign in to share memories, submit Civil Protection reports and earn badges.",
+  "loginRequiredNotice": "You need to sign in to use this section.",
+  "loginEmailLabel": "Email",
+  "loginEmailHint": "name@email.com",
+  "loginPasswordLabel": "Password",
+  "passwordShow": "Show password",
+  "passwordHide": "Hide password",
+  "loginSubmit": "Sign in",
+  "loginContinueAsGuest": "Continue as guest",
+  "loginSuccessAnnouncement": "Signed in. Welcome, {name}.",
+  "@loginSuccessAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "loginFormInvalidAnnouncement": "Some fields in the form need to be corrected.",
+  "validationEmailEmpty": "Enter your email address.",
+  "validationEmailInvalid": "Enter a valid email address. Example: name@email.com",
+  "validationPasswordEmpty": "Enter your password.",
+  "validationPasswordTooShort": "The password must be at least {min} characters long.",
+  "@validationPasswordTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "profileEmailValue": "Email: {email}",
+  "@profileEmailValue": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationSectionTitle": "Level and badges",
+  "gamificationLevelTitle": "Level {level} · {title}",
+  "@gamificationLevelTitle": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationXpProgress": "{xp} / {next} XP",
+  "@gamificationXpProgress": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      },
+      "next": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationXpTotal": "{xp} XP",
+  "@gamificationXpTotal": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationXpToNext": "{xp} XP to the next level.",
+  "@gamificationXpToNext": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationMaxLevel": "You've reached the highest level.",
+  "gamificationProgressSemantics": "Level progress",
+  "gamificationRecentBadges": "Recently earned badges",
+  "gamificationNoBadges": "No badges yet. Start earning by creating routes, sharing memories or reporting damage.",
+  "gamificationAllBadges": "All badges ({unlocked}/{total})",
+  "@gamificationAllBadges": {
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationLoading": "Loading your level",
+  "gamificationLoadFailed": "Couldn't load your level.",
+  "gamificationAchievementsTitle": "Badges",
+  "gamificationAchievementsSummary": "You've earned {unlocked} of {total} badges.",
+  "@gamificationAchievementsSummary": {
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationEarnedSection": "Earned",
+  "gamificationLockedSection": "To earn",
+  "gamificationUnlockedOn": "Earned {date}",
+  "@gamificationUnlockedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationLockedProgress": "Locked · {progress}/{target}",
+  "@gamificationLockedProgress": {
+    "placeholders": {
+      "progress": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationHowToTitle": "How to earn XP",
+  "gamificationHowToRoute": "Creating a route: 50 XP (up to 3 routes a day)",
+  "gamificationHowToMemory": "Sharing a memory: 30 XP (up to 5 memories a day)",
+  "gamificationHowToReport": "Reporting damage: 40 XP (up to 3 reports a day)",
+  "gamificationHowToCity": "Your first contribution in a province: 20 XP",
+  "gamificationHowToNote": "XP is awarded for contributions made with your account; routes created as a guest don't count.",
+  "gamificationCelebrationTitle": "Congratulations!",
+  "gamificationLevelReached": "New level: {level} · {title}",
+  "@gamificationLevelReached": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationBadgeEarned": "New badge: {title}",
+  "@gamificationBadgeEarned": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationCelebrationViewBadges": "View badges",
+  "gamificationCelebrationClose": "Great",
+  "profileLogout": "Sign out",
+  "profileLogoutConfirmTitle": "Sign out?",
+  "profileLogoutConfirmBody": "You will need to sign in again to share memories and submit reports.",
+  "logoutAnnouncement": "Signed out.",
+  "sessionExpiredMessage": "Your session has expired. Please sign in again.",
+  "settingsAppearanceSection": "Appearance",
+  "settingsThemeLabel": "Theme",
+  "themeSystem": "Device setting",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "settingsLanguageSection": "Language",
+  "settingsLanguageLabel": "App language",
+  "languageSystem": "Device language",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "settingsAccessibilitySection": "Accessibility",
+  "colorBlindnessProtanopia": "Protanopia (red)",
+  "colorBlindnessDeuteranopia": "Deuteranopia (green)",
+  "colorBlindnessTritanopia": "Tritanopia (blue)",
+  "settingsTextScaleValue": "{percent}%",
+  "@settingsTextScaleValue": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsSaveFailed": "The setting could not be saved on this device. The previous value will be used when the app restarts.",
+  "settingsLicenses": "Open source licenses",
+  "settingsFeedback": "Send feedback",
+  "settingsFeedbackSubtitle": "Rate your experience, share an idea or report a problem",
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "aboutMission": "An accessible way to discover, visit and help protect the foundation heritage cared for by the General Directorate of Foundations.",
+  "aboutDeveloper": "Developed by Root42 for the General Directorate of Foundations.",
+  "feedbackTitle": "Feedback",
+  "feedbackRatingLabel": "How would you rate your Vakıf Atlas experience?",
+  "feedbackRatingOptional": "Rating is optional.",
+  "feedbackRateStars": "{count, plural, =1{1 star} other{{count} stars}}",
+  "@feedbackRateStars": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedbackRatingValue": "{value} / 5 · {name}",
+  "@feedbackRatingValue": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "feedbackRating1": "Very poor",
+  "feedbackRating2": "Poor",
+  "feedbackRating3": "Okay",
+  "feedbackRating4": "Good",
+  "feedbackRating5": "Excellent",
+  "feedbackCategoryLabel": "Topic",
+  "feedbackCategorySuggestion": "Idea",
+  "feedbackCategoryBug": "Bug",
+  "feedbackCategoryAccessibility": "Accessibility",
+  "feedbackCategoryContent": "Monument info",
+  "feedbackCategoryOther": "Other",
+  "feedbackMessageLabel": "Your message",
+  "feedbackMessageHint": "What did you like, and what could we improve?",
+  "feedbackMessageHelper": "Don't share personal information. The app version and device type (e.g. Android) are included.",
+  "feedbackSubmit": "Send",
+  "feedbackRequired": "Give a rating or write a message.",
+  "feedbackTooLong": "The message can be at most {max} characters.",
+  "@feedbackTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "feedbackSent": "Thank you! Your feedback was received.",
+  "privacyOverlaySemantics": "App content hidden",
+  "integrityWarningMessage": "Security modifications (root or jailbreak) were detected on your device. Some actions may be restricted to protect your account.",
+  "integrityWarningDismiss": "Got it",
+  "integrityBlockedTitle": "Secure environment could not be verified",
+  "integrityBlockedBody": "A modified version of the app or unauthorized tampering was detected. Please reinstall Vakıf Atlas from the official app store.",
+  "startupFailedTitle": "The app could not start",
+  "startupFailedBody": "Something unexpected went wrong while opening Vakıf Atlas. Close and reopen the app; if the problem persists, update the app.",
+  "errorEmailNotVerified": "Your email address has not been verified yet. Enter the code we sent you.",
+  "errorInvalidVerificationCode": "The code is incorrect. Check the 6-digit code in your email and try again.",
+  "errorVerificationCodeExpired": "The code has expired or too many wrong attempts were made. Request a new code.",
+  "errorWeakPassword": "This password does not meet the security rules. Choose a longer password that is hard to guess.",
+  "errorInvalidCurrentPassword": "Your current password is incorrect.",
+  "errorTooManyRequests": "Too many attempts. Please try again later.",
+  "errorTooManyRequestsRetry": "{minutes, plural, =1{Too many attempts. Try again in 1 minute.} other{Too many attempts. Try again in {minutes} minutes.}}",
+  "@errorTooManyRequestsRetry": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameEmpty": "Enter your full name.",
+  "validationNameTooShort": "Your name must be at least {min} characters long.",
+  "@validationNameTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameTooLong": "Your name can be at most {max} characters long.",
+  "@validationNameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameInvalid": "Your name can only contain letters, spaces, apostrophes and hyphens.",
+  "validationPasswordTooLong": "The password can be at most {max} characters long.",
+  "@validationPasswordTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "validationPasswordCommon": "This password is very common and easy to guess. Choose a different one.",
+  "validationPasswordPersonalInfo": "The password must not contain your name, email address or the app name.",
+  "validationPasswordRepetitive": "The password must not consist of repeated or sequential characters.",
+  "validationConfirmPasswordEmpty": "Enter your password again.",
+  "validationPasswordMismatch": "The passwords do not match. Enter the same password in both fields.",
+  "validationSamePassword": "The new password must be different from your current password.",
+  "validationCurrentPasswordEmpty": "Enter your current password.",
+  "validationCodeEmpty": "Enter the code from your email.",
+  "validationCodeInvalid": "The code must be a {length}-digit number.",
+  "@validationCodeInvalid": {
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "validationTermsRequired": "You must accept the Terms of Use to continue.",
+  "validationPrivacyRequired": "You must confirm that you have read the Privacy Notice to continue.",
+  "validationDeleteConfirmRequired": "Tick the confirmation box to continue.",
+  "passwordRequirementsHint": "At least {min} characters. Avoid easy-to-guess phrases and personal information.",
+  "@passwordRequirementsHint": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "passwordStrengthWeak": "Weak",
+  "passwordStrengthFair": "Fair",
+  "passwordStrengthGood": "Good",
+  "passwordStrengthStrong": "Strong",
+  "passwordStrengthSemantics": "Password strength: {level}",
+  "@passwordStrengthSemantics": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "loginForgotPassword": "Forgot password",
+  "loginNoAccount": "Don't have an account?",
+  "loginCreateAccount": "Create account",
+  "loginPasswordResetSuccess": "Your password was updated and all sessions were signed out. Sign in with your new password.",
+  "registerTitle": "Create Account",
+  "registerHeading": "Join Vakıf Atlas",
+  "registerSubtitle": "Create a free account to share your memories and help protect cultural heritage.",
+  "registerNameLabel": "Full name",
+  "registerConfirmPasswordLabel": "Confirm password",
+  "registerAcceptTerms": "I have read and accept the Terms of Use.",
+  "registerAcknowledgePrivacy": "I have read the Privacy Notice (KVKK).",
+  "registerReadTerms": "Read the Terms of Use",
+  "registerReadPrivacy": "Read the Privacy Notice",
+  "registerSubmit": "Create account",
+  "registerHaveAccount": "Already have an account? Sign in",
+  "verifyEmailTitle": "Email Verification",
+  "verifyEmailHeading": "Verify your email",
+  "verifyEmailBody": "We sent a 6-digit verification code to {email}. The code is valid for 10 minutes.",
+  "@verifyEmailBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationCodeLabel": "Verification code",
+  "verificationCodeHint": "6-digit code",
+  "verifyEmailSubmit": "Verify",
+  "verifyEmailChangeEmail": "Change email address",
+  "@verifyEmailChangeEmail": {
+    "description": "Returns from the verification screen to the form to correct a mistyped email"
+  },
+  "resendCode": "Resend code",
+  "resendCodeIn": "Resend code ({seconds}s)",
+  "@resendCodeIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "codeResentAnnouncement": "A new code has been sent.",
+  "emailVerifiedAnnouncement": "Your account is verified. Welcome, {name}.",
+  "@emailVerifiedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "forgotPasswordTitle": "Forgot Password",
+  "forgotPasswordHeading": "Reset your password",
+  "forgotPasswordBody": "Enter the email address registered to your account. We will send you a reset code.",
+  "forgotPasswordSubmit": "Send code",
+  "backToLogin": "Back to sign in",
+  "resetPasswordTitle": "New Password",
+  "resetPasswordBody": "If an account is registered with {email}, we sent a 6-digit reset code to that address.",
+  "@resetPasswordBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "newPasswordLabel": "New password",
+  "confirmNewPasswordLabel": "Confirm new password",
+  "resetPasswordSubmit": "Update password",
+  "changePasswordTitle": "Change Password",
+  "currentPasswordLabel": "Current password",
+  "changePasswordSubmit": "Change password",
+  "changePasswordSuccess": "Your password has been changed.",
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountHeading": "Permanently delete your account",
+  "deleteAccountBody": "Your account and the personal data linked to it (profile, memories, badges) will be deleted in accordance with KVKK. This cannot be undone.",
+  "deleteAccountConfirm": "I understand that this cannot be undone.",
+  "deleteAccountSubmit": "Delete my account",
+  "accountDeletedAnnouncement": "Your account has been deleted.",
+  "profileSecuritySection": "Security and account",
+  "legalTermsTitle": "Terms of Use",
+  "legalPrivacyTitle": "Privacy Notice (KVKK)",
+  "legalVersion": "Version {version} · Effective: {date}",
+  "@legalVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMMd"
+      }
+    }
+  },
+  "mapSemanticsLabel": "{count, plural, =0{Foundation monuments map, no monuments} =1{Foundation monuments map, 1 monument} other{Foundation monuments map, {count} monuments}}",
+  "@mapSemanticsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLoadedAnnouncement": "{count, plural, =0{No monuments to show on the map} =1{1 monument shown on the map} other{{count} monuments shown on the map}}",
+  "@mapLoadedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLoadingMonuments": "Loading monuments",
+  "mapLoadErrorTitle": "Monuments could not be loaded",
+  "mapZoomIn": "Zoom in",
+  "mapZoomOut": "Zoom out",
+  "mapShowAll": "Show all monuments",
+  "mapControlsSemantics": "Map controls",
+  "mapAttributionSemantics": "Map data: {attribution}",
+  "@mapAttributionSemantics": {
+    "placeholders": {
+      "attribution": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentPinSemantics": "{name}, {district}, {city}",
+  "@monumentPinSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentSelectedAnnouncement": "{name} selected",
+  "@monumentSelectedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentCount": "{count, plural, =0{No monuments} =1{1 monument} other{{count} monuments}}",
+  "@monumentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "monumentPreviewClose": "Close preview",
+  "monumentSave": "Save",
+  "monumentUnsave": "Remove from saved",
+  "monumentSaveSemantics": "Save: {name}",
+  "@monumentSaveSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentUnsaveSemantics": "Remove from saved: {name}",
+  "@monumentUnsaveSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentAdded": "Saved: {name}",
+  "@savedMonumentAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentRemoved": "Removed from saved: {name}",
+  "@savedMonumentRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentsLimit": "You can save up to {max} monuments. Remove one from Saved to make room.",
+  "@savedMonumentsLimit": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsSaveFailed": "Couldn't save. Please try again.",
+  "savedMonumentsTitle": "Saved",
+  "savedMonumentsButton": "{count, plural, =0{Saved, no monuments} =1{Saved, 1 monument} other{Saved, {count} monuments}}",
+  "@savedMonumentsButton": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsCount": "{count, plural, =1{1 monument} other{{count} monuments}}",
+  "@savedMonumentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsEmptyTitle": "No saved monuments yet",
+  "savedMonumentsEmptyBody": "Save monuments you like with the bookmark icon on a monument page or in the map preview.",
+  "emptyStateExploreMap": "Explore the map",
+  "savedMonumentsLoadFailedTitle": "Couldn't load saved monuments",
+  "savedMonumentSavedOn": "Saved {date}",
+  "@savedMonumentSavedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentRemove": "Remove",
+  "savedMonumentUnavailable": "Monument no longer in the catalogue",
+  "savedMonumentUnavailableBody": "This monument was removed from the catalogue; you can remove it from your list.",
+  "monumentViewDetails": "View details",
+  "monumentViewDetailsSemantics": "View details, {name}",
+  "@monumentViewDetailsSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentLocation": "{district}, {city}",
+  "@monumentLocation": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentLocationSemantics": "Location: {location}",
+  "@monumentLocationSemantics": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentAddressSemantics": "Address: {address}",
+  "@monumentAddressSemantics": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentCategoryMosque": "Mosque",
+  "monumentCategoryComplex": "Complex",
+  "monumentCategoryMadrasa": "Madrasa",
+  "monumentCategoryInn": "Inn",
+  "monumentCategoryCaravanserai": "Caravanserai",
+  "monumentCategoryBath": "Bathhouse",
+  "monumentCategoryFountain": "Fountain",
+  "monumentCategoryTomb": "Tomb",
+  "monumentCategoryHospital": "Hospital",
+  "monumentCategoryImaret": "Public kitchen",
+  "monumentCategoryOther": "Other building",
+  "historicalPeriodSeljuk": "Seljuk",
+  "historicalPeriodBeylik": "Anatolian Beyliks",
+  "historicalPeriodOttoman": "Ottoman",
+  "historicalPeriodOther": "Other period",
+  "monumentCategorySemantics": "Type: {category}",
+  "@monumentCategorySemantics": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentPeriodSemantics": "Period: {period}",
+  "@monumentPeriodSemantics": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentConstructionSemantics": "Built: {date}",
+  "@monumentConstructionSemantics": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentUnescoBadge": "UNESCO World Heritage",
+  "monumentDetailLoading": "Loading monument details",
+  "monumentDetailErrorTitle": "Monument details could not be loaded",
+  "monumentNotFoundTitle": "Monument not found",
+  "monumentNotFoundBody": "The monument you are looking for is not in the catalogue or may have been removed.",
+  "monumentBackToMap": "Back to map",
+  "monumentShowOnMap": "Show on map",
+  "monumentListen": "Listen",
+  "monumentStopListening": "Stop reading aloud",
+  "monumentAboutHeading": "About",
+  "monumentHistoryHeading": "History",
+  "monumentFactsHeading": "Monument facts",
+  "monumentFounderLabel": "Founder",
+  "monumentArchitectLabel": "Architect",
+  "monumentConstructionLabel": "Construction",
+  "monumentPeriodLabel": "Period",
+  "monumentCategoryLabel": "Type",
+  "monumentLocationHeading": "Location",
+  "monumentPhotoCreditsHeading": "Photo credits",
+  "monumentSpeechIntro": "{name}. {category}, {location}.",
+  "@monumentSpeechIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCredit": "{author} · {license} · {source}",
+  "@photoCredit": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditSemantics": "Photo {index}: {author}, licence {license}, source {source}",
+  "@photoCreditSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "gallerySemantics": "{count, plural, =0{Photo gallery, no photos} =1{Photo gallery, 1 photo} other{Photo gallery, {count} photos}}",
+  "@gallerySemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryPhotoSemantics": "Photo {index} of {count}: {description}",
+  "@galleryPhotoSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "galleryPosition": "{index} / {count}",
+  "@galleryPosition": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryPositionSemantics": "Photo {index} of {count}",
+  "@galleryPositionSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryThumbnailSemantics": "Photo {index}: {description}",
+  "@galleryThumbnailSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "galleryPrevious": "Previous photo",
+  "galleryNext": "Next photo",
+  "galleryOpenFullScreen": "view full screen",
+  "galleryCloseViewer": "Close gallery",
+  "galleryImageError": "Photo could not be loaded",
+  "monumentListItemSubtitle": "{location} · {category}",
+  "@monumentListItemSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditTitle": "{index}. {description}",
+  "@photoCreditTitle": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditsNotice": "Licence terms are available on the source page of each photo.",
+  "distanceKilometers": "{value} km",
+  "@distanceKilometers": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceMeters": "{value} m",
+  "@distanceMeters": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "durationDaysShort": "{count} d",
+  "@durationDaysShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHoursShort": "{count} h",
+  "@durationHoursShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutesShort": "{count} min",
+  "@durationMinutesShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationDays": "{count, plural, =1{1 day} other{{count} days}}",
+  "@durationDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHours": "{count, plural, =1{1 hour} other{{count} hours}}",
+  "@durationHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{count, plural, =1{1 minute} other{{count} minutes}}",
+  "@durationMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeListTitle": "My routes",
+  "routeNewButton": "New route",
+  "routeListLoading": "Loading routes",
+  "routeListErrorTitle": "Routes could not be loaded",
+  "routeListEmptyTitle": "No routes yet",
+  "routeListEmptyBody": "Pick and order monuments, then add visit times and breaks to create your first culture route.",
+  "routeDraftBanner": "{count, plural, =1{Your draft route has 1 monument} other{Your draft route has {count} monuments}}",
+  "@routeDraftBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeDraftContinue": "Continue",
+  "routeStopCount": "{count, plural, =1{1 stop} other{{count} stops}}",
+  "@routeStopCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeCityChain": "{from} → {to}",
+  "@routeCityChain": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "routeCardSemantics": "{name}. {stops}: {cities}. Total {distance}, {duration}. {created}.",
+  "@routeCardSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "stops": {
+        "type": "String"
+      },
+      "cities": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      },
+      "created": {
+        "type": "String"
+      }
+    }
+  },
+  "routeCreatedOn": "Created {date}",
+  "@routeCreatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeTotalDistanceSemantics": "Total distance: {value}",
+  "@routeTotalDistanceSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeTotalDurationSemantics": "Total time: {value}",
+  "@routeTotalDurationSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDetailLoading": "Loading route",
+  "routeDetailTitle": "Route details",
+  "routeDeleting": "Deleting route",
+  "routeDetailErrorTitle": "Route could not be loaded",
+  "routeNotFoundTitle": "Route not found",
+  "routeNotFoundBody": "The route may have been deleted or isn't linked to this device.",
+  "routeBackToList": "Back to my routes",
+  "routeEdit": "Edit",
+  "routeDelete": "Delete",
+  "routeDeleteConfirmTitle": "Delete route?",
+  "routeDeleteConfirmBody": "\"{name}\" will be permanently deleted. This cannot be undone.",
+  "@routeDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDeletedMessage": "Route deleted",
+  "routeSummaryHeading": "Time and distance",
+  "routeTotalDuration": "Total time",
+  "routeTravelTime": "Travel",
+  "routeVisitTime": "Visits",
+  "routeBreakTime": "Breaks",
+  "routeDistance": "Road distance",
+  "routeMetricSemantics": "{label}: {value}",
+  "@routeMetricSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeEstimateNote": "Travel time is estimated by car from the road distance; traffic and weather may change it.",
+  "routeStepsHeading": "Step by step",
+  "routeStopSemantics": "Stop {index} of {count}: {name}, {location}. Visit time {visit}.",
+  "@routeStopSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "visit": {
+        "type": "String"
+      }
+    }
+  },
+  "routeVisitLabel": "Visit · {duration}",
+  "@routeVisitLabel": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeLegLabel": "{distance} · ≈ {duration} by car",
+  "@routeLegLabel": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeLegSemantics": "Next stop {next}: {distance}, about {duration} by car.",
+  "@routeLegSemantics": {
+    "placeholders": {
+      "next": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakSemantics": "Break: {kind}, {duration}",
+  "@routeBreakSemantics": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakLabel": "{kind} · {duration}",
+  "@routeBreakLabel": {
+    "description": "Timeline break row: kind and short duration.",
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakShort": "Short break",
+  "routeBreakMeal": "Meal break",
+  "routeBreakRest": "Rest",
+  "routeBreakOvernight": "Overnight stay",
+  "routeBuilderNewTitle": "New route",
+  "routeBuilderEditTitle": "Edit route",
+  "routeBuilderLoading": "Loading monuments",
+  "routeNameLabel": "Route name",
+  "routeNameHelper": "Leave empty to use the suggested name.",
+  "routeDefaultName": "{from} – {to} Route",
+  "@routeDefaultName": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDefaultNameSingleCity": "{city} Route",
+  "@routeDefaultNameSingleCity": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDefaultNameEmpty": "Culture Route",
+  "routeStopsHeading": "Stops ({count}/{max})",
+  "@routeStopsHeading": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeAddMonuments": "Add monuments",
+  "routePickerDone": "Done",
+  "routeOptimize": "Optimise order",
+  "routeOptimizeHint": "The first stop stays as the start; the others are ordered by the shortest straight-line distance.",
+  "routeOptimizedAnnouncement": "Order optimised: {after} instead of {before} as the crow flies.",
+  "@routeOptimizedAnnouncement": {
+    "placeholders": {
+      "before": {
+        "type": "String"
+      },
+      "after": {
+        "type": "String"
+      }
+    }
+  },
+  "routeOptimizedUnchanged": "The order is already the shortest.",
+  "routeEmptyStops": "Choose at least 2 monuments for the route.",
+  "routeMoveUp": "Move {name} up",
+  "@routeMoveUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeMoveDown": "Move {name} down",
+  "@routeMoveDown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRemoveStop": "Remove {name} from the route",
+  "@routeRemoveStop": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeStopMovedAnnouncement": "{name} moved to position {position}",
+  "@routeStopMovedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "routeStopAddedAnnouncement": "{name} added to the route",
+  "@routeStopAddedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeStopRemovedAnnouncement": "{name} removed from the route",
+  "@routeStopRemovedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeVisitDuration": "Visit time",
+  "routeDurationDecrease": "Decrease {label}",
+  "@routeDurationDecrease": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDurationIncrease": "Increase {label}",
+  "@routeDurationIncrease": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "routeAddBreak": "Add break",
+  "routeBreakPickerTitle": "Break type",
+  "routeBreakPickerDefault": "Suggested time: {duration}",
+  "@routeBreakPickerDefault": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRemoveBreak": "Remove {kind}",
+  "@routeRemoveBreak": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakLimit": "Up to {max} breaks can be added per stop.",
+  "@routeBreakLimit": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeStraightLineToNext": "≈ {distance} to the next stop as the crow flies",
+  "@routeStraightLineToNext": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderSummary": "{stops} · ≈ {distance} as the crow flies",
+  "@routeBuilderSummary": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderTimes": "Visits {visit} · Breaks {breaks}",
+  "@routeBuilderTimes": {
+    "placeholders": {
+      "visit": {
+        "type": "String"
+      },
+      "breaks": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderTravelNote": "Road distance and travel time are calculated when the route is created.",
+  "routeCreate": "Create route",
+  "routeSaveChanges": "Save changes",
+  "routeCreatedAnnouncement": "Route created: {stops}, {distance}, {duration} in total.",
+  "@routeCreatedAnnouncement": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeUpdatedAnnouncement": "Route updated.",
+  "routeValidationNameTooLong": "The route name can be at most {max} characters.",
+  "@routeValidationNameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeValidationGeneric": "Please check the route details.",
+  "routeLimitReached": "A route can have at most {max} monuments.",
+  "@routeLimitReached": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeAddToRoute": "Add to route",
+  "routeRemoveFromRoute": "Remove from route",
+  "routeAddedSnack": "{count, plural, =1{Added to route · 1 monument in draft} other{Added to route · {count} monuments in draft}}",
+  "@routeAddedSnack": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeGoToDraft": "Go to route",
+  "mapSearchHint": "Search places or monuments",
+  "mapSearchEditSemantics": "Search: {query}. Tap to edit",
+  "@mapSearchEditSemantics": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "mapSearchClear": "Clear search",
+  "mapFiltersButton": "Filters",
+  "mapFiltersButtonActive": "{count, plural, =1{Filters, 1 active} other{Filters, {count} active}}",
+  "@mapFiltersButtonActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapResultsShowing": "{count, plural, =1{1 monument shown} other{{count} monuments shown}}",
+  "@mapResultsShowing": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapNoMatches": "No matching monuments",
+  "mapClearRefinements": "Clear",
+  "mapClearRefinementsSemantics": "Clear search and filters",
+  "mapRefinementsClearedAnnouncement": "Search and filters cleared, showing all monuments",
+  "mapLocateMe": "Show my location",
+  "mapLocating": "Finding your location",
+  "mapUserLocationSemantics": "Your location",
+  "mapLocationShownAnnouncement": "Showing your location",
+  "locationIssueServiceDisabled": "Location services are off. Turn them on to see your location.",
+  "locationIssuePermissionDenied": "Location permission was not granted. Allow it to see your location.",
+  "locationIssuePermissionDeniedForever": "Location permission is off. You can allow it in Settings.",
+  "locationIssueUnavailable": "Your location can't be found right now. Please try again.",
+  "locationOutsideRegion": "Your location is outside the map area.",
+  "locationOpenSettings": "Settings",
+  "searchAllMonuments": "All monuments",
+  "searchPlacesHeader": "Places",
+  "searchMonumentsHeader": "Monuments",
+  "searchShowOnMap": "Show {name} on map",
+  "@searchShowOnMap": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "searchNoResultsTitle": "No results",
+  "searchNoResultsBody": "No places or monuments match “{query}”. Check the spelling or try a shorter search.",
+  "@searchNoResultsBody": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "searchResultsAnnouncement": "{count, plural, =0{No results} =1{1 result} other{{count} results}}",
+  "@searchResultsAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchRemoveFilters": "Remove filters",
+  "searchPlaceAnnouncement": "{count, plural, =1{{place}: 1 monument} other{{place}: {count} monuments}}",
+  "@searchPlaceAnnouncement": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterSheetTitle": "Filters",
+  "filterCategorySection": "Building type",
+  "filterPeriodSection": "Period",
+  "filterCitySection": "Province",
+  "filterOptionWithCount": "{label} ({count})",
+  "@filterOptionWithCount": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountButtonGuestSemantics": "Account menu, guest",
+  "accountButtonSemantics": "Account menu, {name}",
+  "@accountButtonSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountMenuGuestTitle": "Guest",
+  "accountMenuGuestBody": "Sign in to share memories and report damage.",
+  "accountMenuProfile": "My profile",
+  "accountMenuSignIn": "Sign in or register",
+  "searchResultsTotal": "{count, plural, =1{1 result} other{{count} results}}",
+  "@searchResultsTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchApplyToMap": "{count, plural, =1{Show 1 result on map} other{Show {count} results on map}}",
+  "@searchApplyToMap": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchLoadingMore": "Loading more results",
+  "searchLoadMoreFailed": "More results couldn't be loaded.",
+  "searchEndOfResults": "All results shown ({count})",
+  "@searchEndOfResults": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchMoreLoadedAnnouncement": "{count, plural, =1{1 more result loaded} other{{count} more results loaded}}",
+  "@searchMoreLoadedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchLoadFailedTitle": "Results couldn't be loaded",
+  "searchNoFilterResultsBody": "No monuments match the selected filters. Try removing filters.",
+  "filterSelectionSummary": "{first} +{more}",
+  "@filterSelectionSummary": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "int"
+      }
+    }
+  },
+  "filterGroupSemantics": "{group} filter: {selection}",
+  "@filterGroupSemantics": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "selection": {
+        "type": "String"
+      }
+    }
+  },
+  "filterNoneSelected": "none selected",
+  "filterApplyButton": "Apply",
+  "filterGroupClear": "Clear",
+  "filterClearAllChip": "Clear filters",
+  "mapRefinementFailed": "The search couldn't be applied to the map.",
+  "mapClusterSemantics": "{count} monuments in this area. Tap to zoom in.",
+  "@mapClusterSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterListSemantics": "{count} monuments at the same place. Tap to list them.",
+  "@mapClusterListSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterExpandedAnnouncement": "{count, plural, =1{Zoomed in to 1 monument} other{Zoomed in to {count} monuments}}",
+  "@mapClusterExpandedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterSheetTitle": "Monuments at this place",
+  "mapPreviewLoading": "Loading preview",
+  "mapPreviewLoadFailed": "The monument preview couldn't be loaded.",
+  "mapClusterLoadFailed": "The monuments at this place couldn't be loaded.",
+  "settingsReduceMotionSystemOn": "It is on in your device's accessibility settings, so it is always applied in the app.",
+  "settingsPermissionsSection": "Privacy and permissions",
+  "settingsAboutSection": "About",
+  "settingsReplayOnboarding": "Show the app introduction again",
+  "settingsPrivacyNotice": "Privacy Notice (KVKK)",
+  "settingsTermsOfUse": "Terms of Use",
+  "permissionLocationTitle": "Location",
+  "permissionLocationPurpose": "Used to show foundation monuments near you on the map. On the map your location is processed only on your device. It is sent only with a damage report you choose to add it to.",
+  "permissionStatusChecking": "Checking status",
+  "permissionStatusGranted": "Allowed",
+  "permissionStatusNotGranted": "Not allowed",
+  "permissionStatusBlocked": "Turned off. You can allow it in system settings.",
+  "permissionStatusBlockedBrowser": "Turned off. You can allow it from the icon in your browser's address bar or in site settings.",
+  "permissionStatusServiceDisabled": "Location services are turned off on this device.",
+  "permissionStatusUnsupported": "Not available on this device.",
+  "permissionStatusSemantics": "{permission} permission: {status}",
+  "@permissionStatusSemantics": {
+    "placeholders": {
+      "permission": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "permissionLocationAllow": "Allow location access",
+  "permissionCameraTitle": "Camera",
+  "permissionCameraPurpose": "Used to take photos for the Memory Corner and damage reports. A photo is uploaded only when you share it; its location data is removed first.",
+  "permissionCameraAllow": "Allow camera access",
+  "permissionMicrophoneTitle": "Microphone",
+  "permissionMicrophonePurpose": "Used to ask the Digital Guide by voice. Your speech is turned into text by your device's or browser's speech recognition service; the app keeps no recording and nothing is sent until you send it.",
+  "permissionMicrophoneAllow": "Allow microphone access",
+  "permissionOpenAppSettings": "Open app settings",
+  "permissionOpenLocationSettings": "Open location settings",
+  "permissionManageInSettings": "Manage in system settings",
+  "permissionOnDemandNote": "You can use the app without granting these. When a feature needs a permission (taking a photo, asking by voice), you will be asked again.",
+  "onboardingStepCounter": "Step {current} of {total}",
+  "@onboardingStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingStepAnnouncement": "Step {current} of {total}: {title}",
+  "@onboardingStepAnnouncement": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingSkip": "Skip",
+  "onboardingSkipSemantics": "Skip introduction",
+  "onboardingStart": "Get started",
+  "onboardingNext": "Continue",
+  "onboardingWelcomeTitle": "Welcome",
+  "onboardingWelcomeDescription": "Discover foundation monuments on the map, explore their details and plan your visit. Let's set up the app for you first, starting with your language.",
+  "onboardingDisplayTitle": "Appearance",
+  "onboardingDisplayDescription": "Choose a light, dark or device-matching theme. The change applies immediately.",
+  "onboardingAccessibilityTitle": "Accessibility",
+  "onboardingAccessibilityDescription": "Vakıf Atlas works with screen readers (TalkBack, VoiceOver), keyboards and large text. Set text size, high contrast, colour vision, motion and vibration on a single page; you can change them later from Accessibility in the account menu.",
+  "onboardingChangeLaterNote": "You can change these preferences at any time in Settings.",
+  "onboardingTourTitle": "Get to know Vakıf Atlas",
+  "onboardingTourDescription": "A quick look at how to use the app.",
+  "onboardingTourMapTitle": "Explore the map",
+  "onboardingTourMapBody": "Monuments are grouped on the map. Tap a group to zoom in; tap a monument to open its details and photos.",
+  "onboardingTourSearchTitle": "Search and filter",
+  "onboardingTourSearchBody": "Search by monument, province or district; narrow results by building type, period and province, and see them on the map.",
+  "onboardingTourRoutesTitle": "Plan your route",
+  "onboardingTourRoutesBody": "Create a trip of 2–10 monuments and reorder it for the shortest path with one tap. Your routes are linked to this device, no account needed.",
+  "onboardingTourContributeTitle": "Contribute",
+  "onboardingTourContributeBody": "With an account, you can share your memories of monuments in the Memory Corner and report damage you notice.",
+  "onboardingPermissionsTitle": "Permissions",
+  "onboardingPermissionsDescription": "Permissions are requested only for the related feature, with the reason explained. None are required; you can use the app without them.",
+  "onboardingPermissionsChangeLater": "You can change permissions at any time in Settings or in your device's system settings.",
+  "onboardingPrivacyNoticeLink": "Read the Privacy Notice",
+  "onboardingAccountTitle": "How would you like to continue?",
+  "onboardingAccountDescription": "You don't need an account for the map, search and route planning. Sign in to share memories and report damage.",
+  "onboardingSignIn": "Sign in",
+  "onboardingCreateAccount": "Create account",
+  "onboardingContinueAsGuest": "Continue as guest",
+  "onboardingSignedInTitle": "Welcome, {name}",
+  "@onboardingSignedInTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingSignedInDescription": "You're signed in and your preferences are saved.",
+  "onboardingContinueSignedIn": "Continue to the app",
+  "routePickerSearchHint": "Search monuments to add",
+  "routePickerStopSubtitle": "{details} · stop {position}",
+  "@routePickerStopSubtitle": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      },
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "routeExportAction": "Export as PDF",
+  "routeExportInProgress": "Preparing PDF",
+  "routeExportReadyTitle": "PDF ready",
+  "routeExportReadyAnnouncement": "PDF ready: {fileName}",
+  "@routeExportReadyAnnouncement": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportSavedNote": "Saved to My exports.",
+  "routeExportGuestSavedNote": "Saved to My exports on this device. Sign in to move it to your account and see it on your other devices.",
+  "routeExportOpenExports": "My exports",
+  "routeExportArchiveFailed": "The PDF is ready but couldn't be saved to My exports. You can still share or print it.",
+  "routeExportFailed": "The PDF couldn't be created. Please try again.",
+  "routeExportShare": "Share",
+  "routeExportCopyLink": "Copy link",
+  "routeExportLinkCopied": "Link copied. Anyone with the link can open the PDF until {date}; deleting the export disables the link.",
+  "@routeExportLinkCopied": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportPrint": "Print",
+  "routeExportPreview": "Preview",
+  "routeExportSignIn": "Sign in",
+  "routeExportShareFailed": "The share sheet couldn't be opened.",
+  "routeExportPrintFailed": "The print dialog couldn't be opened.",
+  "routeExportSketchHeading": "Route sketch",
+  "routeExportSketchCaption": "Schematic drawing with north at the top. Numbers match the stop list below; the filled marker is the starting stop.",
+  "routeExportStopsHeading": "Stops and travel",
+  "routeExportMapLink": "Open location on map",
+  "routeExportAttribution": "Road data © OpenStreetMap contributors (ODbL); distances and times calculated with OSRM.",
+  "routeExportPageOf": "Page {page} of {total}",
+  "@routeExportPageOf": {
+    "placeholders": {
+      "page": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportGeneratedOn": "Prepared: {date}",
+  "@routeExportGeneratedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsTitle": "My exports",
+  "routeExportsEmptyTitle": "No exports yet",
+  "routeExportsEmptyBody": "When you tap the PDF icon on a route's page, the export appears here.",
+  "routeExportsItemSubtitle": "{date} · {stops} · {size}",
+  "@routeExportsItemSubtitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "stops": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsMoreActions": "Actions for {name}",
+  "@routeExportsMoreActions": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsDelete": "Delete",
+  "routeExportsDeleteConfirmTitle": "Delete this export?",
+  "routeExportsDeleteConfirmBody": "The “{name}” PDF will be permanently deleted from your archive. The route itself isn't deleted.",
+  "@routeExportsDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsDeleted": "Export deleted",
+  "routeExportsLoadFailedTitle": "Exports couldn't be loaded",
+  "fileSizeKilobytes": "{size} KB",
+  "@fileSizeKilobytes": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "fileSizeMegabytes": "{size} MB",
+  "@fileSizeMegabytes": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryCornerSubtitle": "Visitors' memories of this monument",
+  "memoryCount": "{count, plural, =0{No memories yet} =1{1 memory} other{{count} memories}}",
+  "memoryShare": "Share a memory",
+  "memoryViewAll": "See all memories ({count})",
+  "memoryEmptyTitle": "No memories shared yet",
+  "memoryEmptyBody": "If you have visited this monument, be the first to share a memory.",
+  "memoryLoading": "Loading memories",
+  "memoryLoadFailedTitle": "Memories couldn't be loaded",
+  "memoryLoadMoreFailed": "More memories couldn't be loaded.",
+  "myMemoriesTitle": "My memories",
+  "myMemoriesViewAll": "All my memories ({count})",
+  "@myMemoriesViewAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myMemoriesEmptyTitle": "You haven't shared any memories yet",
+  "myMemoriesEmptyBody": "Share a memory with photos and a note in the Memory Corner of a monument you visited.",
+  "myMemoriesLoading": "Loading your memories",
+  "myMemoriesLoadFailed": "Couldn't load your memories.",
+  "myMemoriesUnknownMonument": "Foundation monument",
+  "myMemoriesOpenCorner": "View in Memory Corner",
+  "myMemoriesOpenCornerSemantics": "View in {name} Memory Corner",
+  "@myMemoriesOpenCornerSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "myMemoriesPreviewSemantics": "{name}, {date}: {text}",
+  "@myMemoriesPreviewSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "myMemoriesStatusPending": "Under review; it will appear in the Memory Corner once approved. Until then it is only shown here.",
+  "myMemoriesStatusRejected": "Not published because it does not meet the community guidelines; it is not shown in the Memory Corner, only here.",
+  "memoryOwnBadge": "You",
+  "memoryVisited": "Visited: {date}",
+  "memoryCardSemantics": "Shared by {author} on {date}",
+  "memoryOwnCardSemantics": "Your memory, shared on {date}",
+  "memoryReadMore": "Read more",
+  "memoryReadLess": "Show less",
+  "memoryMoreActions": "More actions for {author}'s memory",
+  "memoryDelete": "Delete",
+  "memoryReport": "Report",
+  "memoryDeleteConfirmTitle": "Delete this memory?",
+  "memoryDeleteConfirmBody": "This memory and its photos will be permanently deleted for everyone.",
+  "memoryDeleted": "Your memory was deleted",
+  "memoryReportTitle": "Report memory",
+  "memoryReportQuestion": "Why is this memory inappropriate?",
+  "memoryReportReasonOffensive": "Hate speech, harassment or insults",
+  "memoryReportReasonInappropriate": "Sexual, violent or disturbing content",
+  "memoryReportReasonSpam": "Advertising or spam",
+  "memoryReportReasonPersonalInfo": "Contains someone else's personal information",
+  "memoryReportReasonUnrelated": "Not related to this monument",
+  "memoryReportReasonOther": "Other",
+  "memoryReportNoteLabel": "Details (optional)",
+  "memoryReportReasonRequired": "Choose a reason.",
+  "memoryReportNotice": "Your report is reviewed by the General Directorate of Foundations. You will no longer see this memory.",
+  "memoryReported": "Thank you, your report was received",
+  "memorySignInTitle": "Sign-in required",
+  "memorySignInToShare": "Sign in to share a memory. You don't need to sign in to read memories.",
+  "memorySignInToReport": "Sign in to report a memory.",
+  "memoryComposerClose": "Close memory editor",
+  "memoryTextLabel": "Your memory",
+  "memoryTextHint": "What did you experience here, what caught your eye?",
+  "memoryTextEmptyError": "Write your memory.",
+  "memoryTextTooLongError": "A memory can be at most {max} characters.",
+  "photosHeading": "Photos",
+  "photosHint": "Optional · up to {max} photos",
+  "photosCountSemantics": "{count} of {max} photos added",
+  "photoAdd": "Add photo",
+  "photoTake": "Take a photo",
+  "photoChooseFromGallery": "Choose from gallery",
+  "photoRemove": "Remove photo {index}",
+  "photoAddDescription": "Add description",
+  "photoEditDescription": "Edit description",
+  "photoDraftSemantics": "Photo {index}: {description}",
+  "photoDraftNoDescription": "Photo {index}, no description",
+  "photoDescriptionAction": "Description for photo {index}",
+  "photoProcessing": "Preparing photo",
+  "photoDescriptionTitle": "Photo description",
+  "photoDescriptionLabel": "Description",
+  "photoDescriptionHelper": "Briefly describe what the photo shows for people who use screen readers.",
+  "photoDescriptionTooLong": "A description can be at most {max} characters.",
+  "commonSave": "Save",
+  "photoCameraDenied": "Camera access wasn't granted. You can allow it in your device settings.",
+  "photoCameraDeniedBrowser": "Camera access was not granted. You can allow it from the camera icon in your browser's address bar or in site settings.",
+  "cameraCaptureTitle": "Take a photo",
+  "cameraCaptureOpening": "Opening the camera. Allow access if your browser asks.",
+  "cameraCaptureReady": "Camera ready. Tap the shutter to take the photo.",
+  "cameraCaptureShutter": "Take photo",
+  "cameraCaptureSwitch": "Switch camera",
+  "cameraCaptureCapturing": "Taking the photo",
+  "cameraCaptureDeniedTitle": "Camera access not granted",
+  "cameraCaptureDeniedBody": "Allow camera access for this site from the camera icon in your browser's address bar or in site settings, then try again.",
+  "cameraCaptureNoCameraTitle": "No camera found",
+  "cameraCaptureNoCameraBody": "There's no available camera on this device. You can pick a photo from your gallery instead.",
+  "cameraCaptureFailedTitle": "Couldn't open the camera",
+  "cameraCaptureFailedBody": "Another app may be using the camera. Close it and try again.",
+  "cameraCaptureShotFailed": "Couldn't take the photo. Please try again.",
+  "photoGalleryDenied": "Photo access wasn't granted. You can allow it in your device settings.",
+  "photoPickFailed": "The photo couldn't be selected. Please try again.",
+  "photoUnsupported": "{count, plural, =1{One photo couldn't be opened. Choose a JPEG, PNG or WebP photo.} other{{count} photos couldn't be opened. Choose JPEG, PNG or WebP photos.}}",
+  "photoLimitReached": "You can add up to {max} photos.",
+  "memoryVisitHeading": "Visit date",
+  "memoryVisitOptional": "Optional",
+  "memoryVisitPick": "Choose a date",
+  "memoryVisitChange": "Visit date: {date}. Change",
+  "memoryVisitClear": "Remove visit date",
+  "memoryPublicNotice": "Your memory will be public on this monument's page under the name “{name}”. Location and device details are removed from photos before upload. Please don't share other people's personal information.",
+  "memorySubmit": "Share",
+  "photosUploading": "Uploading photos · {percent}%",
+  "photosUploadingSemantics": "Photo upload progress",
+  "memoryShared": "Your memory was shared",
+  "memoryFixErrors": "Fix the highlighted fields before sharing.",
+  "memoryDiscardTitle": "Discard this memory?",
+  "memoryDiscardBody": "Your text and the photos you added will be lost.",
+  "memoryDiscardConfirm": "Discard",
+  "memoryKeepEditing": "Keep editing",
+  "memoryPhotoNoDescription": "No description was added for this photo.",
+  "memoryPhotoCredit": "{author} · {date}",
+  "photoTileSemantics": "Photo {index} of {count}: {description}",
+  "photoTileNoDescription": "Photo {index} of {count}, no description",
+  "photoOpenHint": "open full screen",
+  "memoryEntryOpenHint": "open timeline",
+  "memoryEntryLatest": "Latest memory",
+  "memoryEntrySemantics": "{count, plural, =0{Memory Corner, no memories yet} =1{Memory Corner, 1 memory} other{Memory Corner, {count} memories}}",
+  "memorySharedOn": "Shared: {date}",
+  "memoryFilterHeading": "Filter by time",
+  "memoryFilterAll": "All ({count})",
+  "memoryFilterYear": "{year} ({count})",
+  "memoryFilterYearSemantics": "Year {year}, {count} memories",
+  "memoryFilterRange": "Date range",
+  "memoryFilterRangeHelp": "Choose a memory date range",
+  "memoryFilterClearRange": "Remove date range",
+  "memoryFilterEmptyTitle": "No memories in this period",
+  "memoryFilterEmptyBody": "Choose a different year or date range.",
+  "memoryFilterClear": "Clear filter",
+  "memoryFilterResult": "{count, plural, =0{No memories in this period} =1{Showing 1 memory} other{Showing {count} memories}}",
+  "memoryTimelineHint": "Memories are ordered by visit date (or share date if none).",
+  "navCivilProtection": "Civil Protection",
+  "cpIntroTitle": "Let's protect our heritage together",
+  "cpIntroBody": "Report damage, vandalism or hazards you notice at foundation monuments to the General Directorate of Foundations. Every report gets a reference number and you can follow its progress here.",
+  "cpIntroStep1Title": "Choose the monument and the issue",
+  "cpIntroStep1Body": "Tell us the type of damage and how urgent it is.",
+  "cpIntroStep2Title": "Describe and add photos",
+  "cpIntroStep2Body": "Write what you saw; photos speed up the review.",
+  "cpIntroStep3Title": "Follow the progress",
+  "cpIntroStep3Body": "Track the review and the action taken by the Directorate here.",
+  "cpSignInPrompt": "Sign in to send and follow reports.",
+  "cpEmergencyNotice": "In an emergency that threatens life, call 112 first.",
+  "cpNewReport": "Report damage",
+  "cpMyReports": "My reports",
+  "cpReportsEmptyTitle": "No reports yet",
+  "cpReportsEmptyBody": "When you notice damage or a hazard at a foundation monument, you can report it here.",
+  "cpReportsLoading": "Loading reports",
+  "cpReportsLoadFailed": "Reports couldn't be loaded",
+  "cpLoadMoreFailed": "More reports couldn't be loaded.",
+  "cpReportItemSemantics": "{monument}, {category}. Reference {reference}. Status: {status}. {date}",
+  "cpCategoryStructural": "Structural damage",
+  "cpCategoryStructuralBody": "Cracks, separation, deterioration",
+  "cpCategoryCollapse": "Risk of collapse or falling parts",
+  "cpCategoryCollapseBody": "Loose stones, hanging parts, leaning",
+  "cpCategoryVandalism": "Vandalism",
+  "cpCategoryVandalismBody": "Graffiti, scratches, breakage",
+  "cpCategoryTheft": "Theft or missing part",
+  "cpCategoryTheftBody": "Missing tile, inscription, ornament or part",
+  "cpCategoryFireWater": "Fire or water damage",
+  "cpCategoryFireWaterBody": "Fire marks, flooding, leaks",
+  "cpCategoryUnauthorized": "Unauthorised construction or repair",
+  "cpCategoryUnauthorizedBody": "Unauthorised building, digging or intervention",
+  "cpCategoryOther": "Other",
+  "cpCategoryOtherBody": "Something not listed above",
+  "cpUrgencyLow": "Low",
+  "cpUrgencyLowBody": "Not urgent, may worsen over time",
+  "cpUrgencyMedium": "Medium",
+  "cpUrgencyMediumBody": "Should be reviewed soon",
+  "cpUrgencyHigh": "High",
+  "cpUrgencyHighBody": "Damage is growing or affects visitors",
+  "cpUrgencyCritical": "Critical",
+  "cpUrgencyCriticalBody": "Serious, imminent danger to the building or surroundings",
+  "cpStatusReceived": "Received",
+  "cpStatusInReview": "In review",
+  "cpStatusForwarded": "Forwarded to the responsible unit",
+  "cpStatusResolved": "Resolved",
+  "cpStatusClosed": "Closed",
+  "cpStatusReceivedBody": "Your report has been registered.",
+  "cpStatusInReviewBody": "The Directorate's civil protection unit is reviewing your report.",
+  "cpStatusForwardedBody": "Forwarded to the responsible regional directorate for action.",
+  "cpStatusResolvedBody": "The necessary action has been taken.",
+  "cpStatusClosedBody": "The report was closed without further action.",
+  "cpStatusPending": "Pending",
+  "cpStatusStepSemantics": "{status}, {state}",
+  "cpStatusDone": "completed",
+  "cpStatusCurrent": "current step",
+  "cpWizardTitle": "Damage report",
+  "cpWizardClose": "Close report",
+  "cpStepProgress": "Step {current} of {total}: {title}",
+  "cpStepMonument": "Monument",
+  "cpStepCategory": "Type of damage",
+  "cpStepUrgency": "Urgency",
+  "cpStepDetails": "Description and photos",
+  "cpStepLocation": "Location",
+  "cpStepReview": "Review",
+  "cpStepMonumentQuestion": "Which monument is this about?",
+  "cpStepCategoryQuestion": "What did you notice?",
+  "cpStepUrgencyQuestion": "How urgent is it?",
+  "cpStepDetailsQuestion": "Describe the situation",
+  "cpStepLocationQuestion": "Would you like to add your location?",
+  "cpStepReviewQuestion": "Check your report",
+  "cpChooseMonument": "Choose monument",
+  "cpChangeMonument": "Change monument",
+  "cpMonumentPickerTitle": "Choose a monument",
+  "cpMonumentPickerHint": "Search monuments or places",
+  "cpMonumentLoadFailed": "Monument details couldn't be loaded.",
+  "cpDescriptionLabel": "Description",
+  "cpDescriptionHint": "Describe where and what: which side, how large, since when…",
+  "cpDescriptionTooShort": "Describe it in at least {min} characters.",
+  "cpDescriptionTooLong": "The description can be at most {max} characters.",
+  "cpLocationExplain": "Your location is sent to the Directorate only with this report, to confirm it was made on site, and is used for nothing else. You can send the report without it.",
+  "cpLocationToggle": "Add my location to this report",
+  "cpLocationLocating": "Getting your location…",
+  "cpLocationFound": "Location received (±{accuracy} m).",
+  "cpLocationDistance": "You are about {distance} from the monument.",
+  "cpLocationOnSite": "You are near the monument; your report will be marked as made on site.",
+  "cpLocationFar": "You are far from the monument; your report will still be sent.",
+  "cpLocationServiceDisabled": "Location services are off. Turn them on in settings or continue without location.",
+  "cpLocationDenied": "Location permission wasn't granted. You can continue without location.",
+  "cpLocationDeniedForever": "Location permission is off. Allow it in settings or continue without location.",
+  "cpLocationUnavailable": "Your location can't be determined right now. Try again or continue without location.",
+  "cpLocationUnsupported": "Location can't be added on this device.",
+  "cpReviewEdit": "Edit",
+  "cpReviewEditSemantics": "Edit {section}",
+  "cpReviewPhotos": "{count, plural, =0{No photos} =1{1 photo} other{{count} photos}}",
+  "cpReviewLocationShared": "Location added",
+  "cpReviewLocationNotShared": "No location",
+  "cpNext": "Next",
+  "cpBack": "Back",
+  "cpSubmit": "Send report",
+  "cpSubmitted": "Report received · {code}",
+  "cpFixStep": "Complete this step before continuing.",
+  "cpMonumentRequired": "Choose a monument.",
+  "cpCategoryRequired": "Choose a type of damage.",
+  "cpUrgencyRequired": "Choose the urgency.",
+  "cpDiscardTitle": "Discard this report?",
+  "cpDiscardBody": "The details and photos you entered will be lost.",
+  "cpDiscardConfirm": "Discard",
+  "cpKeepEditing": "Keep editing",
+  "cpDetailTitle": "Report",
+  "cpReferenceLabel": "Reference number",
+  "cpCopyReference": "Copy reference number",
+  "cpReferenceCopied": "Reference number copied",
+  "cpStatusHeading": "Progress",
+  "cpDetailsHeading": "Report details",
+  "cpCategoryField": "Type of damage",
+  "cpUrgencyField": "Urgency",
+  "cpDescriptionField": "Description",
+  "cpPhotosField": "Photos",
+  "cpLocationField": "Location",
+  "cpLocationOnSiteValue": "Verified on site ({distance} from the monument)",
+  "cpLocationDistantValue": "Reported {distance} from the monument",
+  "cpLocationNotProvidedValue": "No location shared",
+  "cpSubmittedOn": "Sent: {date}",
+  "cpNoteFromVgm": "Note from the Directorate",
+  "cpDetailLoadFailed": "The report couldn't be loaded",
+  "cpNotFoundTitle": "Report not found",
+  "cpNotFoundBody": "This report doesn't belong to you or has been removed.",
+  "cpBackToList": "Back to my reports",
+  "cpPhotoNoDescription": "No description was added for this photo.",
+  "cpPhotoCredit": "Photo from your report",
+  "monumentReportTitle": "Noticed a problem?",
+  "monumentReportBody": "If you noticed damage, vandalism or a hazard at this monument, report it to Civil Protection.",
+  "accountButtonTooltip": "Account and settings",
+  "guideWelcomeTitle": "How can I help you?",
+  "guideWelcomeBody": "Ask about foundation monuments or tell me what you'd like to do in the app, and I'll take you to the right page.",
+  "guideStartersHeading": "Try asking",
+  "guideStarterMonument": "Who built the Süleymaniye Mosque?",
+  "guideStarterList": "Seljuk monuments in Konya",
+  "guideStarterRoute": "How do I plan a route?",
+  "guideStarterDamage": "How do I report damage?",
+  "guideAskSuggestion": "Ask: {question}",
+  "@guideAskSuggestion": {
+    "placeholders": {
+      "question": {
+        "type": "String"
+      }
+    }
+  },
+  "guideSuggestionsSemantics": "Suggested questions",
+  "guideQuestionSemantics": "You: {text}",
+  "@guideQuestionSemantics": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideAnswerAnnouncement": "Guide: {text}",
+  "@guideAnswerAnnouncement": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideSources": "Source: VGM catalogue — {names}",
+  "@guideSources": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "guideTyping": "The guide is preparing an answer…",
+  "guideSendFailed": "Your question could not be sent.",
+  "guideNewConversation": "New conversation",
+  "guideResetAnnouncement": "New conversation started.",
+  "guideInputLabel": "Ask the guide",
+  "guideInputHint": "A monument, city or something you want to do…",
+  "guideInputCounter": "{count}/{max}",
+  "@guideInputCounter": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "guideSend": "Send",
+  "guideVoiceStart": "Ask by voice",
+  "guideVoiceStop": "Stop listening",
+  "guideVoiceListening": "Listening… Say your question, then stop.",
+  "guideVoiceHeard": "You said: {text}. Tap Send to send it.",
+  "@guideVoiceHeard": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideVoicePermissionDenied": "Voice questions need microphone access.",
+  "guideVoicePermissionBlocked": "Microphone access is turned off. You can allow it in system settings.",
+  "guideVoicePermissionBlockedWeb": "Microphone access is turned off. You can allow it in your browser's site settings.",
+  "guideVoiceUnavailable": "Voice questions aren't available on this device or browser. You can type your question.",
+  "guideVoiceNoMatch": "We couldn't make out what you said. Try again or type it.",
+  "guideVoiceFailed": "Couldn't get your voice question. Try again or type it.",
+  "guidePrivacyNotice": "Answers are based on the VGM catalogue. Don't share personal information.",
+  "guideActionOpenMonument": "Open {name}",
+  "@guideActionOpenMonument": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "guideActionShowOnMap": "Show on map",
+  "guideActionOpenMemories": "See memories",
+  "guideActionReportDamage": "Report damage",
+  "guideActionSearch": "{count, plural, =1{List 1 monument} other{List {count} monuments}}",
+  "@guideActionSearch": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "guideActionSearchAll": "Search monuments",
+  "guideActionOpenMap": "Open map",
+  "guideActionOpenRoutes": "My routes",
+  "guideActionNewRoute": "Create route",
+  "guideActionOpenCivilProtection": "Civil Protection",
+  "guideActionOpenSettings": "Open settings",
+  "guideActionForMonument": "{action}: {name}",
+  "@guideActionForMonument": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessibilityTitle": "Accessibility",
+  "accessibilityIntro": "Each tap on a tile moves to the next level; after the last level it turns off. Preferences apply to the whole app immediately and are stored on this device.",
+  "accessibilityDeviceNote": "Screen readers, bold text and the device text size come from your device settings; the app follows them. The text size here is multiplied by the device size.",
+  "accessibilityReset": "Reset to defaults",
+  "accessibilityResetDone": "Accessibility preferences were reset to defaults.",
+  "settingsAccessibilityDescription": "Text size, high contrast, colour vision, motion and vibration",
+  "onboardingAccessibilityOpen": "Open accessibility settings",
+  "guideActionOpenAccessibility": "Open accessibility settings",
+  "a11yImageHidden": "Image hidden",
+  "a11yFeatureReadAloud": "Read Aloud",
+  "a11yFeatureReadOnFocus": "Read on Focus",
+  "a11yFeatureGrayscale": "Grayscale",
+  "a11yFeatureContrast": "Contrast",
+  "a11yFeatureZoom": "Zoom",
+  "a11yFeatureHideImages": "Hide Images",
+  "a11yFeatureHighlightLinks": "Highlight Links",
+  "a11yFeatureColorBlindness": "Colour Blindness",
+  "a11yFeatureEasyReading": "Easy Reading",
+  "a11yFeatureBlueLightFilter": "Blue Light Filter",
+  "a11yFeatureStopAnimations": "Stop Animations",
+  "a11yFeatureDyslexiaFriendly": "Dyslexia Friendly",
+  "a11yFeatureReadingGuide": "Reading Guide",
+  "a11yFeatureFocusHighlight": "Focus Highlight",
+  "a11yFeatureBigCursor": "Big Cursor",
+  "a11yFeatureLineHeight": "Line Height",
+  "a11yFeatureAlignLeft": "Align Left",
+  "a11yFeatureHaptics": "Vibration",
+  "a11yLevelOff": "Off",
+  "a11yLevelOn": "On",
+  "a11yContrastAuto": "High contrast",
+  "a11yContrastDark": "Dark high contrast",
+  "a11yContrastLight": "Light high contrast",
+  "a11yContrastInvert": "Inverted colours",
+  "a11yBlueLightLow": "Low",
+  "a11yBlueLightHigh": "High",
+  "a11yDyslexiaFont": "Legible font",
+  "a11yDyslexiaSpacing": "Legible font and wide spacing",
+  "a11yDyslexiaCream": "Legible font, wide spacing and cream background",
+  "a11yGuideThin": "Thin line",
+  "a11yGuideThick": "Thick line",
+  "a11yGuideMask": "Reading mask",
+  "a11yFocusVisible": "Visible",
+  "a11yFocusThick": "Thick",
+  "a11yFocusExtra": "Extra thick",
+  "a11yCursorLarge": "Large",
+  "a11yCursorExtra": "Extra large",
+  "a11yLineHeightValue": "{value}×",
+  "@a11yLineHeightValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yTileState": "{feature}: {state}",
+  "@a11yTileState": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yTileLevel": "Level {level} of {levels}",
+  "@a11yTileLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "levels": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yTileHint": "next level",
+  "mapAccessibilityButton": "Accessibility",
+  "settingsShowAccessibilityButton": "Show the Accessibility button on the map",
+  "settingsShowAccessibilityButtonDescription": "When off, you can reach the accessibility panel from here and from the welcome tour; your preferences stay applied.",
+  "complexMemberCount": "{count, plural, =0{No buildings listed} =1{1 building} other{{count} buildings}}",
+  "@complexMemberCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMembersTitle": "Buildings of the complex",
+  "complexMembersSeeAll": "See all buildings ({count})",
+  "@complexMembersSeeAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMembersPageTitle": "Buildings of {name}",
+  "@complexMembersPageTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexMembersEmpty": "The buildings of this complex have not been added to the catalogue yet.",
+  "complexMembersFilterEmpty": "No buildings of this type.",
+  "complexMembersLoadFailed": "The buildings of the complex could not be loaded.",
+  "complexMembersEndOfList": "All buildings shown ({count})",
+  "@complexMembersEndOfList": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMemberSemantics": "{index}. {name}, {category}",
+  "@complexMemberSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "complexPartOf": "Part of {name}",
+  "@complexPartOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexPartOfHint": "Tap to see the complex and its other buildings",
+  "complexSiblingsTitle": "Other buildings of the complex",
+  "complexLayoutTitle": "Site plan",
+  "complexLayoutMapSemantics": "Site plan of {name}, {members}. The buildings are listed above in the same order.",
+  "@complexLayoutMapSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      }
+    }
+  },
+  "complexOpen": "View complex",
+  "complexOpenSemantics": "View complex, {name}",
+  "@complexOpenSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexFactMembers": "Buildings",
+  "complexListItemSubtitle": "{location} · Complex · {members}",
+  "@complexListItemSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentListItemMemberSubtitle": "{location} · {category} · {complex}",
+  "@monumentListItemMemberSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "complex": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexSemantics": "{name}, complex, {members}, {district}, {city}",
+  "@mapComplexSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      },
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexMemberSemantics": "{name}, in {complex}",
+  "@mapComplexMemberSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "complex": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexAreaSemantics": "Site of {name}. Tap to select the complex.",
+  "@mapComplexAreaSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryStatusApproved": "Published",
+  "memoryStatusPending": "In review",
+  "memoryStatusRejected": "Not published",
+  "memorySharedPending": "Your memory is being reviewed. It will appear in the Memory Corner once approved; you can follow it in My memories.",
+  "memorySharedRejected": "Your memory was not published because it does not meet the community guidelines. You can see it in My memories.",
+  "memoryOpenMyMemories": "My memories",
+  "myMemoriesPreviewStatusSemantics": "{status}. {summary}",
+  "monumentLocationPending": "This monument's location has not been entered yet, so it is not on the map or in the route planner.",
+  "monumentNickname": "Also known as: {name}",
+  "monumentPartFallback": "Section {index}",
+  "routePickerNoLocation": "{details} · No location, cannot be added to a route"
+}

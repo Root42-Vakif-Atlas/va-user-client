@@ -1,0 +1,2767 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Vakıf Atlas",
+  "appSlogan": "Köklerden Geleceğe",
+  "errorInvalidRequest": "Gönderilen istek geçersiz. Lütfen girdiğiniz bilgileri kontrol edin.",
+  "errorUnauthorized": "Oturum süreniz doldu veya bu işlem için yetkiniz bulunmuyor.",
+  "errorNotFound": "İstenen kaynak bulunamadı.",
+  "errorModerationRejected": "Paylaşımınız topluluk kurallarına uygun bulunmadı.",
+  "errorServerUnavailable": "Sunucu şu anda geçici olarak hizmet veremiyor. Lütfen birazdan tekrar deneyin.",
+  "errorOffline": "İnternet bağlantınız yok. Bağlantınızı kontrol edip tekrar deneyin.",
+  "errorServerUnreachable": "Vakıf Atlas sunucusuna şu anda ulaşılamıyor. İnternet bağlantınız çalışıyor; lütfen birazdan tekrar deneyin.",
+  "offlineBannerMessage": "Çevrimdışısınız. Cihazdaki veriler gösteriliyor; değişiklikler bağlantı gelince eşitlenecek.",
+  "offlineAnnouncement": "İnternet bağlantısı kesildi. Uygulama çevrimdışı modda çalışıyor.",
+  "onlineAnnouncement": "İnternet bağlantısı yeniden kuruldu.",
+  "errorCacheRead": "Yerel veri okunamadı, çevrimiçi kaynaklara başvuruluyor.",
+  "errorSecurityViolation": "Güvenli bağlantı veya cihaz bütünlüğü doğrulanamadı.",
+  "errorInvalidCredentials": "E-posta adresi veya şifre hatalı. Bilgilerinizi kontrol edip tekrar deneyin.",
+  "errorUnexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+  "commonRetry": "Tekrar dene",
+  "commonUndo": "Geri al",
+  "commonCancel": "Vazgeç",
+  "commonClose": "Kapat",
+  "commonLoading": "Yükleniyor",
+  "buttonLoadingSemantics": "{label}, işlem sürüyor",
+  "@buttonLoadingSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "badgeOverflow": "{max}+",
+  "@badgeOverflow": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationCountSemantics": "{count, plural, =0{Yeni bildirim yok} other{{count} yeni bildirim}}",
+  "@notificationCountSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "navMap": "Harita",
+  "navRoutePlanner": "Rotalar",
+  "navAiAssistant": "Rehber",
+  "navProfile": "Profil",
+  "navSettings": "Ayarlar",
+  "navigationSemantics": "Ana gezinme",
+  "mapDiscoveryTitle": "Keşfet",
+  "monumentDetailTitle": "Eser Detayı",
+  "routePlannerTitle": "Rota Planlayıcı",
+  "memoryCornerTitle": "Anı Köşesi",
+  "civilProtectionTitle": "Sivil Koruma",
+  "aiAssistantTitle": "Dijital Rehber",
+  "profileTitle": "Profilim",
+  "settingsTitle": "Ayarlar",
+  "loginTitle": "Giriş Yap",
+  "featurePendingHeading": "Bu bölüm hazırlanıyor",
+  "featurePendingBody": "{feature} bir sonraki sürümde kullanıma açılacak.",
+  "@featurePendingBody": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "notFoundTitle": "Sayfa bulunamadı",
+  "notFoundBody": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+  "notFoundAction": "Ana sayfaya dön",
+  "splashLoadingSemantics": "Vakıf Atlas açılıyor",
+  "loginHeading": "Hoş geldiniz",
+  "loginSubtitle": "Anı paylaşmak, Sivil Koruma bildirimi yapmak ve rozet kazanmak için giriş yapın.",
+  "loginRequiredNotice": "Bu bölümü kullanmak için giriş yapmanız gerekiyor.",
+  "loginEmailLabel": "E-posta",
+  "loginEmailHint": "ad@eposta.com",
+  "loginPasswordLabel": "Şifre",
+  "passwordShow": "Şifreyi göster",
+  "passwordHide": "Şifreyi gizle",
+  "loginSubmit": "Giriş yap",
+  "loginContinueAsGuest": "Misafir olarak devam et",
+  "loginSuccessAnnouncement": "Giriş yapıldı. Hoş geldiniz, {name}.",
+  "@loginSuccessAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "loginFormInvalidAnnouncement": "Formda düzeltilmesi gereken alanlar var.",
+  "validationEmailEmpty": "E-posta adresinizi girin.",
+  "validationEmailInvalid": "Geçerli bir e-posta adresi girin. Örnek: ad@eposta.com",
+  "validationPasswordEmpty": "Şifrenizi girin.",
+  "validationPasswordTooShort": "Şifre en az {min} karakter olmalıdır.",
+  "@validationPasswordTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "profileEmailValue": "E-posta: {email}",
+  "@profileEmailValue": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationSectionTitle": "Seviye ve rozetler",
+  "gamificationLevelTitle": "Seviye {level} · {title}",
+  "@gamificationLevelTitle": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationXpProgress": "{xp} / {next} XP",
+  "@gamificationXpProgress": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      },
+      "next": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationXpTotal": "{xp} XP",
+  "@gamificationXpTotal": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationXpToNext": "Sonraki seviyeye {xp} XP kaldı.",
+  "@gamificationXpToNext": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationMaxLevel": "En yüksek seviyedesiniz.",
+  "gamificationProgressSemantics": "Seviye ilerlemesi",
+  "gamificationRecentBadges": "Son kazanılan rozetler",
+  "gamificationNoBadges": "Henüz rozetiniz yok. Rota oluşturarak, anı paylaşarak veya hasar bildirerek kazanmaya başlayın.",
+  "gamificationAllBadges": "Tüm rozetler ({unlocked}/{total})",
+  "@gamificationAllBadges": {
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationLoading": "Seviye bilgisi yükleniyor",
+  "gamificationLoadFailed": "Seviye bilgisi yüklenemedi.",
+  "gamificationAchievementsTitle": "Rozetler",
+  "gamificationAchievementsSummary": "{total} rozetten {unlocked} tanesini kazandınız.",
+  "@gamificationAchievementsSummary": {
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationEarnedSection": "Kazanılanlar",
+  "gamificationLockedSection": "Kazanılacaklar",
+  "gamificationUnlockedOn": "Kazanıldı: {date}",
+  "@gamificationUnlockedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationLockedProgress": "Kilitli · {progress}/{target}",
+  "@gamificationLockedProgress": {
+    "placeholders": {
+      "progress": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "gamificationHowToTitle": "Nasıl XP kazanılır?",
+  "gamificationHowToRoute": "Rota oluşturma: 50 XP (günde en çok 3 rota)",
+  "gamificationHowToMemory": "Anı paylaşma: 30 XP (günde en çok 5 anı)",
+  "gamificationHowToReport": "Hasar bildirimi: 40 XP (günde en çok 3 bildirim)",
+  "gamificationHowToCity": "Bir ildeki esere ilk katkınız: 20 XP",
+  "gamificationHowToNote": "XP, hesabınızla yaptığınız katkılar için verilir; misafir olarak oluşturulan rotalar sayılmaz.",
+  "gamificationCelebrationTitle": "Tebrikler!",
+  "gamificationLevelReached": "Yeni seviye: {level} · {title}",
+  "@gamificationLevelReached": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationBadgeEarned": "Yeni rozet: {title}",
+  "@gamificationBadgeEarned": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamificationCelebrationViewBadges": "Rozetleri gör",
+  "gamificationCelebrationClose": "Harika",
+  "profileLogout": "Çıkış yap",
+  "profileLogoutConfirmTitle": "Çıkış yapılsın mı?",
+  "profileLogoutConfirmBody": "Anı paylaşmak ve bildirim göndermek için yeniden giriş yapmanız gerekecek.",
+  "logoutAnnouncement": "Çıkış yapıldı.",
+  "sessionExpiredMessage": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.",
+  "settingsAppearanceSection": "Görünüm",
+  "settingsThemeLabel": "Tema",
+  "themeSystem": "Cihaz ayarı",
+  "themeLight": "Açık",
+  "themeDark": "Koyu",
+  "settingsLanguageSection": "Dil",
+  "settingsLanguageLabel": "Uygulama dili",
+  "languageSystem": "Cihaz dili",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "settingsAccessibilitySection": "Erişilebilirlik",
+  "colorBlindnessProtanopia": "Protanopi (kırmızı)",
+  "colorBlindnessDeuteranopia": "Deuteranopi (yeşil)",
+  "colorBlindnessTritanopia": "Tritanopi (mavi)",
+  "settingsTextScaleValue": "%{percent}",
+  "@settingsTextScaleValue": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsSaveFailed": "Ayar bu cihaza kaydedilemedi. Uygulama yeniden açıldığında önceki değer kullanılacak.",
+  "settingsLicenses": "Açık kaynak lisansları",
+  "settingsFeedback": "Geri bildirim gönder",
+  "settingsFeedbackSubtitle": "Deneyiminizi puanlayın, öneri veya sorun iletin",
+  "aboutVersion": "Sürüm {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "aboutMission": "Vakıflar Genel Müdürlüğü'nün koruduğu vakıf eserlerini keşfetmenin, gezmenin ve birlikte korumanın erişilebilir yolu.",
+  "aboutDeveloper": "Vakıflar Genel Müdürlüğü için Root42 tarafından geliştirildi.",
+  "feedbackTitle": "Geri bildirim",
+  "feedbackRatingLabel": "Vakıf Atlas deneyiminizi nasıl değerlendirirsiniz?",
+  "feedbackRatingOptional": "Puan vermek isteğe bağlıdır.",
+  "feedbackRateStars": "{count} yıldız",
+  "@feedbackRateStars": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedbackRatingValue": "{value} / 5 · {name}",
+  "@feedbackRatingValue": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "feedbackRating1": "Çok kötü",
+  "feedbackRating2": "Kötü",
+  "feedbackRating3": "Orta",
+  "feedbackRating4": "İyi",
+  "feedbackRating5": "Çok iyi",
+  "feedbackCategoryLabel": "Konu",
+  "feedbackCategorySuggestion": "Öneri",
+  "feedbackCategoryBug": "Hata",
+  "feedbackCategoryAccessibility": "Erişilebilirlik",
+  "feedbackCategoryContent": "Eser bilgisi",
+  "feedbackCategoryOther": "Diğer",
+  "feedbackMessageLabel": "Mesajınız",
+  "feedbackMessageHint": "Neyi beğendiniz, neyi geliştirebiliriz?",
+  "feedbackMessageHelper": "Kişisel bilgi paylaşmayın. Uygulama sürümü ve cihaz türü (ör. Android) eklenir.",
+  "feedbackSubmit": "Gönder",
+  "feedbackRequired": "Bir puan verin veya mesaj yazın.",
+  "feedbackTooLong": "Mesaj en fazla {max} karakter olabilir.",
+  "@feedbackTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "feedbackSent": "Teşekkürler! Geri bildiriminiz alındı.",
+  "privacyOverlaySemantics": "Uygulama içeriği gizlendi",
+  "integrityWarningMessage": "Cihazınızda güvenlik değişiklikleri (root veya jailbreak) tespit edildi. Hesabınızın güvenliği için bazı işlemler kısıtlanabilir.",
+  "integrityWarningDismiss": "Anladım",
+  "integrityBlockedTitle": "Güvenli çalışma ortamı doğrulanamadı",
+  "integrityBlockedBody": "Uygulamanın değiştirilmiş bir sürümü veya izinsiz bir müdahale tespit edildi. Lütfen Vakıf Atlas'ı resmi uygulama mağazasından yeniden yükleyin.",
+  "startupFailedTitle": "Uygulama başlatılamadı",
+  "startupFailedBody": "Vakıf Atlas açılırken beklenmeyen bir sorun oluştu. Uygulamayı kapatıp yeniden açın; sorun sürerse uygulamayı güncelleyin.",
+  "errorEmailNotVerified": "E-posta adresiniz henüz doğrulanmadı. Size gönderdiğimiz kodu girin.",
+  "errorInvalidVerificationCode": "Kod hatalı. E-postanızdaki 6 haneli kodu kontrol edip tekrar deneyin.",
+  "errorVerificationCodeExpired": "Kodun süresi doldu veya çok fazla hatalı deneme yapıldı. Yeni bir kod isteyin.",
+  "errorWeakPassword": "Bu şifre güvenlik kurallarını karşılamıyor. Daha uzun ve tahmin edilmesi zor bir şifre seçin.",
+  "errorInvalidCurrentPassword": "Mevcut şifreniz hatalı.",
+  "errorTooManyRequests": "Çok fazla deneme yapıldı. Lütfen biraz sonra tekrar deneyin.",
+  "errorTooManyRequestsRetry": "{minutes, plural, =1{Çok fazla deneme yapıldı. 1 dakika sonra tekrar deneyin.} other{Çok fazla deneme yapıldı. {minutes} dakika sonra tekrar deneyin.}}",
+  "@errorTooManyRequestsRetry": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameEmpty": "Adınızı ve soyadınızı girin.",
+  "validationNameTooShort": "Ad soyad en az {min} karakter olmalıdır.",
+  "@validationNameTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameTooLong": "Ad soyad en fazla {max} karakter olabilir.",
+  "@validationNameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "validationNameInvalid": "Ad soyad yalnızca harf, boşluk, kesme işareti ve tire içerebilir.",
+  "validationPasswordTooLong": "Şifre en fazla {max} karakter olabilir.",
+  "@validationPasswordTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "validationPasswordCommon": "Bu şifre çok yaygın ve kolay tahmin edilir. Farklı bir şifre seçin.",
+  "validationPasswordPersonalInfo": "Şifre adınızı, e-posta adresinizi veya uygulama adını içermemelidir.",
+  "validationPasswordRepetitive": "Şifre tekrar eden veya ardışık karakterlerden oluşmamalıdır.",
+  "validationConfirmPasswordEmpty": "Şifrenizi tekrar girin.",
+  "validationPasswordMismatch": "Şifreler eşleşmiyor. İki alana da aynı şifreyi girin.",
+  "validationSamePassword": "Yeni şifre mevcut şifrenizden farklı olmalıdır.",
+  "validationCurrentPasswordEmpty": "Mevcut şifrenizi girin.",
+  "validationCodeEmpty": "E-postanıza gelen kodu girin.",
+  "validationCodeInvalid": "Kod {length} haneli bir sayı olmalıdır.",
+  "@validationCodeInvalid": {
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "validationTermsRequired": "Devam etmek için Kullanım Koşulları'nı kabul etmelisiniz.",
+  "validationPrivacyRequired": "Devam etmek için KVKK Aydınlatma Metni'ni okuduğunuzu onaylamalısınız.",
+  "validationDeleteConfirmRequired": "Devam etmek için onay kutusunu işaretleyin.",
+  "passwordRequirementsHint": "En az {min} karakter. Kolay tahmin edilen ifadelerden ve kişisel bilgilerden kaçının.",
+  "@passwordRequirementsHint": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "passwordStrengthWeak": "Zayıf",
+  "passwordStrengthFair": "Orta",
+  "passwordStrengthGood": "İyi",
+  "passwordStrengthStrong": "Güçlü",
+  "passwordStrengthSemantics": "Şifre gücü: {level}",
+  "@passwordStrengthSemantics": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "loginForgotPassword": "Şifremi unuttum",
+  "loginNoAccount": "Hesabınız yok mu?",
+  "loginCreateAccount": "Hesap oluştur",
+  "loginPasswordResetSuccess": "Şifreniz güncellendi ve tüm oturumlar kapatıldı. Yeni şifrenizle giriş yapın.",
+  "registerTitle": "Hesap Oluştur",
+  "registerHeading": "Vakıf Atlas'a katılın",
+  "registerSubtitle": "Anılarınızı paylaşmak ve kültürel mirasın korunmasına katkı sağlamak için ücretsiz hesap oluşturun.",
+  "registerNameLabel": "Ad soyad",
+  "registerConfirmPasswordLabel": "Şifre (tekrar)",
+  "registerAcceptTerms": "Kullanım Koşulları'nı okudum ve kabul ediyorum.",
+  "registerAcknowledgePrivacy": "KVKK Aydınlatma Metni'ni okudum.",
+  "registerReadTerms": "Kullanım Koşulları'nı oku",
+  "registerReadPrivacy": "Aydınlatma Metni'ni oku",
+  "registerSubmit": "Hesap oluştur",
+  "registerHaveAccount": "Zaten hesabınız var mı? Giriş yapın",
+  "verifyEmailTitle": "E-posta Doğrulama",
+  "verifyEmailHeading": "E-postanızı doğrulayın",
+  "verifyEmailBody": "{email} adresine 6 haneli bir doğrulama kodu gönderdik. Kod 10 dakika geçerlidir.",
+  "@verifyEmailBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationCodeLabel": "Doğrulama kodu",
+  "verificationCodeHint": "6 haneli kod",
+  "verifyEmailSubmit": "Doğrula",
+  "verifyEmailChangeEmail": "E-posta adresini değiştir",
+  "@verifyEmailChangeEmail": {
+    "description": "Doğrulama ekranında yanlış yazılan e-postayı düzeltmek için kayıt formuna dönüş"
+  },
+  "resendCode": "Kodu tekrar gönder",
+  "resendCodeIn": "Kodu tekrar gönder ({seconds} sn)",
+  "@resendCodeIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "codeResentAnnouncement": "Yeni kod gönderildi.",
+  "emailVerifiedAnnouncement": "Hesabınız doğrulandı. Hoş geldiniz, {name}.",
+  "@emailVerifiedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "forgotPasswordTitle": "Şifremi Unuttum",
+  "forgotPasswordHeading": "Şifrenizi sıfırlayın",
+  "forgotPasswordBody": "Hesabınıza kayıtlı e-posta adresini girin. Size bir sıfırlama kodu göndereceğiz.",
+  "forgotPasswordSubmit": "Kod gönder",
+  "backToLogin": "Girişe dön",
+  "resetPasswordTitle": "Yeni Şifre",
+  "resetPasswordBody": "{email} ile kayıtlı bir hesap varsa, bu adrese 6 haneli bir sıfırlama kodu gönderdik.",
+  "@resetPasswordBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "newPasswordLabel": "Yeni şifre",
+  "confirmNewPasswordLabel": "Yeni şifre (tekrar)",
+  "resetPasswordSubmit": "Şifreyi güncelle",
+  "changePasswordTitle": "Şifre Değiştir",
+  "currentPasswordLabel": "Mevcut şifre",
+  "changePasswordSubmit": "Şifreyi değiştir",
+  "changePasswordSuccess": "Şifreniz değiştirildi.",
+  "deleteAccountTitle": "Hesabı Sil",
+  "deleteAccountHeading": "Hesabınızı kalıcı olarak silin",
+  "deleteAccountBody": "Hesabınız ve hesabınıza bağlı kişisel verileriniz (profil, anılar, rozetler) KVKK kapsamında silinir. Bu işlem geri alınamaz.",
+  "deleteAccountConfirm": "Bu işlemin geri alınamayacağını anlıyorum.",
+  "deleteAccountSubmit": "Hesabımı sil",
+  "accountDeletedAnnouncement": "Hesabınız silindi.",
+  "profileSecuritySection": "Güvenlik ve hesap",
+  "legalTermsTitle": "Kullanım Koşulları",
+  "legalPrivacyTitle": "KVKK Aydınlatma Metni",
+  "legalVersion": "Sürüm {version} · Yürürlük tarihi: {date}",
+  "@legalVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMMd"
+      }
+    }
+  },
+  "mapSemanticsLabel": "{count, plural, =0{Vakıf eserleri haritası, eser yok} other{Vakıf eserleri haritası, {count} eser}}",
+  "@mapSemanticsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLoadedAnnouncement": "{count, plural, =0{Haritada gösterilecek eser bulunamadı} other{{count} eser haritada gösteriliyor}}",
+  "@mapLoadedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLoadingMonuments": "Eserler yükleniyor",
+  "mapLoadErrorTitle": "Eserler yüklenemedi",
+  "mapZoomIn": "Yakınlaştır",
+  "mapZoomOut": "Uzaklaştır",
+  "mapShowAll": "Tüm eserleri göster",
+  "mapControlsSemantics": "Harita kontrolleri",
+  "mapAttributionSemantics": "Harita verileri: {attribution}",
+  "@mapAttributionSemantics": {
+    "placeholders": {
+      "attribution": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentPinSemantics": "{name}, {district}, {city}",
+  "@monumentPinSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentSelectedAnnouncement": "{name} seçildi",
+  "@monumentSelectedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentCount": "{count, plural, =0{Eser yok} other{{count} eser}}",
+  "@monumentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "monumentPreviewClose": "Önizlemeyi kapat",
+  "monumentSave": "Kaydet",
+  "monumentUnsave": "Kaydedilenlerden çıkar",
+  "monumentSaveSemantics": "Kaydet: {name}",
+  "@monumentSaveSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentUnsaveSemantics": "Kaydedilenlerden çıkar: {name}",
+  "@monumentUnsaveSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentAdded": "Kaydedildi: {name}",
+  "@savedMonumentAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentRemoved": "Kaydedilenlerden çıkarıldı: {name}",
+  "@savedMonumentRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentsLimit": "En fazla {max} eser kaydedebilirsiniz. Yer açmak için Kaydedilenler'den eser çıkarın.",
+  "@savedMonumentsLimit": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsSaveFailed": "Kaydedilemedi. Tekrar deneyin.",
+  "savedMonumentsTitle": "Kaydedilenler",
+  "savedMonumentsButton": "{count, plural, =0{Kaydedilenler, kayıtlı eser yok} other{Kaydedilenler, {count} eser}}",
+  "@savedMonumentsButton": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsCount": "{count, plural, other{{count} eser}}",
+  "@savedMonumentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "savedMonumentsEmptyTitle": "Henüz kaydedilen eser yok",
+  "savedMonumentsEmptyBody": "İlginizi çeken eserleri, eser sayfasındaki veya harita önizlemesindeki yer işareti simgesiyle buraya kaydedin.",
+  "emptyStateExploreMap": "Haritada keşfet",
+  "savedMonumentsLoadFailedTitle": "Kaydedilenler yüklenemedi",
+  "savedMonumentSavedOn": "Kaydedildi: {date}",
+  "@savedMonumentSavedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "savedMonumentRemove": "Kaldır",
+  "savedMonumentUnavailable": "Artık katalogda olmayan eser",
+  "savedMonumentUnavailableBody": "Bu eser katalogdan kaldırılmış; listeden çıkarabilirsiniz.",
+  "monumentViewDetails": "Detayları gör",
+  "monumentViewDetailsSemantics": "Detayları gör, {name}",
+  "@monumentViewDetailsSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentLocation": "{district}, {city}",
+  "@monumentLocation": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentLocationSemantics": "Konum: {location}",
+  "@monumentLocationSemantics": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentAddressSemantics": "Adres: {address}",
+  "@monumentAddressSemantics": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentCategoryMosque": "Cami",
+  "monumentCategoryComplex": "Külliye",
+  "monumentCategoryMadrasa": "Medrese",
+  "monumentCategoryInn": "Han",
+  "monumentCategoryCaravanserai": "Kervansaray",
+  "monumentCategoryBath": "Hamam",
+  "monumentCategoryFountain": "Çeşme",
+  "monumentCategoryTomb": "Türbe",
+  "monumentCategoryHospital": "Darüşşifa",
+  "monumentCategoryImaret": "İmaret",
+  "monumentCategoryOther": "Diğer yapı",
+  "historicalPeriodSeljuk": "Selçuklu",
+  "historicalPeriodBeylik": "Beylikler",
+  "historicalPeriodOttoman": "Osmanlı",
+  "historicalPeriodOther": "Diğer dönem",
+  "monumentCategorySemantics": "Yapı türü: {category}",
+  "@monumentCategorySemantics": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentPeriodSemantics": "Dönem: {period}",
+  "@monumentPeriodSemantics": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentConstructionSemantics": "Yapım tarihi: {date}",
+  "@monumentConstructionSemantics": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentUnescoBadge": "UNESCO Dünya Mirası",
+  "monumentDetailLoading": "Eser bilgileri yükleniyor",
+  "monumentDetailErrorTitle": "Eser bilgileri yüklenemedi",
+  "monumentNotFoundTitle": "Eser bulunamadı",
+  "monumentNotFoundBody": "Aradığınız eser katalogda yer almıyor veya kaldırılmış olabilir.",
+  "monumentBackToMap": "Haritaya dön",
+  "monumentShowOnMap": "Haritada göster",
+  "monumentListen": "Sesli dinle",
+  "monumentStopListening": "Seslendirmeyi durdur",
+  "monumentAboutHeading": "Hakkında",
+  "monumentHistoryHeading": "Tarihçe",
+  "monumentFactsHeading": "Eser künyesi",
+  "monumentFounderLabel": "Bani",
+  "monumentArchitectLabel": "Mimar",
+  "monumentConstructionLabel": "Yapım tarihi",
+  "monumentPeriodLabel": "Dönem",
+  "monumentCategoryLabel": "Yapı türü",
+  "monumentLocationHeading": "Konum",
+  "monumentPhotoCreditsHeading": "Fotoğraf künyesi",
+  "monumentSpeechIntro": "{name}. {category}, {location}.",
+  "@monumentSpeechIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCredit": "{author} · {license} · {source}",
+  "@photoCredit": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditSemantics": "Fotoğraf {index}: {author}, lisans {license}, kaynak {source}",
+  "@photoCreditSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "gallerySemantics": "{count, plural, =0{Fotoğraf galerisi, fotoğraf yok} other{Fotoğraf galerisi, {count} fotoğraf}}",
+  "@gallerySemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryPhotoSemantics": "Fotoğraf {index} / {count}: {description}",
+  "@galleryPhotoSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "galleryPosition": "{index} / {count}",
+  "@galleryPosition": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryPositionSemantics": "Fotoğraf {index} / {count}",
+  "@galleryPositionSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "galleryThumbnailSemantics": "Fotoğraf {index}: {description}",
+  "@galleryThumbnailSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "galleryPrevious": "Önceki fotoğraf",
+  "galleryNext": "Sonraki fotoğraf",
+  "galleryOpenFullScreen": "tam ekran görüntüle",
+  "galleryCloseViewer": "Galeriyi kapat",
+  "galleryImageError": "Fotoğraf yüklenemedi",
+  "monumentListItemSubtitle": "{location} · {category}",
+  "@monumentListItemSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditTitle": "{index}. {description}",
+  "@photoCreditTitle": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "photoCreditsNotice": "Lisans koşulları fotoğrafların kaynak sayfalarında yer alır.",
+  "distanceKilometers": "{value} km",
+  "@distanceKilometers": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceMeters": "{value} m",
+  "@distanceMeters": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "durationDaysShort": "{count} g",
+  "@durationDaysShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHoursShort": "{count} sa",
+  "@durationHoursShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutesShort": "{count} dk",
+  "@durationMinutesShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationDays": "{count, plural, =1{1 gün} other{{count} gün}}",
+  "@durationDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHours": "{count, plural, =1{1 saat} other{{count} saat}}",
+  "@durationHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{count, plural, =1{1 dakika} other{{count} dakika}}",
+  "@durationMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeListTitle": "Rotalarım",
+  "routeNewButton": "Yeni rota",
+  "routeListLoading": "Rotalar yükleniyor",
+  "routeListErrorTitle": "Rotalar yüklenemedi",
+  "routeListEmptyTitle": "Henüz rotanız yok",
+  "routeListEmptyBody": "Eserleri seçip sıralayın; ziyaret süresi ve molalarla ilk kültür rotanızı oluşturun.",
+  "routeDraftBanner": "{count, plural, =1{Taslak rotanızda 1 eser var} other{Taslak rotanızda {count} eser var}}",
+  "@routeDraftBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeDraftContinue": "Devam et",
+  "routeStopCount": "{count, plural, =1{1 durak} other{{count} durak}}",
+  "@routeStopCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeCityChain": "{from} → {to}",
+  "@routeCityChain": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "routeCardSemantics": "{name}. {stops}: {cities}. Toplam {distance}, {duration}. {created}.",
+  "@routeCardSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "stops": {
+        "type": "String"
+      },
+      "cities": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      },
+      "created": {
+        "type": "String"
+      }
+    }
+  },
+  "routeCreatedOn": "Oluşturulma: {date}",
+  "@routeCreatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeTotalDistanceSemantics": "Toplam mesafe: {value}",
+  "@routeTotalDistanceSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeTotalDurationSemantics": "Toplam süre: {value}",
+  "@routeTotalDurationSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDetailLoading": "Rota yükleniyor",
+  "routeDetailTitle": "Rota detayı",
+  "@routeDetailTitle": {
+    "description": "App bar title while a route is loading or failed."
+  },
+  "routeDeleting": "Rota siliniyor",
+  "@routeDeleting": {
+    "description": "Live status while a route is being deleted."
+  },
+  "routeDetailErrorTitle": "Rota yüklenemedi",
+  "routeNotFoundTitle": "Rota bulunamadı",
+  "routeNotFoundBody": "Rota silinmiş veya bu cihaza bağlı değil.",
+  "routeBackToList": "Rotalarıma dön",
+  "routeEdit": "Düzenle",
+  "routeDelete": "Sil",
+  "routeDeleteConfirmTitle": "Rota silinsin mi?",
+  "routeDeleteConfirmBody": "\"{name}\" kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+  "@routeDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDeletedMessage": "Rota silindi",
+  "routeSummaryHeading": "Süre ve mesafe",
+  "routeTotalDuration": "Toplam süre",
+  "routeTravelTime": "Yolculuk",
+  "routeVisitTime": "Ziyaret",
+  "routeBreakTime": "Mola",
+  "routeDistance": "Karayolu mesafesi",
+  "routeMetricSemantics": "{label}: {value}",
+  "@routeMetricSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "routeEstimateNote": "Yolculuk süresi karayolu mesafesine göre araçla tahmin edilir; trafik ve hava koşulları değiştirebilir.",
+  "routeStepsHeading": "Adım adım",
+  "routeStopSemantics": "Durak {index} / {count}: {name}, {location}. Ziyaret süresi {visit}.",
+  "@routeStopSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "visit": {
+        "type": "String"
+      }
+    }
+  },
+  "routeVisitLabel": "Ziyaret · {duration}",
+  "@routeVisitLabel": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeLegLabel": "{distance} · araçla ≈ {duration}",
+  "@routeLegLabel": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeLegSemantics": "Sonraki durak {next}: {distance}, araçla yaklaşık {duration}.",
+  "@routeLegSemantics": {
+    "placeholders": {
+      "next": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakSemantics": "Mola: {kind}, {duration}",
+  "@routeBreakSemantics": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakLabel": "{kind} · {duration}",
+  "@routeBreakLabel": {
+    "description": "Timeline break row: kind and short duration.",
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakShort": "Kısa mola",
+  "routeBreakMeal": "Yemek molası",
+  "routeBreakRest": "Dinlenme",
+  "routeBreakOvernight": "Konaklama",
+  "routeBuilderNewTitle": "Yeni rota",
+  "routeBuilderEditTitle": "Rotayı düzenle",
+  "routeBuilderLoading": "Eserler yükleniyor",
+  "routeNameLabel": "Rota adı",
+  "routeNameHelper": "Boş bırakırsanız önerilen ad kullanılır.",
+  "routeDefaultName": "{from} – {to} Rotası",
+  "@routeDefaultName": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDefaultNameSingleCity": "{city} Rotası",
+  "@routeDefaultNameSingleCity": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDefaultNameEmpty": "Kültür Rotası",
+  "routeStopsHeading": "Duraklar ({count}/{max})",
+  "@routeStopsHeading": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeAddMonuments": "Eser ekle",
+  "routePickerDone": "Tamam",
+  "routeOptimize": "Sırayı optimize et",
+  "routeOptimizeHint": "İlk durak başlangıç olarak kalır; diğerleri en kısa kuş uçuşu mesafeye göre sıralanır.",
+  "routeOptimizedAnnouncement": "Sıra optimize edildi: kuş uçuşu {before} yerine {after}.",
+  "@routeOptimizedAnnouncement": {
+    "placeholders": {
+      "before": {
+        "type": "String"
+      },
+      "after": {
+        "type": "String"
+      }
+    }
+  },
+  "routeOptimizedUnchanged": "Sıra zaten en kısa.",
+  "routeEmptyStops": "Rota için en az 2 eser seçin.",
+  "routeMoveUp": "{name}: yukarı taşı",
+  "@routeMoveUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeMoveDown": "{name}: aşağı taşı",
+  "@routeMoveDown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRemoveStop": "{name}: rotadan çıkar",
+  "@routeRemoveStop": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeStopMovedAnnouncement": "{name} {position}. sıraya taşındı",
+  "@routeStopMovedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "routeStopAddedAnnouncement": "{name} rotaya eklendi",
+  "@routeStopAddedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeStopRemovedAnnouncement": "{name} rotadan çıkarıldı",
+  "@routeStopRemovedAnnouncement": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeVisitDuration": "Ziyaret süresi",
+  "routeDurationDecrease": "{label}: azalt",
+  "@routeDurationDecrease": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "routeDurationIncrease": "{label}: artır",
+  "@routeDurationIncrease": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "routeAddBreak": "Mola ekle",
+  "routeBreakPickerTitle": "Mola türü",
+  "routeBreakPickerDefault": "Önerilen süre: {duration}",
+  "@routeBreakPickerDefault": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRemoveBreak": "{kind}: kaldır",
+  "@routeRemoveBreak": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBreakLimit": "Bir durağa en fazla {max} mola eklenebilir.",
+  "@routeBreakLimit": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeStraightLineToNext": "Sonraki durağa kuş uçuşu ≈ {distance}",
+  "@routeStraightLineToNext": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderSummary": "{stops} · kuş uçuşu ≈ {distance}",
+  "@routeBuilderSummary": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderTimes": "Ziyaret {visit} · Mola {breaks}",
+  "@routeBuilderTimes": {
+    "placeholders": {
+      "visit": {
+        "type": "String"
+      },
+      "breaks": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderTravelNote": "Karayolu mesafesi ve yolculuk süresi rota oluşturulunca hesaplanır.",
+  "routeCreate": "Rotayı oluştur",
+  "routeSaveChanges": "Değişiklikleri kaydet",
+  "routeCreatedAnnouncement": "Rota oluşturuldu: {stops}, {distance}, toplam {duration}.",
+  "@routeCreatedAnnouncement": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeUpdatedAnnouncement": "Rota güncellendi.",
+  "routeValidationNameTooLong": "Rota adı en fazla {max} karakter olabilir.",
+  "@routeValidationNameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeValidationGeneric": "Rota bilgilerini kontrol edin.",
+  "routeLimitReached": "Bir rotada en fazla {max} eser olabilir.",
+  "@routeLimitReached": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "routeAddToRoute": "Rotaya ekle",
+  "routeRemoveFromRoute": "Rotadan çıkar",
+  "routeAddedSnack": "{count, plural, =1{Rotaya eklendi · taslakta 1 eser} other{Rotaya eklendi · taslakta {count} eser}}",
+  "@routeAddedSnack": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routeGoToDraft": "Rotaya git",
+  "mapSearchHint": "Yer veya eser ara",
+  "mapSearchEditSemantics": "Arama: {query}. Düzenlemek için dokunun",
+  "@mapSearchEditSemantics": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "mapSearchClear": "Aramayı temizle",
+  "mapFiltersButton": "Filtreler",
+  "mapFiltersButtonActive": "Filtreler, {count} etkin",
+  "@mapFiltersButtonActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapResultsShowing": "{count} eser gösteriliyor",
+  "@mapResultsShowing": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapNoMatches": "Eşleşen eser yok",
+  "mapClearRefinements": "Temizle",
+  "mapClearRefinementsSemantics": "Arama ve filtreleri temizle",
+  "mapRefinementsClearedAnnouncement": "Arama ve filtreler temizlendi, tüm eserler gösteriliyor",
+  "mapLocateMe": "Konumumu göster",
+  "mapLocating": "Konumunuz alınıyor",
+  "mapUserLocationSemantics": "Konumunuz",
+  "mapLocationShownAnnouncement": "Konumunuz gösteriliyor",
+  "locationIssueServiceDisabled": "Konum servisleri kapalı. Konumunuzu görmek için açın.",
+  "locationIssuePermissionDenied": "Konum izni verilmedi. Konumunuzu görmek için izin verin.",
+  "locationIssuePermissionDeniedForever": "Konum izni kapalı. Ayarlardan izin verebilirsiniz.",
+  "locationIssueUnavailable": "Konumunuz şu anda alınamıyor. Lütfen tekrar deneyin.",
+  "locationOutsideRegion": "Konumunuz harita alanının dışında.",
+  "locationOpenSettings": "Ayarlar",
+  "searchAllMonuments": "Tüm eserler",
+  "searchPlacesHeader": "Yerler",
+  "searchMonumentsHeader": "Eserler",
+  "searchShowOnMap": "{name}: haritada göster",
+  "@searchShowOnMap": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "searchNoResultsTitle": "Sonuç bulunamadı",
+  "searchNoResultsBody": "“{query}” için eşleşen yer veya eser yok. Yazımı kontrol edin ya da daha kısa bir arama deneyin.",
+  "@searchNoResultsBody": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "searchResultsAnnouncement": "{count, plural, =0{Sonuç bulunamadı} other{{count} sonuç}}",
+  "@searchResultsAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchRemoveFilters": "Filtreleri kaldır",
+  "searchPlaceAnnouncement": "{place}: {count} eser",
+  "@searchPlaceAnnouncement": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterSheetTitle": "Filtreler",
+  "filterCategorySection": "Yapı türü",
+  "filterPeriodSection": "Dönem",
+  "filterCitySection": "İl",
+  "filterOptionWithCount": "{label} ({count})",
+  "@filterOptionWithCount": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountButtonGuestSemantics": "Hesap menüsü, misafir",
+  "accountButtonSemantics": "Hesap menüsü, {name}",
+  "@accountButtonSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountMenuGuestTitle": "Misafir",
+  "accountMenuGuestBody": "Anı paylaşmak ve hasar bildirmek için giriş yapın.",
+  "accountMenuProfile": "Profilim",
+  "accountMenuSignIn": "Giriş yap veya kayıt ol",
+  "searchResultsTotal": "{count} sonuç",
+  "@searchResultsTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchApplyToMap": "{count} sonucu haritada göster",
+  "@searchApplyToMap": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchLoadingMore": "Daha fazla sonuç yükleniyor",
+  "searchLoadMoreFailed": "Sonraki sonuçlar yüklenemedi.",
+  "searchEndOfResults": "Tüm sonuçlar gösterildi ({count})",
+  "@searchEndOfResults": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchMoreLoadedAnnouncement": "{count} sonuç daha yüklendi",
+  "@searchMoreLoadedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchLoadFailedTitle": "Sonuçlar yüklenemedi",
+  "searchNoFilterResultsBody": "Seçili filtrelere uyan eser yok. Filtreleri kaldırmayı deneyin.",
+  "filterSelectionSummary": "{first} +{more}",
+  "@filterSelectionSummary": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "int"
+      }
+    }
+  },
+  "filterGroupSemantics": "{group} filtresi: {selection}",
+  "@filterGroupSemantics": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "selection": {
+        "type": "String"
+      }
+    }
+  },
+  "filterNoneSelected": "seçim yok",
+  "filterApplyButton": "Uygula",
+  "filterGroupClear": "Temizle",
+  "filterClearAllChip": "Filtreleri temizle",
+  "mapRefinementFailed": "Arama haritaya uygulanamadı.",
+  "mapClusterSemantics": "{count} eserlik küme. Yakınlaştırmak için dokunun.",
+  "@mapClusterSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterListSemantics": "Aynı konumda {count} eser. Listelemek için dokunun.",
+  "@mapClusterListSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterExpandedAnnouncement": "{count} eserlik bölgeye yakınlaştırıldı",
+  "@mapClusterExpandedAnnouncement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapClusterSheetTitle": "Bu konumdaki eserler",
+  "mapPreviewLoading": "Önizleme yükleniyor",
+  "mapPreviewLoadFailed": "Eser önizlemesi yüklenemedi.",
+  "mapClusterLoadFailed": "Bu konumdaki eserler yüklenemedi.",
+  "settingsReduceMotionSystemOn": "Cihazınızın erişilebilirlik ayarlarında açık olduğu için uygulamada her zaman uygulanır.",
+  "settingsPermissionsSection": "Gizlilik ve izinler",
+  "settingsAboutSection": "Hakkında",
+  "settingsReplayOnboarding": "Uygulama tanıtımını yeniden göster",
+  "settingsPrivacyNotice": "KVKK Aydınlatma Metni",
+  "settingsTermsOfUse": "Kullanım Koşulları",
+  "permissionLocationTitle": "Konum",
+  "permissionLocationPurpose": "Yakınınızdaki vakıf eserlerini haritada göstermek için kullanılır. Haritada konumunuz yalnızca cihazınızda işlenir. Yalnızca bir hasar bildirimine eklemeyi seçerseniz o bildirimle gönderilir.",
+  "permissionStatusChecking": "Durum kontrol ediliyor",
+  "permissionStatusGranted": "İzin verildi",
+  "permissionStatusNotGranted": "İzin verilmedi",
+  "permissionStatusBlocked": "Kapalı. Sistem ayarlarından izin verebilirsiniz.",
+  "permissionStatusBlockedBrowser": "Kapalı. Tarayıcınızın adres çubuğundaki simgeden veya site ayarlarından izin verebilirsiniz.",
+  "permissionStatusServiceDisabled": "Cihazın konum servisleri kapalı.",
+  "permissionStatusUnsupported": "Bu cihazda kullanılamıyor.",
+  "permissionStatusSemantics": "{permission} izni: {status}",
+  "@permissionStatusSemantics": {
+    "placeholders": {
+      "permission": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "permissionLocationAllow": "Konum iznini ver",
+  "permissionCameraTitle": "Kamera",
+  "permissionCameraPurpose": "Anı Köşesi'nde ve hasar bildirimlerinde fotoğraf çekmek için kullanılır. Fotoğraf yalnızca siz paylaştığınızda yüklenir; konum bilgisi önceden silinir.",
+  "permissionCameraAllow": "Kamera iznini ver",
+  "permissionMicrophoneTitle": "Mikrofon",
+  "permissionMicrophonePurpose": "Dijital Rehber'e sesli soru sormak için kullanılır. Konuşmanız cihazınızın veya tarayıcınızın konuşma tanıma servisiyle metne çevrilir; uygulama ses kaydı saklamaz ve siz göndermeden soru iletilmez.",
+  "permissionMicrophoneAllow": "Mikrofon iznini ver",
+  "permissionOpenAppSettings": "Uygulama ayarlarını aç",
+  "permissionOpenLocationSettings": "Konum ayarlarını aç",
+  "permissionManageInSettings": "Sistem ayarlarında yönet",
+  "permissionOnDemandNote": "İzin vermeseniz de uygulamayı kullanabilirsiniz. Bir özellik izne ihtiyaç duyduğunda (fotoğraf çekmek, sesli soru sormak) yeniden sorulur.",
+  "onboardingStepCounter": "Adım {current} / {total}",
+  "@onboardingStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingStepAnnouncement": "Adım {current} / {total}: {title}",
+  "@onboardingStepAnnouncement": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingSkip": "Atla",
+  "onboardingSkipSemantics": "Tanıtımı atla",
+  "onboardingStart": "Başlayın",
+  "onboardingNext": "Devam",
+  "onboardingWelcomeTitle": "Hoş geldiniz",
+  "onboardingWelcomeDescription": "Vakıf eserlerini haritada keşfedin, ayrıntılarını inceleyin ve gezinizi planlayın. Başlamadan önce uygulamayı size göre ayarlayalım; önce dilinizi seçin.",
+  "onboardingDisplayTitle": "Görünüm",
+  "onboardingDisplayDescription": "Açık, koyu veya cihazınızı izleyen temayı seçin. Değişiklik hemen uygulanır.",
+  "onboardingAccessibilityTitle": "Erişilebilirlik",
+  "onboardingAccessibilityDescription": "Vakıf Atlas ekran okuyucu (TalkBack, VoiceOver), klavye ve büyük metinle kullanılabilir. Metin boyutu, yüksek kontrast, renk görme, hareket ve titreşim tercihlerini tek sayfadan ayarlayın; sonra hesap menüsündeki Erişilebilirlik'ten de değiştirebilirsiniz.",
+  "onboardingChangeLaterNote": "Bu tercihleri istediğiniz zaman Ayarlar'dan değiştirebilirsiniz.",
+  "onboardingTourTitle": "Vakıf Atlas'ı tanıyın",
+  "onboardingTourDescription": "Uygulamayı nasıl kullanacağınıza kısa bir bakış.",
+  "onboardingTourMapTitle": "Haritada keşfedin",
+  "onboardingTourMapBody": "Eserler haritada gruplanarak gösterilir. Bir gruba dokunarak yakınlaşın; bir esere dokunarak ayrıntılarını ve fotoğraflarını açın.",
+  "onboardingTourSearchTitle": "Arayın ve filtreleyin",
+  "onboardingTourSearchBody": "Eser, il veya ilçe adıyla arayın; yapı türü, dönem ve ile göre daraltın ve sonuçları haritada görün.",
+  "onboardingTourRoutesTitle": "Rotanızı planlayın",
+  "onboardingTourRoutesBody": "2–10 eserden gezi rotası oluşturun, sırayı tek dokunuşla en kısa yola göre düzenleyin. Rotalarınız hesap gerektirmeden bu cihaza bağlı olarak saklanır.",
+  "onboardingTourContributeTitle": "Katkıda bulunun",
+  "onboardingTourContributeBody": "Hesabınızla Anı Köşesi'nde eserlerle ilgili anılarınızı paylaşabilir, gördüğünüz hasarları bildirebilirsiniz.",
+  "onboardingPermissionsTitle": "İzinler",
+  "onboardingPermissionsDescription": "İzinler yalnızca ilgili özellik için, nedeni açıklanarak istenir. Hiçbiri zorunlu değildir; izin vermeden de uygulamayı kullanabilirsiniz.",
+  "onboardingPermissionsChangeLater": "İzinleri istediğiniz zaman Ayarlar'dan veya cihazınızın sistem ayarlarından değiştirebilirsiniz.",
+  "onboardingPrivacyNoticeLink": "KVKK Aydınlatma Metni'ni okuyun",
+  "onboardingAccountTitle": "Nasıl devam etmek istersiniz?",
+  "onboardingAccountDescription": "Harita, arama ve rota planlama için hesap gerekmez. Anı paylaşmak ve hasar bildirmek için giriş yapın.",
+  "onboardingSignIn": "Giriş yap",
+  "onboardingCreateAccount": "Hesap oluştur",
+  "onboardingContinueAsGuest": "Misafir olarak devam et",
+  "onboardingSignedInTitle": "Hoş geldiniz, {name}",
+  "@onboardingSignedInTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingSignedInDescription": "Oturumunuz açık ve tercihleriniz kaydedildi.",
+  "onboardingContinueSignedIn": "Uygulamaya devam et",
+  "routePickerSearchHint": "Rotaya eklenecek eseri ara",
+  "routePickerStopSubtitle": "{details} · {position}. durak",
+  "@routePickerStopSubtitle": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      },
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "routeExportAction": "PDF olarak dışa aktar",
+  "routeExportInProgress": "PDF hazırlanıyor",
+  "routeExportReadyTitle": "PDF hazır",
+  "routeExportReadyAnnouncement": "PDF hazır: {fileName}",
+  "@routeExportReadyAnnouncement": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportSavedNote": "Dışa aktarımlarım'a kaydedildi.",
+  "routeExportGuestSavedNote": "Bu cihazın Dışa aktarımlarım listesine kaydedildi. Giriş yaparsanız hesabınıza taşınır ve diğer cihazlarınızda da görünür.",
+  "routeExportOpenExports": "Dışa aktarımlarım",
+  "routeExportArchiveFailed": "PDF hazır ancak Dışa aktarımlarım'a kaydedilemedi. Yine de paylaşabilir veya yazdırabilirsiniz.",
+  "routeExportFailed": "PDF oluşturulamadı. Lütfen tekrar deneyin.",
+  "routeExportShare": "Paylaş",
+  "routeExportCopyLink": "Bağlantıyı kopyala",
+  "routeExportLinkCopied": "Bağlantı kopyalandı. Bağlantıya sahip herkes PDF'i {date} tarihine kadar açabilir; dışa aktarımı silerseniz bağlantı çalışmaz.",
+  "@routeExportLinkCopied": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportPrint": "Yazdır",
+  "routeExportPreview": "Önizle",
+  "routeExportSignIn": "Giriş yap",
+  "routeExportShareFailed": "Paylaşım penceresi açılamadı.",
+  "routeExportPrintFailed": "Yazdırma penceresi açılamadı.",
+  "routeExportSketchHeading": "Rota çizimi",
+  "routeExportSketchCaption": "Şematik çizimdir, kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.",
+  "routeExportStopsHeading": "Duraklar ve yolculuk",
+  "routeExportMapLink": "Konumu haritada aç",
+  "routeExportAttribution": "Yol verisi © OpenStreetMap katkıcıları (ODbL); mesafe ve süreler OSRM ile hesaplanmıştır.",
+  "routeExportPageOf": "Sayfa {page} / {total}",
+  "@routeExportPageOf": {
+    "placeholders": {
+      "page": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportGeneratedOn": "Hazırlanma: {date}",
+  "@routeExportGeneratedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsTitle": "Dışa aktarımlarım",
+  "routeExportsEmptyTitle": "Henüz dışa aktarım yok",
+  "routeExportsEmptyBody": "Bir rotanın sayfasındaki PDF simgesine dokunduğunuzda dışa aktarım burada görünür.",
+  "routeExportsItemSubtitle": "{date} · {stops} · {size}",
+  "@routeExportsItemSubtitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "stops": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsMoreActions": "{name} için işlemler",
+  "@routeExportsMoreActions": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsDelete": "Sil",
+  "routeExportsDeleteConfirmTitle": "Dışa aktarım silinsin mi?",
+  "routeExportsDeleteConfirmBody": "“{name}” PDF'i arşivinizden kalıcı olarak silinecek. Rotanın kendisi silinmez.",
+  "@routeExportsDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "routeExportsDeleted": "Dışa aktarım silindi",
+  "routeExportsLoadFailedTitle": "Dışa aktarımlar yüklenemedi",
+  "fileSizeKilobytes": "{size} KB",
+  "@fileSizeKilobytes": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "fileSizeMegabytes": "{size} MB",
+  "@fileSizeMegabytes": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryCornerSubtitle": "Ziyaretçilerin bu esere dair anıları",
+  "memoryCount": "{count, plural, =0{Henüz anı yok} =1{1 anı} other{{count} anı}}",
+  "@memoryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryShare": "Anı paylaş",
+  "memoryViewAll": "Tüm anıları gör ({count})",
+  "@memoryViewAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryEmptyTitle": "Henüz anı paylaşılmamış",
+  "memoryEmptyBody": "Bu eseri ziyaret ettiyseniz ilk anıyı siz paylaşın.",
+  "memoryLoading": "Anılar yükleniyor",
+  "memoryLoadFailedTitle": "Anılar yüklenemedi",
+  "memoryLoadMoreFailed": "Daha fazla anı yüklenemedi.",
+  "myMemoriesTitle": "Anılarım",
+  "myMemoriesViewAll": "Tüm anılarım ({count})",
+  "@myMemoriesViewAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myMemoriesEmptyTitle": "Henüz anı paylaşmadınız",
+  "myMemoriesEmptyBody": "Ziyaret ettiğiniz bir eserin Anı Köşesi'nde fotoğraf ve notla anınızı paylaşın.",
+  "myMemoriesLoading": "Anılarınız yükleniyor",
+  "myMemoriesLoadFailed": "Anılarınız yüklenemedi.",
+  "myMemoriesUnknownMonument": "Vakıf eseri",
+  "myMemoriesOpenCorner": "Anı Köşesi'nde gör",
+  "myMemoriesOpenCornerSemantics": "{name} Anı Köşesi'nde gör",
+  "@myMemoriesOpenCornerSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "myMemoriesPreviewSemantics": "{name}, {date}: {text}",
+  "@myMemoriesPreviewSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "myMemoriesStatusPending": "İnceleniyor; onaylanınca Anı Köşesi'nde yayınlanır. O zamana kadar yalnızca burada görünür.",
+  "myMemoriesStatusRejected": "Topluluk kurallarına uymadığı için yayınlanmadı; Anı Köşesi'nde görünmez, yalnızca burada görünür.",
+  "memoryOwnBadge": "Siz",
+  "memoryVisited": "Ziyaret: {date}",
+  "@memoryVisited": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryCardSemantics": "{author} tarafından {date} tarihinde paylaşıldı",
+  "@memoryCardSemantics": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryOwnCardSemantics": "Sizin anınız, {date} tarihinde paylaşıldı",
+  "@memoryOwnCardSemantics": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryReadMore": "Devamını oku",
+  "memoryReadLess": "Daha az göster",
+  "memoryMoreActions": "{author} anısı için diğer işlemler",
+  "@memoryMoreActions": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryDelete": "Sil",
+  "memoryReport": "Bildir",
+  "memoryDeleteConfirmTitle": "Anı silinsin mi?",
+  "memoryDeleteConfirmBody": "Bu anı ve fotoğrafları herkes için kalıcı olarak silinecek.",
+  "memoryDeleted": "Anınız silindi",
+  "memoryReportTitle": "Anıyı bildir",
+  "memoryReportQuestion": "Bu anı neden uygun değil?",
+  "memoryReportReasonOffensive": "Nefret söylemi, taciz veya hakaret",
+  "memoryReportReasonInappropriate": "Müstehcen, şiddet içeren veya rahatsız edici",
+  "memoryReportReasonSpam": "Reklam veya spam",
+  "memoryReportReasonPersonalInfo": "Başkalarının kişisel bilgilerini içeriyor",
+  "memoryReportReasonUnrelated": "Bu eserle ilgisi yok",
+  "memoryReportReasonOther": "Diğer",
+  "memoryReportNoteLabel": "Açıklama (isteğe bağlı)",
+  "memoryReportReasonRequired": "Bir neden seçin.",
+  "memoryReportNotice": "Bildiriminiz Vakıflar Genel Müdürlüğü tarafından incelenir. Bildirdiğiniz anı artık size gösterilmez.",
+  "memoryReported": "Bildiriminiz alındı, teşekkür ederiz",
+  "memorySignInTitle": "Giriş yapmanız gerekiyor",
+  "memorySignInToShare": "Anı paylaşmak için giriş yapın. Anıları okumak için giriş gerekmez.",
+  "memorySignInToReport": "Bir anıyı bildirmek için giriş yapın.",
+  "memoryComposerClose": "Anı paylaşmayı kapat",
+  "memoryTextLabel": "Anınız",
+  "memoryTextHint": "Bu eserde neler yaşadınız, neler dikkatinizi çekti?",
+  "memoryTextEmptyError": "Anınızı yazın.",
+  "memoryTextTooLongError": "Anı en fazla {max} karakter olabilir.",
+  "@memoryTextTooLongError": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "photosHeading": "Fotoğraflar",
+  "photosHint": "İsteğe bağlı · en fazla {max} fotoğraf",
+  "@photosHint": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "photosCountSemantics": "{max} fotoğraftan {count} tanesi eklendi",
+  "@photosCountSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "photoAdd": "Fotoğraf ekle",
+  "photoTake": "Fotoğraf çek",
+  "photoChooseFromGallery": "Galeriden seç",
+  "photoRemove": "{index}. fotoğrafı kaldır",
+  "@photoRemove": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "photoAddDescription": "Açıklama ekle",
+  "photoEditDescription": "Açıklamayı düzenle",
+  "photoDraftSemantics": "Fotoğraf {index}: {description}",
+  "@photoDraftSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "photoDraftNoDescription": "Fotoğraf {index}, açıklama eklenmedi",
+  "@photoDraftNoDescription": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "photoDescriptionAction": "{index}. fotoğraf için açıklama",
+  "@photoDescriptionAction": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "photoProcessing": "Fotoğraf hazırlanıyor",
+  "photoDescriptionTitle": "Fotoğraf açıklaması",
+  "photoDescriptionLabel": "Açıklama",
+  "photoDescriptionHelper": "Ekran okuyucu kullananlar için fotoğrafta ne göründüğünü kısaca anlatın.",
+  "photoDescriptionTooLong": "Açıklama en fazla {max} karakter olabilir.",
+  "@photoDescriptionTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "commonSave": "Kaydet",
+  "photoCameraDenied": "Kamera izni verilmedi. İzni cihaz ayarlarından verebilirsiniz.",
+  "photoCameraDeniedBrowser": "Kamera izni verilmedi. Tarayıcınızın adres çubuğundaki kamera simgesinden veya site ayarlarından izin verebilirsiniz.",
+  "cameraCaptureTitle": "Fotoğraf çek",
+  "cameraCaptureOpening": "Kamera açılıyor. Tarayıcınız izin isterse onaylayın.",
+  "cameraCaptureReady": "Kamera hazır. Fotoğrafı çekmek için deklanşöre dokunun.",
+  "cameraCaptureShutter": "Fotoğrafı çek",
+  "cameraCaptureSwitch": "Kamerayı değiştir",
+  "cameraCaptureCapturing": "Fotoğraf çekiliyor",
+  "cameraCaptureDeniedTitle": "Kamera izni verilmedi",
+  "cameraCaptureDeniedBody": "Tarayıcınızın adres çubuğundaki kamera simgesinden veya site ayarlarından bu siteye kamera izni verip tekrar deneyin.",
+  "cameraCaptureNoCameraTitle": "Kamera bulunamadı",
+  "cameraCaptureNoCameraBody": "Bu cihazda kullanılabilir kamera yok. Fotoğrafı galeriden seçebilirsiniz.",
+  "cameraCaptureFailedTitle": "Kamera açılamadı",
+  "cameraCaptureFailedBody": "Kamera başka bir uygulama tarafından kullanılıyor olabilir. Kapatıp tekrar deneyin.",
+  "cameraCaptureShotFailed": "Fotoğraf çekilemedi. Tekrar deneyin.",
+  "photoGalleryDenied": "Fotoğraflara erişim izni verilmedi. İzni cihaz ayarlarından verebilirsiniz.",
+  "photoPickFailed": "Fotoğraf seçilemedi. Lütfen tekrar deneyin.",
+  "photoUnsupported": "{count, plural, =1{Bir fotoğraf açılamadı. JPEG, PNG veya WebP biçiminde bir fotoğraf seçin.} other{{count} fotoğraf açılamadı. JPEG, PNG veya WebP biçiminde fotoğraflar seçin.}}",
+  "@photoUnsupported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "photoLimitReached": "En fazla {max} fotoğraf ekleyebilirsiniz.",
+  "@photoLimitReached": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryVisitHeading": "Ziyaret tarihi",
+  "memoryVisitOptional": "İsteğe bağlı",
+  "memoryVisitPick": "Tarih seçin",
+  "memoryVisitChange": "Ziyaret tarihi: {date}. Değiştir",
+  "@memoryVisitChange": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryVisitClear": "Ziyaret tarihini kaldır",
+  "memoryPublicNotice": "Anınız herkese açık olarak bu eserin sayfasında “{name}” adıyla görünür. Fotoğraflardaki konum ve cihaz bilgileri yüklenmeden önce silinir. Lütfen başkalarının kişisel bilgilerini paylaşmayın.",
+  "@memoryPublicNotice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memorySubmit": "Paylaş",
+  "photosUploading": "Fotoğraflar yükleniyor · %{percent}",
+  "@photosUploading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "photosUploadingSemantics": "Fotoğraf yükleme ilerlemesi",
+  "memoryShared": "Anınız paylaşıldı",
+  "memoryFixErrors": "Paylaşmadan önce işaretli alanları düzeltin.",
+  "memoryDiscardTitle": "Anı taslağı silinsin mi?",
+  "memoryDiscardBody": "Yazdıklarınız ve eklediğiniz fotoğraflar kaybolacak.",
+  "memoryDiscardConfirm": "Taslağı sil",
+  "memoryKeepEditing": "Düzenlemeye devam et",
+  "memoryPhotoNoDescription": "Paylaşan kişi bu fotoğraf için açıklama eklememiş.",
+  "memoryPhotoCredit": "{author} · {date}",
+  "@memoryPhotoCredit": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "photoTileSemantics": "Fotoğraf {index} / {count}: {description}",
+  "@photoTileSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "photoTileNoDescription": "Fotoğraf {index} / {count}, açıklama yok",
+  "@photoTileNoDescription": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "photoOpenHint": "tam ekran aç",
+  "memoryEntryOpenHint": "zaman çizelgesini aç",
+  "memoryEntryLatest": "Son anı",
+  "memoryEntrySemantics": "{count, plural, =0{Anı Köşesi, henüz anı yok} =1{Anı Köşesi, 1 anı} other{Anı Köşesi, {count} anı}}",
+  "@memoryEntrySemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memorySharedOn": "Paylaşım: {date}",
+  "@memorySharedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryFilterHeading": "Zamana göre filtrele",
+  "memoryFilterAll": "Tümü ({count})",
+  "@memoryFilterAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryFilterYear": "{year} ({count})",
+  "@memoryFilterYear": {
+    "placeholders": {
+      "year": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryFilterYearSemantics": "{year} yılı, {count} anı",
+  "@memoryFilterYearSemantics": {
+    "placeholders": {
+      "year": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryFilterRange": "Tarih aralığı",
+  "memoryFilterRangeHelp": "Anı tarihi aralığı seçin",
+  "memoryFilterClearRange": "Tarih aralığını kaldır",
+  "memoryFilterEmptyTitle": "Bu dönemde anı yok",
+  "memoryFilterEmptyBody": "Farklı bir yıl veya tarih aralığı seçin.",
+  "memoryFilterClear": "Filtreyi temizle",
+  "memoryFilterResult": "{count, plural, =0{Bu dönemde anı yok} =1{1 anı gösteriliyor} other{{count} anı gösteriliyor}}",
+  "@memoryFilterResult": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryTimelineHint": "Anılar ziyaret tarihine (yoksa paylaşım tarihine) göre sıralanır.",
+  "navCivilProtection": "Sivil Koruma",
+  "cpIntroTitle": "Kültürel mirası birlikte koruyalım",
+  "cpIntroBody": "Vakıf eserlerinde gördüğünüz hasarı, vandalizmi veya tehlikeyi Vakıflar Genel Müdürlüğü'ne bildirin. Her bildirime bir kayıt numarası verilir ve süreci buradan takip edersiniz.",
+  "cpIntroStep1Title": "Eseri ve durumu seçin",
+  "cpIntroStep1Body": "Hasar türünü ve ne kadar acil olduğunu belirtin.",
+  "cpIntroStep2Title": "Anlatın ve fotoğraflayın",
+  "cpIntroStep2Body": "Ne gördüğünüzü yazın; fotoğraflar değerlendirmeyi hızlandırır.",
+  "cpIntroStep3Title": "Süreci takip edin",
+  "cpIntroStep3Body": "VGM'nin incelemesini ve yaptığı işlemi bu ekrandan izleyin.",
+  "cpSignInPrompt": "Bildirim göndermek ve takip etmek için giriş yapın.",
+  "cpEmergencyNotice": "Can güvenliğini tehdit eden acil durumlarda önce 112 Acil Çağrı Merkezi'ni arayın.",
+  "cpNewReport": "Hasar bildir",
+  "cpMyReports": "Bildirimlerim",
+  "cpReportsEmptyTitle": "Henüz bildiriminiz yok",
+  "cpReportsEmptyBody": "Bir vakıf eserinde hasar veya tehlike gördüğünüzde buradan bildirebilirsiniz.",
+  "cpReportsLoading": "Bildirimler yükleniyor",
+  "cpReportsLoadFailed": "Bildirimler yüklenemedi",
+  "cpLoadMoreFailed": "Daha fazla bildirim yüklenemedi.",
+  "cpReportItemSemantics": "{monument}, {category}. Kayıt {reference}. Durum: {status}. {date}",
+  "@cpReportItemSemantics": {
+    "placeholders": {
+      "monument": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "cpCategoryStructural": "Yapısal hasar",
+  "cpCategoryStructuralBody": "Çatlak, ayrışma, bozulma",
+  "cpCategoryCollapse": "Çökme veya düşme tehlikesi",
+  "cpCategoryCollapseBody": "Gevşemiş taş, sarkan parça, eğilme",
+  "cpCategoryVandalism": "Vandalizm",
+  "cpCategoryVandalismBody": "Yazı, çizim, kırma, tahribat",
+  "cpCategoryTheft": "Hırsızlık veya eksik parça",
+  "cpCategoryTheftBody": "Çini, kitabe, süsleme veya parça eksik",
+  "cpCategoryFireWater": "Yangın veya su hasarı",
+  "cpCategoryFireWaterBody": "Yangın izi, su baskını, sızıntı",
+  "cpCategoryUnauthorized": "İzinsiz yapı veya onarım",
+  "cpCategoryUnauthorizedBody": "İzinsiz inşaat, kazı veya müdahale",
+  "cpCategoryOther": "Diğer",
+  "cpCategoryOtherBody": "Yukarıdakilere uymayan bir durum",
+  "cpUrgencyLow": "Düşük",
+  "cpUrgencyLowBody": "Acil değil, zamanla kötüleşebilir",
+  "cpUrgencyMedium": "Orta",
+  "cpUrgencyMediumBody": "Kısa sürede incelenmeli",
+  "cpUrgencyHigh": "Yüksek",
+  "cpUrgencyHighBody": "Hasar büyüyor veya ziyaretçileri etkiliyor",
+  "cpUrgencyCritical": "Kritik",
+  "cpUrgencyCriticalBody": "Yapı veya çevresi için ciddi ve yakın tehlike",
+  "cpStatusReceived": "Alındı",
+  "cpStatusInReview": "İnceleniyor",
+  "cpStatusForwarded": "Yetkili birime iletildi",
+  "cpStatusResolved": "Sonuçlandı",
+  "cpStatusClosed": "Kapatıldı",
+  "cpStatusReceivedBody": "Bildiriminiz kayda alındı.",
+  "cpStatusInReviewBody": "VGM Sivil Koruma birimi bildiriminizi inceliyor.",
+  "cpStatusForwardedBody": "Gerekli işlem için yetkili bölge müdürlüğüne iletildi.",
+  "cpStatusResolvedBody": "Gerekli işlem yapıldı.",
+  "cpStatusClosedBody": "Bildirim işlem gerektirmeden kapatıldı.",
+  "cpStatusPending": "Bekleniyor",
+  "cpStatusStepSemantics": "{status}, {state}",
+  "@cpStatusStepSemantics": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "cpStatusDone": "tamamlandı",
+  "cpStatusCurrent": "şu anki adım",
+  "cpWizardTitle": "Hasar bildirimi",
+  "cpWizardClose": "Bildirimi kapat",
+  "cpStepProgress": "Adım {current}/{total}: {title}",
+  "@cpStepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cpStepMonument": "Eser",
+  "cpStepCategory": "Hasar türü",
+  "cpStepUrgency": "Aciliyet",
+  "cpStepDetails": "Açıklama ve fotoğraf",
+  "cpStepLocation": "Konum",
+  "cpStepReview": "Gözden geçir",
+  "cpStepMonumentQuestion": "Bildiriminiz hangi eserle ilgili?",
+  "cpStepCategoryQuestion": "Ne gördünüz?",
+  "cpStepUrgencyQuestion": "Ne kadar acil?",
+  "cpStepDetailsQuestion": "Durumu anlatın",
+  "cpStepLocationQuestion": "Konumunuzu eklemek ister misiniz?",
+  "cpStepReviewQuestion": "Bildiriminizi kontrol edin",
+  "cpChooseMonument": "Eser seç",
+  "cpChangeMonument": "Eseri değiştir",
+  "cpMonumentPickerTitle": "Eser seçin",
+  "cpMonumentPickerHint": "Eser veya yer ara",
+  "cpMonumentLoadFailed": "Eser bilgisi alınamadı.",
+  "cpDescriptionLabel": "Açıklama",
+  "cpDescriptionHint": "Hasarın yerini ve durumunu anlatın: hangi cephe, ne büyüklükte, ne zamandır…",
+  "cpDescriptionTooShort": "En az {min} karakterle açıklayın.",
+  "@cpDescriptionTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "cpDescriptionTooLong": "Açıklama en fazla {max} karakter olabilir.",
+  "@cpDescriptionTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "cpLocationExplain": "Konumunuz, bildirimin eserin yanında yapıldığını doğrulamak için yalnızca bu bildirimle VGM'ye iletilir; başka bir amaçla kullanılmaz. Eklemeden de gönderebilirsiniz.",
+  "cpLocationToggle": "Konumumu bu bildirime ekle",
+  "cpLocationLocating": "Konumunuz alınıyor…",
+  "cpLocationFound": "Konumunuz alındı (±{accuracy} m).",
+  "@cpLocationFound": {
+    "placeholders": {
+      "accuracy": {
+        "type": "int"
+      }
+    }
+  },
+  "cpLocationDistance": "Esere yaklaşık {distance} uzaklıktasınız.",
+  "@cpLocationDistance": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "cpLocationOnSite": "Eserin yakınındasınız; bildiriminiz yerinde yapılmış olarak işaretlenecek.",
+  "cpLocationFar": "Esere uzaktasınız; bildiriminiz yine de iletilir.",
+  "cpLocationServiceDisabled": "Konum servisleri kapalı. Ayarlardan açabilir veya konumsuz devam edebilirsiniz.",
+  "cpLocationDenied": "Konum izni verilmedi. Konumsuz devam edebilirsiniz.",
+  "cpLocationDeniedForever": "Konum izni kapalı. Ayarlardan izin verebilir veya konumsuz devam edebilirsiniz.",
+  "cpLocationUnavailable": "Konumunuz şu anda alınamıyor. Tekrar deneyebilir veya konumsuz devam edebilirsiniz.",
+  "cpLocationUnsupported": "Bu cihazda konum eklenemiyor.",
+  "cpReviewEdit": "Düzenle",
+  "cpReviewEditSemantics": "{section} düzenle",
+  "@cpReviewEditSemantics": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "cpReviewPhotos": "{count, plural, =0{Fotoğraf eklenmedi} =1{1 fotoğraf} other{{count} fotoğraf}}",
+  "@cpReviewPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cpReviewLocationShared": "Konum eklendi",
+  "cpReviewLocationNotShared": "Konum eklenmedi",
+  "cpNext": "İleri",
+  "cpBack": "Geri",
+  "cpSubmit": "Bildirimi gönder",
+  "cpSubmitted": "Bildiriminiz alındı · {code}",
+  "@cpSubmitted": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "cpFixStep": "Devam etmeden önce bu adımı tamamlayın.",
+  "cpMonumentRequired": "Bir eser seçin.",
+  "cpCategoryRequired": "Bir hasar türü seçin.",
+  "cpUrgencyRequired": "Aciliyeti seçin.",
+  "cpDiscardTitle": "Bildirim taslağı silinsin mi?",
+  "cpDiscardBody": "Girdiğiniz bilgiler ve fotoğraflar kaybolacak.",
+  "cpDiscardConfirm": "Taslağı sil",
+  "cpKeepEditing": "Düzenlemeye devam et",
+  "cpDetailTitle": "Bildirim",
+  "cpReferenceLabel": "Kayıt numarası",
+  "cpCopyReference": "Kayıt numarasını kopyala",
+  "cpReferenceCopied": "Kayıt numarası kopyalandı",
+  "cpStatusHeading": "Süreç",
+  "cpDetailsHeading": "Bildirim bilgileri",
+  "cpCategoryField": "Hasar türü",
+  "cpUrgencyField": "Aciliyet",
+  "cpDescriptionField": "Açıklama",
+  "cpPhotosField": "Fotoğraflar",
+  "cpLocationField": "Konum",
+  "cpLocationOnSiteValue": "Yerinde doğrulandı (esere {distance})",
+  "@cpLocationOnSiteValue": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "cpLocationDistantValue": "Esere {distance} uzaktan bildirildi",
+  "@cpLocationDistantValue": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "cpLocationNotProvidedValue": "Konum paylaşılmadı",
+  "cpSubmittedOn": "Gönderim: {date}",
+  "@cpSubmittedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "cpNoteFromVgm": "VGM notu",
+  "cpDetailLoadFailed": "Bildirim yüklenemedi",
+  "cpNotFoundTitle": "Bildirim bulunamadı",
+  "cpNotFoundBody": "Bu bildirim size ait değil veya kaldırılmış.",
+  "cpBackToList": "Bildirimlerime dön",
+  "cpPhotoNoDescription": "Bu fotoğraf için açıklama eklenmemiş.",
+  "cpPhotoCredit": "Bildiriminizin fotoğrafı",
+  "monumentReportTitle": "Bir sorun mu gördünüz?",
+  "monumentReportBody": "Bu eserde hasar, vandalizm veya tehlike gördüyseniz Sivil Koruma'ya bildirin.",
+  "accountButtonTooltip": "Hesap ve ayarlar",
+  "guideWelcomeTitle": "Size nasıl yardımcı olabilirim?",
+  "guideWelcomeBody": "Vakıf eserleri hakkında sorun ya da uygulamada ne yapmak istediğinizi yazın; sizi ilgili sayfaya yönlendireyim.",
+  "guideStartersHeading": "Örnek sorular",
+  "guideStarterMonument": "Süleymaniye Camii'ni kim yaptırdı?",
+  "guideStarterList": "Konya'daki Selçuklu eserleri",
+  "guideStarterRoute": "Rota nasıl planlarım?",
+  "guideStarterDamage": "Hasar nasıl bildiririm?",
+  "guideAskSuggestion": "Sor: {question}",
+  "@guideAskSuggestion": {
+    "placeholders": {
+      "question": {
+        "type": "String"
+      }
+    }
+  },
+  "guideSuggestionsSemantics": "Önerilen sorular",
+  "guideQuestionSemantics": "Siz: {text}",
+  "@guideQuestionSemantics": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideAnswerAnnouncement": "Rehber: {text}",
+  "@guideAnswerAnnouncement": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideSources": "Kaynak: VGM kataloğu — {names}",
+  "@guideSources": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "guideTyping": "Rehber yanıt hazırlıyor…",
+  "guideSendFailed": "Soru gönderilemedi.",
+  "guideNewConversation": "Yeni sohbet",
+  "guideResetAnnouncement": "Yeni sohbet başlatıldı.",
+  "guideInputLabel": "Rehbere sorun",
+  "guideInputHint": "Bir eser, şehir veya yapmak istediğiniz şey…",
+  "guideInputCounter": "{count}/{max}",
+  "@guideInputCounter": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "guideSend": "Gönder",
+  "guideVoiceStart": "Sesli sor",
+  "guideVoiceStop": "Dinlemeyi durdur",
+  "guideVoiceListening": "Dinleniyor… Sorunuzu söyleyin, bitince durdurun.",
+  "guideVoiceHeard": "Söylediğiniz: {text}. Göndermek için Gönder'e dokunun.",
+  "@guideVoiceHeard": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "guideVoicePermissionDenied": "Sesli soru için mikrofon izni gerekiyor.",
+  "guideVoicePermissionBlocked": "Mikrofon izni kapalı. Sistem ayarlarından açabilirsiniz.",
+  "guideVoicePermissionBlockedWeb": "Mikrofon izni kapalı. Tarayıcının site ayarlarından açabilirsiniz.",
+  "guideVoiceUnavailable": "Bu cihazda veya tarayıcıda sesli soru kullanılamıyor. Sorunuzu yazabilirsiniz.",
+  "guideVoiceNoMatch": "Konuşmanız anlaşılamadı. Tekrar deneyin veya yazın.",
+  "guideVoiceFailed": "Sesli soru alınamadı. Tekrar deneyin veya yazın.",
+  "guidePrivacyNotice": "Yanıtlar VGM kataloğuna dayanır. Kişisel bilgilerinizi paylaşmayın.",
+  "guideActionOpenMonument": "{name} sayfasını aç",
+  "@guideActionOpenMonument": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "guideActionShowOnMap": "Haritada göster",
+  "guideActionOpenMemories": "Anıları gör",
+  "guideActionReportDamage": "Hasar bildir",
+  "guideActionSearch": "{count, plural, =1{1 eseri listele} other{{count} eseri listele}}",
+  "@guideActionSearch": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "guideActionSearchAll": "Eserlerde ara",
+  "guideActionOpenMap": "Haritayı aç",
+  "guideActionOpenRoutes": "Rotalarım",
+  "guideActionNewRoute": "Rota oluştur",
+  "guideActionOpenCivilProtection": "Sivil Koruma",
+  "guideActionOpenSettings": "Ayarları aç",
+  "guideActionForMonument": "{action}: {name}",
+  "@guideActionForMonument": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessibilityTitle": "Erişilebilirlik",
+  "accessibilityIntro": "Bir kutucuğa her dokunuşta bir sonraki seviyeye geçilir; son seviyeden sonra kapanır. Tercihler tüm uygulamaya hemen uygulanır ve bu cihazda saklanır.",
+  "accessibilityDeviceNote": "Ekran okuyucu, kalın yazı ve cihaz yazı boyutu cihazınızın ayarlarından gelir; uygulama bunlara uyar. Buradaki metin boyutu cihaz boyutuyla çarpılır.",
+  "accessibilityReset": "Varsayılanlara dön",
+  "accessibilityResetDone": "Erişilebilirlik tercihleri varsayılana döndürüldü.",
+  "settingsAccessibilityDescription": "Metin boyutu, yüksek kontrast, renk görme, hareket ve titreşim",
+  "onboardingAccessibilityOpen": "Erişilebilirlik ayarlarını aç",
+  "guideActionOpenAccessibility": "Erişilebilirlik ayarlarını aç",
+  "a11yImageHidden": "Görsel gizlendi",
+  "a11yFeatureReadAloud": "Sesli Okuma",
+  "a11yFeatureReadOnFocus": "Odakta Oku",
+  "a11yFeatureGrayscale": "Gri Tonlama",
+  "a11yFeatureContrast": "Kontrast",
+  "a11yFeatureZoom": "Yakınlaştırma",
+  "a11yFeatureHideImages": "Görseli Gizle",
+  "a11yFeatureHighlightLinks": "Bağlantıları Vurgula",
+  "a11yFeatureColorBlindness": "Renk Körlüğü",
+  "a11yFeatureEasyReading": "Kolay Okuma",
+  "a11yFeatureBlueLightFilter": "Mavi Ekran Filtresi",
+  "a11yFeatureStopAnimations": "Animasyonları Durdur",
+  "a11yFeatureDyslexiaFriendly": "Disleksi Dostu",
+  "a11yFeatureReadingGuide": "Okuma Çizgisi",
+  "a11yFeatureFocusHighlight": "Odaklanma",
+  "a11yFeatureBigCursor": "Büyük İmleç",
+  "a11yFeatureLineHeight": "Satır Yüksekliği",
+  "a11yFeatureAlignLeft": "Sola Hizala",
+  "a11yFeatureHaptics": "Titreşim",
+  "a11yLevelOff": "Kapalı",
+  "a11yLevelOn": "Açık",
+  "a11yContrastAuto": "Yüksek kontrast",
+  "a11yContrastDark": "Koyu yüksek kontrast",
+  "a11yContrastLight": "Açık yüksek kontrast",
+  "a11yContrastInvert": "Ters renkler",
+  "a11yBlueLightLow": "Hafif",
+  "a11yBlueLightHigh": "Güçlü",
+  "a11yDyslexiaFont": "Okunaklı font",
+  "a11yDyslexiaSpacing": "Okunaklı font ve geniş aralık",
+  "a11yDyslexiaCream": "Okunaklı font, geniş aralık ve krem zemin",
+  "a11yGuideThin": "İnce çizgi",
+  "a11yGuideThick": "Kalın çizgi",
+  "a11yGuideMask": "Okuma maskesi",
+  "a11yFocusVisible": "Belirgin",
+  "a11yFocusThick": "Kalın",
+  "a11yFocusExtra": "Çok kalın",
+  "a11yCursorLarge": "Büyük",
+  "a11yCursorExtra": "Çok büyük",
+  "a11yLineHeightValue": "{value} kat",
+  "@a11yLineHeightValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yTileState": "{feature}: {state}",
+  "@a11yTileState": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yTileLevel": "Seviye {level} / {levels}",
+  "@a11yTileLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "levels": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yTileHint": "sonraki seviye",
+  "mapAccessibilityButton": "Erişilebilirlik",
+  "settingsShowAccessibilityButton": "Haritada Erişilebilirlik butonunu göster",
+  "settingsShowAccessibilityButtonDescription": "Kapalıyken erişilebilirlik paneline buradan ve ilk açılış tanıtımından ulaşabilirsiniz; tercihleriniz uygulanmaya devam eder.",
+  "complexMemberCount": "{count, plural, =0{Yapı listelenmedi} =1{1 yapı} other{{count} yapı}}",
+  "@complexMemberCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMembersTitle": "Külliyedeki yapılar",
+  "complexMembersSeeAll": "Tüm yapıları gör ({count})",
+  "@complexMembersSeeAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMembersPageTitle": "{name} yapıları",
+  "@complexMembersPageTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexMembersEmpty": "Bu külliyenin yapıları henüz kataloğa eklenmedi.",
+  "complexMembersFilterEmpty": "Bu türde yapı yok.",
+  "complexMembersLoadFailed": "Külliyenin yapıları yüklenemedi.",
+  "complexMembersEndOfList": "Tüm yapılar gösterildi ({count})",
+  "@complexMembersEndOfList": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "complexMemberSemantics": "{index}. {name}, {category}",
+  "@complexMemberSemantics": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "complexPartOf": "{name} yapılarından biri",
+  "@complexPartOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexPartOfHint": "Külliyeyi ve diğer yapılarını görmek için dokunun",
+  "complexSiblingsTitle": "Külliyedeki diğer yapılar",
+  "complexLayoutTitle": "Yerleşim planı",
+  "complexLayoutMapSemantics": "{name} yerleşim planı, {members}. Yapılar yukarıdaki listede aynı sırayla yer alır.",
+  "@complexLayoutMapSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      }
+    }
+  },
+  "complexOpen": "Külliyeyi gör",
+  "complexOpenSemantics": "Külliyeyi gör, {name}",
+  "@complexOpenSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "complexFactMembers": "Yapılar",
+  "complexListItemSubtitle": "{location} · Külliye · {members}",
+  "@complexListItemSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentListItemMemberSubtitle": "{location} · {category} · {complex}",
+  "@monumentListItemMemberSubtitle": {
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "complex": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexSemantics": "{name}, külliye, {members}, {district}, {city}",
+  "@mapComplexSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "members": {
+        "type": "String"
+      },
+      "district": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexMemberSemantics": "{name}, {complex} içinde",
+  "@mapComplexMemberSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "complex": {
+        "type": "String"
+      }
+    }
+  },
+  "mapComplexAreaSemantics": "{name} yerleşim alanı. Külliyeyi seçmek için dokunun.",
+  "@mapComplexAreaSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryStatusApproved": "Yayında",
+  "memoryStatusPending": "İncelemede",
+  "memoryStatusRejected": "Yayınlanmadı",
+  "memorySharedPending": "Anınız incelemeye alındı. Onaylanınca Anı Köşesi'nde yayınlanacak; durumunu Anılarım'da görebilirsiniz.",
+  "memorySharedRejected": "Anınız topluluk kurallarına uygun bulunmadığı için yayınlanmadı. Anılarım'da görebilirsiniz.",
+  "memoryOpenMyMemories": "Anılarım",
+  "myMemoriesPreviewStatusSemantics": "{status}. {summary}",
+  "@myMemoriesPreviewStatusSemantics": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentLocationPending": "Bu eserin konumu henüz girilmedi; haritada ve rota planlayıcıda yer almıyor.",
+  "monumentNickname": "Halk arasında: {name}",
+  "@monumentNickname": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "monumentPartFallback": "Bölüm {index}",
+  "@monumentPartFallback": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "routePickerNoLocation": "{details} · Konum yok, rotaya eklenemez",
+  "@routePickerNoLocation": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  }
+}

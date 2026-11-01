@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Açılış zemini: Koyu Yeşil (LaunchColors.background, lib/core/theme/launch_colors.dart).
+         Marka anıdır; açık ve koyu modda aynıdır. -->
+    <color name="splash_background">#081F1D</color>
+</resources>

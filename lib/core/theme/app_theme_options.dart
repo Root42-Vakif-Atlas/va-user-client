@@ -1,0 +1,55 @@
+import 'package:flutter/foundation.dart';
+
+/// Erişilebilirlik panelinin temaya yansıyan tercihleri (font, metin
+/// aralığı, satır yüksekliği, zemin, bağlantı vurgusu).
+///
+/// Tema çekirdeği feature'lara bağımlı olmasın diye ilkel değerler taşır;
+/// eşlemeyi kök (`app.dart`) yapar.
+@immutable
+final class AppThemeOptions {
+  const AppThemeOptions({
+    this.legibleFont = false,
+    this.wideTextSpacing = false,
+    this.lineHeight,
+    this.creamBackground = false,
+    this.highlightLinks = false,
+  });
+
+  static const AppThemeOptions standard = AppThemeOptions();
+
+  /// Okunaklı (disleksi dostu) font: Atkinson Hyperlegible.
+  final bool legibleFont;
+
+  /// WCAG 1.4.12: harf aralığı 0,12 em, kelime aralığı 0,16 em.
+  final bool wideTextSpacing;
+
+  /// Satır yüksekliği çarpanı; tasarım değerinden büyükse uygulanır.
+  final double? lineHeight;
+
+  /// Açık temada parlak beyaz yerine krem zemin.
+  final bool creamBackground;
+
+  /// Butonlar ve bağlantılar alt çizgi + çerçeveyle vurgulanır.
+  final bool highlightLinks;
+
+  static const double letterSpacingEm = 0.12;
+  static const double wordSpacingEm = 0.16;
+
+  @override
+  bool operator ==(Object other) =>
+      other is AppThemeOptions &&
+      other.legibleFont == legibleFont &&
+      other.wideTextSpacing == wideTextSpacing &&
+      other.lineHeight == lineHeight &&
+      other.creamBackground == creamBackground &&
+      other.highlightLinks == highlightLinks;
+
+  @override
+  int get hashCode => Object.hash(
+    legibleFont,
+    wideTextSpacing,
+    lineHeight,
+    creamBackground,
+    highlightLinks,
+  );
+}

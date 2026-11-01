@@ -1,0 +1,7 @@
+/* Sistem izin pencerelerindeki açıklamalar (Türkçe). Info.plist'teki
+   değerlerle aynıdır; cihaz dili Türkçe olduğunda bu dosya kullanılır. */
+"NSLocationWhenInUseUsageDescription" = "Yakınınızdaki vakıf eserlerini haritada göstermek için konumunuz kullanılır. Haritada konumunuz cihazınızdan çıkmaz; yalnızca bir hasar bildirimine eklemeyi seçerseniz o bildirimle gönderilir.";
+"NSCameraUsageDescription" = "Anı Köşesi'nde ve hasar bildirimlerinde paylaşmak istediğiniz fotoğrafı çekmek için kamera kullanılır. Fotoğraf yalnızca siz paylaştığınızda yüklenir.";
+"NSPhotoLibraryUsageDescription" = "Anı Köşesi'nde ve hasar bildirimlerinde paylaşmak için seçtiğiniz fotoğraflara erişilir. Konum bilgisi paylaşılmadan önce fotoğraftan silinir.";
+"NSMicrophoneUsageDescription" = "Dijital Rehber'e sesli soru sormak için mikrofon kullanılır. Ses kaydı saklanmaz; soru siz göndermeden iletilmez.";
+"NSSpeechRecognitionUsageDescription" = "Dijital Rehber'e sorduğunuz sesli soru Apple'ın konuşma tanıma servisiyle metne çevrilir. Uygulama ses kaydı saklamaz; soru siz göndermeden iletilmez.";
