@@ -129,3 +129,40 @@ class WatchRouteChangesUseCase implements StreamUseCase<RouteChange, NoParams> {
   @override
   Stream<RouteChange> call(NoParams params) => _repository.changes;
 }
+
+/// Durak dizisi kurala (2–10 tekil eser) uymuyorsa sunucuya gidilmez.
+bool _isValidStopSequence(List<String> monumentIds) =>
+    monumentIds.length >= RoutePlanRules.minStops &&
+    monumentIds.length <= RoutePlanRules.maxStops &&
+    monumentIds.toSet().length == monumentIds.length;
+
+const _invalidSequence = Left<Failure, Never>(
+  ServerFailure(kind: ServerFailureKind.invalidRequest, statusCode: 400),
+);
+
+/// Oluşturucunun karayolu ön hesabı (bizim OSRM, kayıtla aynı bacaklar).
+class PreviewRouteUseCase implements UseCase<RoutePreview, List<String>> {
+  const PreviewRouteUseCase(this._repository);
+
+  final RouteRepository _repository;
+
+  /// [monumentIds] sırasıyla durak eserleri.
+  @override
+  ResultFuture<RoutePreview> call(List<String> monumentIds) async =>
+      _isValidStopSequence(monumentIds)
+      ? _repository.previewRoute(monumentIds: monumentIds)
+      : _invalidSequence;
+}
+
+/// "Sırayı optimize et"in karayolu süre / mesafe matrisi.
+class GetTravelMatrixUseCase implements UseCase<TravelMatrix, List<String>> {
+  const GetTravelMatrixUseCase(this._repository);
+
+  final RouteRepository _repository;
+
+  @override
+  ResultFuture<TravelMatrix> call(List<String> monumentIds) async =>
+      _isValidStopSequence(monumentIds)
+      ? _repository.getTravelMatrix(monumentIds: monumentIds)
+      : _invalidSequence;
+}

@@ -167,6 +167,25 @@ void main() {
       );
     });
 
+    test('bacak çizgisi eserlerin konumunda başlayıp biter', () async {
+      final route = await create([
+        'suleymaniye-camii',
+        'selimiye-camii',
+        'bursa-ulu-camii',
+      ]).then((dto) => dto.toDomain());
+
+      for (var i = 0; i < route.legs.length; i++) {
+        final geometry = route.legs[i].geometry;
+        expect(geometry.first.distanceTo(route.stops[i].location), lessThan(2));
+        expect(
+          geometry.last.distanceTo(route.stops[i + 1].location),
+          lessThan(2),
+        );
+        // Karayolu çizgisi: iki noktalı düz çizgi değil.
+        expect(geometry.length, greaterThan(10));
+      }
+    });
+
     test('eser adları istek dilinde döner', () async {
       final route = await create([
         'kizlaragasi-hani',

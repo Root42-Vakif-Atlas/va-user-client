@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
@@ -7,6 +8,7 @@ import 'package:vakif_atlas/features/memory_corner/presentation/memory_presentat
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 
 /// Kullanıcının seçtiği bildirme nedeni ve notu.
@@ -19,35 +21,24 @@ final class MemoryReportSubmission {
 }
 
 /// Kalıcı silme onayı.
-Future<bool> confirmMemoryDelete(BuildContext context) async {
+Future<bool> confirmMemoryDelete(BuildContext context) {
   final l10n = context.l10n;
-  final confirmed = await showDialog<bool>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(l10n.memoryDeleteConfirmTitle),
-      content: Text(l10n.memoryDeleteConfirmBody),
-      actions: [
-        TextButton(
-          key: const Key('memory_delete_cancel'),
-          onPressed: () => Navigator.of(context).pop(false),
-          child: Text(l10n.commonCancel),
-        ),
-        TextButton(
-          key: const Key('memory_delete_confirm'),
-          style: TextButton.styleFrom(foregroundColor: context.colors.error),
-          onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.memoryDelete),
-        ),
-      ],
-    ),
+  return showConfirmDialog(
+    context,
+    title: l10n.memoryDeleteConfirmTitle,
+    body: l10n.memoryDeleteConfirmBody,
+    confirmLabel: l10n.memoryDelete,
+    cancelLabel: l10n.commonCancel,
+    confirmKey: const Key('memory_delete_confirm'),
+    cancelKey: const Key('memory_delete_cancel'),
   );
-  return confirmed ?? false;
 }
 
 /// Bildirme nedeni + isteğe bağlı not. Vazgeçilirse `null`.
 Future<MemoryReportSubmission?> showMemoryReportSheet(BuildContext context) =>
     showModalBottomSheet<MemoryReportSubmission>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,
@@ -63,6 +54,7 @@ Future<bool> showMemorySignInSheet(
   final l10n = context.l10n;
   final confirmed = await showModalBottomSheet<bool>(
     context: context,
+    sheetAnimationStyle: context.motionAnimationStyle,
     useSafeArea: true,
     showDragHandle: true,
     isScrollControlled: true,

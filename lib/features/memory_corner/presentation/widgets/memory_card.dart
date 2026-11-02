@@ -249,6 +249,7 @@ class _ActionsButton extends StatelessWidget {
       );
     }
     return PopupMenuButton<_MemoryAction>(
+      popUpAnimationStyle: context.motionAnimationStyle,
       key: Key('memory_menu_${memory.id}'),
       tooltip: l10n.memoryMoreActions(memory.author.displayName),
       icon: const Icon(Icons.more_vert),
@@ -262,7 +263,7 @@ class _ActionsButton extends StatelessWidget {
             key: const Key('memory_action_delete'),
             value: _MemoryAction.delete,
             child: ListTile(
-              leading: Icon(Icons.delete_outline, color: colors.error),
+              leading: Icon(Icons.delete_outlined, color: colors.error),
               title: Text(l10n.memoryDelete),
             ),
           ),

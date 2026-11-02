@@ -15,7 +15,7 @@ extension AccessibilityFeaturePresentation on AccessibilityFeature {
     AccessibilityFeature.colorBlindness => Icons.visibility_outlined,
     AccessibilityFeature.easyReading => Icons.menu_book_outlined,
     AccessibilityFeature.blueLightFilter => Icons.laptop_outlined,
-    AccessibilityFeature.stopAnimations => Icons.pause_circle_outline,
+    AccessibilityFeature.stopAnimations => Icons.pause_circle_outlined,
     AccessibilityFeature.dyslexiaFriendly => Icons.psychology_outlined,
     AccessibilityFeature.readingGuide => Icons.horizontal_rule,
     AccessibilityFeature.focusHighlight => Icons.center_focus_strong_outlined,

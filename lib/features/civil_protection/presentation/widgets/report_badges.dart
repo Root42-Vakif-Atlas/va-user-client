@@ -6,9 +6,10 @@ import 'package:vakif_atlas/features/civil_protection/domain/entities/damage_rep
 import 'package:vakif_atlas/features/civil_protection/presentation/civil_protection_presentation.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/status_badge.dart';
 
 /// Rapor durumu: ikon + metin; renk yalnızca destekleyicidir (WCAG 1.4.1).
-/// Metin nötr yüzeyde ön plan renginde kalır (kontrast her temada ≥ 4.5:1).
+/// Ortak `StatusBadge` görünümü (kontrast her temada ≥ 4.5:1).
 class ReportStatusBadge extends StatelessWidget {
   const ReportStatusBadge({required this.status, super.key});
 
@@ -16,39 +17,10 @@ class ReportStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colors.surfaceVariant,
-        borderRadius: BorderRadius.circular(AppRadius.xs),
-        border: Border(
-          left: BorderSide(color: status.color(colors), width: AppSpacing.xxs),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.xs,
-          vertical: AppSpacing.xxs,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppIcon.decorative(
-              status.icon,
-              size: AppSizes.iconSm,
-              color: status.color(colors),
-            ),
-            const SizedBox(width: AppSpacing.xxs),
-            Flexible(
-              child: AppText(
-                status.label(context.l10n),
-                role: AppTextRole.labelMedium,
-                color: colors.onSurface,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return StatusBadge(
+      icon: status.icon,
+      label: status.label(context.l10n),
+      color: status.color(context.colors),
     );
   }
 }

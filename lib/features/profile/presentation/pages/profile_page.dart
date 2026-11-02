@@ -6,7 +6,10 @@ import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/diamond_divider.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/grouped_section.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/section_header.dart';
 
 /// Vatandaş profili.
 ///
@@ -71,9 +74,7 @@ class ProfilePage extends StatelessWidget {
                     color: context.colors.onSurfaceVariant,
                   ),
                 ],
-                const SizedBox(height: AppSpacing.md),
-                const DiamondDivider(),
-                const SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.lg),
                 if (progressSection case final section?) ...[
                   section,
                   const SizedBox(height: AppSpacing.md),
@@ -82,51 +83,72 @@ class ProfilePage extends StatelessWidget {
                   section,
                   const SizedBox(height: AppSpacing.md),
                 ],
-                ListTile(
-                  key: const Key('profile_exports_tile'),
-                  leading: const Icon(Icons.picture_as_pdf_outlined),
-                  title: Text(l10n.routeExportsTitle),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: onOpenExports,
-                ),
-                ListTile(
-                  key: const Key('profile_settings_tile'),
-                  leading: const Icon(Icons.settings_outlined),
-                  title: Text(l10n.settingsTitle),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: onOpenSettings,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                AppText(
-                  l10n.profileSecuritySection,
-                  role: AppTextRole.titleMedium,
-                  color: context.colors.accentText,
-                  isHeading: true,
-                ),
-                ListTile(
-                  key: const Key('profile_change_password_tile'),
-                  leading: const Icon(Icons.password),
-                  title: Text(l10n.changePasswordTitle),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: onChangePassword,
-                ),
-                ListTile(
-                  key: const Key('profile_delete_account_tile'),
-                  leading: Icon(
-                    Icons.delete_forever_outlined,
-                    color: context.colors.error,
-                  ),
-                  title: Text(l10n.deleteAccountTitle),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: onDeleteAccount,
+                GroupedSection(
+                  children: [
+                    ListTile(
+                      key: const Key('profile_exports_tile'),
+                      leading: const LeadingIconTile(
+                        icon: Icons.picture_as_pdf_outlined,
+                        tone: LeadingIconTone.complex,
+                      ),
+                      title: Text(l10n.routeExportsTitle),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: onOpenExports,
+                    ),
+                    ListTile(
+                      key: const Key('profile_settings_tile'),
+                      leading: const LeadingIconTile(
+                        icon: Icons.settings_outlined,
+                      ),
+                      title: Text(l10n.settingsTitle),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: onOpenSettings,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.lg),
+                SectionHeader(l10n.profileSecuritySection),
+                const SizedBox(height: AppSpacing.xs),
+                GroupedSection(
+                  children: [
+                    ListTile(
+                      key: const Key('profile_change_password_tile'),
+                      leading: const LeadingIconTile(
+                        icon: Icons.password_outlined,
+                        tone: LeadingIconTone.primary,
+                      ),
+                      title: Text(l10n.changePasswordTitle),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: onChangePassword,
+                    ),
+                  ],
+                ),
+                // Geri dönüşsüz eylemler sayfanın sonunda, ayrı bir blokta.
+                const SizedBox(height: AppSpacing.xl),
                 AppButton.destructive(
                   key: const Key('profile_logout_button'),
                   label: l10n.profileLogout,
                   icon: Icons.logout,
                   expand: true,
                   onPressed: () => _confirmLogout(context),
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                GroupedSection(
+                  children: [
+                    ListTile(
+                      key: const Key('profile_delete_account_tile'),
+                      leading: const LeadingIconTile(
+                        icon: Icons.delete_forever_outlined,
+                        tone: LeadingIconTone.danger,
+                      ),
+                      title: AppText(
+                        l10n.deleteAccountTitle,
+                        color: context.colors.error,
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: onDeleteAccount,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -138,25 +160,15 @@ class ProfilePage extends StatelessWidget {
 
   Future<void> _confirmLogout(BuildContext context) async {
     final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.profileLogoutConfirmTitle),
-        content: Text(l10n.profileLogoutConfirmBody),
-        actions: [
-          AppButton.secondary(
-            label: l10n.commonCancel,
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-          ),
-          AppButton.destructive(
-            key: const Key('profile_logout_confirm_button'),
-            label: l10n.profileLogout,
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: l10n.profileLogoutConfirmTitle,
+      body: l10n.profileLogoutConfirmBody,
+      confirmLabel: l10n.profileLogout,
+      cancelLabel: l10n.commonCancel,
+      confirmKey: const Key('profile_logout_confirm_button'),
     );
-    if (confirmed ?? false) {
+    if (confirmed) {
       onLogoutConfirmed();
     }
   }

@@ -78,7 +78,7 @@ class AccountMenuSheet extends StatelessWidget {
             if (user != null)
               ListTile(
                 key: const Key('account_menu_profile'),
-                leading: const Icon(Icons.person_outline),
+                leading: const Icon(Icons.person_outlined),
                 title: Text(l10n.accountMenuProfile),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: onOpenProfile,

@@ -57,7 +57,9 @@ class AccessibilityTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
           side: BorderSide(
-            color: active ? colors.accentText : colors.outlineVariant,
+            // Pasif kutucuğun sınırı da etkileşimli bileşen sınırıdır (WCAG 1.4.11,
+            // ≥ 3:1): dekoratif `outlineVariant` değil `outline`.
+            color: active ? colors.accentText : colors.outline,
             width: active ? AppSizes.borderHeavy : AppSizes.borderThin,
           ),
         ),

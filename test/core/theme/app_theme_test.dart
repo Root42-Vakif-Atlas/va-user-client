@@ -74,19 +74,22 @@ void main() {
     });
   }
 
-  test('marka rolleri: Koyu Yeşil birincil aile, Antik Altın vurgu', () {
-    final dark = AppTheme.dark().extension<AppColorScheme>()!;
-    expect(dark.surface, AppColors.darkGreen);
-    expect(dark.onSurface, AppColors.warmIvory);
-    expect(dark.primary, AppColors.green80);
-    expect(dark.brandAccent, AppColors.antiqueGold);
+  test(
+    'marka rolleri: nötr yüzeyler, logo yeşili eylem, Antik Altın vurgu',
+    () {
+      final dark = AppTheme.dark().extension<AppColorScheme>()!;
+      expect(dark.surface, AppColors.ink);
+      expect(dark.onSurface, AppColors.inkText);
+      expect(dark.primary, AppColors.tealOnDark);
+      expect(dark.brandAccent, AppColors.antiqueGold);
 
-    final light = AppTheme.light().extension<AppColorScheme>()!;
-    expect(light.onSurface, AppColors.darkGreen);
-    expect(light.primary, AppColors.green30);
-    expect(light.surfaceElevated, AppColors.white);
-    expect(light.brandAccent, AppColors.antiqueGold);
-  });
+      final light = AppTheme.light().extension<AppColorScheme>()!;
+      expect(light.onSurface, AppColors.slateText);
+      expect(light.primary, AppColors.green30);
+      expect(light.surfaceElevated, AppColors.white);
+      expect(light.brandAccent, AppColors.antiqueGold);
+    },
+  );
 
   test('yüksek kontrast temaları kalın kenarlık kullanır', () {
     final border =

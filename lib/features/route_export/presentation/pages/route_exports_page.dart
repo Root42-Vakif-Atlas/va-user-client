@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vakif_atlas/core/a11y/a11y_announcer.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/failure_messages.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
@@ -13,7 +14,8 @@ import 'package:vakif_atlas/features/route_export/presentation/cubit/route_expor
 import 'package:vakif_atlas/features/route_export/presentation/pages/route_export_preview_page.dart';
 import 'package:vakif_atlas/features/route_export/presentation/route_document_builder.dart';
 import 'package:vakif_atlas/features/route_export/presentation/widgets/route_export_actions.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 
@@ -96,27 +98,16 @@ class _RouteExportsPageState extends State<RouteExportsPage> {
 
   Future<void> _confirmDelete(RouteExport export) async {
     final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.routeExportsDeleteConfirmTitle),
-        content: Text(l10n.routeExportsDeleteConfirmBody(export.routeName)),
-        actions: [
-          TextButton(
-            key: const Key('route_export_delete_cancel'),
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.commonCancel),
-          ),
-          TextButton(
-            key: const Key('route_export_delete_confirm'),
-            style: TextButton.styleFrom(foregroundColor: context.colors.error),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.routeExportsDelete),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: l10n.routeExportsDeleteConfirmTitle,
+      body: l10n.routeExportsDeleteConfirmBody(export.routeName),
+      confirmLabel: l10n.routeExportsDelete,
+      cancelLabel: l10n.commonCancel,
+      confirmKey: const Key('route_export_delete_confirm'),
+      cancelKey: const Key('route_export_delete_cancel'),
     );
-    if (confirmed ?? false) {
+    if (confirmed) {
       await _cubit.delete(export.id);
     }
   }
@@ -224,17 +215,9 @@ class _ExportList extends StatelessWidget {
               final export = items[index];
               return ListTile(
                 key: Key('route_export_${export.id}'),
-                leading: Container(
-                  width: AppSizes.minTouchTarget,
-                  height: AppSizes.minTouchTarget,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceVariant,
-                    borderRadius: BorderRadius.circular(AppRadius.md),
-                  ),
-                  child: AppIcon.decorative(
-                    Icons.picture_as_pdf_outlined,
-                    color: colors.accentText,
-                  ),
+                leading: const LeadingIconTile(
+                  icon: Icons.picture_as_pdf_outlined,
+                  tone: LeadingIconTone.complex,
                 ),
                 title: Text(export.routeName),
                 subtitle: Text(
@@ -246,6 +229,7 @@ class _ExportList extends StatelessWidget {
                 ),
                 onTap: () => onOpen(export),
                 trailing: PopupMenuButton<_ExportAction>(
+                  popUpAnimationStyle: context.motionAnimationStyle,
                   key: Key('route_export_menu_${export.id}'),
                   tooltip: l10n.routeExportsMoreActions(export.routeName),
                   onSelected: (action) => onAction(export, action),
@@ -279,7 +263,7 @@ class _ExportList extends StatelessWidget {
                       value: _ExportAction.delete,
                       child: ListTile(
                         leading: Icon(
-                          Icons.delete_outline,
+                          Icons.delete_outlined,
                           color: colors.error,
                         ),
                         title: Text(l10n.routeExportsDelete),

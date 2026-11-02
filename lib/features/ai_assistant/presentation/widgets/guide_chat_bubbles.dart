@@ -203,7 +203,7 @@ class GuideSuggestionChips extends StatelessWidget {
           for (final suggestion in suggestions)
             ActionChip(
               avatar: const AppIcon.decorative(
-                Icons.chat_bubble_outline,
+                Icons.chat_bubble_outlined,
                 size: AppSizes.iconSm,
               ),
               label: Text(suggestion),

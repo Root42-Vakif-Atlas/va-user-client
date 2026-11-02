@@ -54,12 +54,6 @@ abstract final class AppSizes {
   /// Ayarlar → Hakkında'daki uygulama simgesi.
   static const double aboutIcon = 72;
 
-  /// Boş durum / hata görünümünde ikonu taşıyan dairenin çapı.
-  static const double statusBadge = 96;
-
-  /// Liste içindeki kompakt boş durumda ikon dairesinin çapı.
-  static const double statusBadgeCompact = 64;
-
   /// Boş durum / hata metninin en geniş satırı (kısa, ortalı metin).
   static const double statusTextWidth = 400;
 

@@ -7,18 +7,17 @@ import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 import '../../../helpers/pump_app.dart';
 
 void main() {
-  Color badgeColor(WidgetTester tester) {
-    final box = tester.widget<Container>(
-      find.descendant(
-        of: find.byType(StatusMessageContent),
-        matching: find.byType(Container),
-      ),
-    );
-    return (box.decoration! as BoxDecoration).color!;
-  }
+  Color iconColor(WidgetTester tester) => tester
+      .widget<Icon>(
+        find.descendant(
+          of: find.byType(StatusMessageContent),
+          matching: find.byType(Icon),
+        ),
+      )
+      .color!;
 
-  testWidgets('boş durum: ikon dairesi, başlık, açıklama ve eylem; ayırıcı '
-      'yok', (tester) async {
+  testWidgets('boş durum: düz ikon (daire yok), başlık, açıklama ve eylem; '
+      'ayırıcı yok', (tester) async {
     var taps = 0;
     await tester.pumpApp(
       Scaffold(
@@ -33,8 +32,16 @@ void main() {
     );
 
     expect(find.byType(DiamondDivider), findsNothing);
+    // İkon dairesi/kutusu yoktur: yalnızca ikon, nötr tonda.
+    expect(
+      find.descendant(
+        of: find.byType(StatusMessageContent),
+        matching: find.byType(DecoratedBox),
+      ),
+      findsNothing,
+    );
     final context = tester.element(find.byType(StatusMessageContent));
-    expect(badgeColor(tester), context.colors.secondaryContainer);
+    expect(iconColor(tester), context.colors.onSurfaceVariant);
     expect(
       tester.getSemantics(find.text('Henüz kaydedilen eser yok')),
       isSemantics(label: 'Henüz kaydedilen eser yok', isHeader: true),
@@ -58,7 +65,7 @@ void main() {
       ),
     );
     final context = tester.element(find.byType(StatusMessageContent));
-    expect(badgeColor(tester), isNot(context.colors.secondaryContainer));
+    expect(iconColor(tester), context.colors.error);
   });
 
   testWidgets('%200 metin ölçeğinde küçük ekranda taşmaz', (tester) async {

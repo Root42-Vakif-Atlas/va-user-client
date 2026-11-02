@@ -15,6 +15,7 @@ import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/brand_emblem.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/diamond_divider.dart';
+import 'package:vakif_atlas/shared/widgets/templates/bottom_action_bar.dart';
 
 /// Tanıtımın bitiş biçimi; yönlendirme router'da yapılır.
 enum OnboardingExit {
@@ -122,12 +123,6 @@ class _OnboardingPageState extends State<OnboardingPage>
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          leading: _isFirst
-              ? null
-              : BackButton(
-                  key: const Key('onboarding_back_button'),
-                  onPressed: () => _goTo(_index - 1),
-                ),
           title: AppText(
             l10n.onboardingStepCounter(_index + 1, _steps.length),
             key: const Key('onboarding_step_counter'),
@@ -162,36 +157,48 @@ class _OnboardingPageState extends State<OnboardingPage>
             ),
           ),
         ),
-        bottomNavigationBar: _isLast
-            ? null
-            : SafeArea(
-                top: false,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.md,
-                    AppSpacing.sm,
-                    AppSpacing.md,
-                    AppSpacing.md,
-                  ),
-                  child: Align(
-                    heightFactor: 1,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: AppSizes.maxContentWidth,
-                      ),
-                      child: AppButton.primary(
-                        key: const Key('onboarding_next_button'),
-                        label: _isFirst
-                            ? l10n.onboardingStart
-                            : l10n.onboardingNext,
-                        expand: true,
-                        onPressed: () => _goTo(_index + 1),
-                      ),
-                    ),
-                  ),
+        bottomNavigationBar: BottomActionBar(
+          secondary: _isFirst
+              ? null
+              : AppButton.secondary(
+                  key: const Key('onboarding_back_button'),
+                  label: l10n.onboardingBack,
+                  icon: Icons.arrow_back,
+                  expand: true,
+                  onPressed: () => _goTo(_index - 1),
                 ),
-              ),
+          primary: _primaryAction(l10n),
+        ),
       ),
+    );
+  }
+
+  /// Çubuğun sağındaki birincil eylem: son adımda hesap kararı, diğerlerinde
+  /// bir sonraki adım.
+  Widget _primaryAction(AppLocalizations l10n) {
+    if (!_isLast) {
+      return AppButton.primary(
+        key: const Key('onboarding_next_button'),
+        label: _isFirst ? l10n.onboardingStart : l10n.onboardingNext,
+        expand: true,
+        onPressed: () => _goTo(_index + 1),
+      );
+    }
+    if (widget.signedInDisplayName != null) {
+      return AppButton.primary(
+        key: const Key('onboarding_continue_button'),
+        label: l10n.onboardingContinueSignedIn,
+        icon: Icons.arrow_forward,
+        expand: true,
+        onPressed: () => widget.onFinished(OnboardingExit.continueSignedIn),
+      );
+    }
+    return AppButton.primary(
+      key: const Key('onboarding_sign_in_button'),
+      label: l10n.onboardingSignIn,
+      icon: Icons.login,
+      expand: true,
+      onPressed: () => widget.onFinished(OnboardingExit.signIn),
     );
   }
 
@@ -434,25 +441,11 @@ class _AccountStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final name = signedInDisplayName;
-    final actions = name != null
-        ? [
-            AppButton.primary(
-              key: const Key('onboarding_continue_button'),
-              label: l10n.onboardingContinueSignedIn,
-              icon: Icons.arrow_forward,
-              expand: true,
-              onPressed: () => onFinished(OnboardingExit.continueSignedIn),
-            ),
-          ]
+    // Birincil eylem (giriş / devam) sabit alt çubuktadır; burada yalnızca
+    // seçenekler durur.
+    final alternatives = name != null
+        ? const <Widget>[]
         : [
-            AppButton.primary(
-              key: const Key('onboarding_sign_in_button'),
-              label: l10n.onboardingSignIn,
-              icon: Icons.login,
-              expand: true,
-              onPressed: () => onFinished(OnboardingExit.signIn),
-            ),
-            const SizedBox(height: AppSpacing.sm),
             AppButton.secondary(
               key: const Key('onboarding_create_account_button'),
               label: l10n.onboardingCreateAccount,
@@ -483,13 +476,14 @@ class _AccountStep extends StatelessWidget {
               : l10n.onboardingAccountDescription,
         ),
         const SizedBox(height: AppSpacing.xl),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: actions,
+        if (alternatives.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: alternatives,
+            ),
           ),
-        ),
         const SizedBox(height: AppSpacing.lg),
         OnboardingNote(l10n.onboardingChangeLaterNote),
       ],

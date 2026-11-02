@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vakif_atlas/core/storage/installation_id_service.dart';
+import 'package:vakif_atlas/features/catalog/domain/entities/geo_point.dart';
 import 'package:vakif_atlas/features/route_planner/data/dtos/route_dtos.dart';
 import 'package:vakif_atlas/features/route_planner/data/polyline_codec.dart';
 import 'package:vakif_atlas/features/route_planner/data/sources/route_remote_data_source.dart';
@@ -67,6 +68,8 @@ class RouteMockApi implements MockApi {
   List<MockRoute> get routes => [
     MockRoute('GET', RouteEndpoints.routes, _list),
     MockRoute('POST', RouteEndpoints.routes, _create),
+    MockRoute('POST', RouteEndpoints.preview, _preview),
+    MockRoute('POST', RouteEndpoints.matrix, _matrix),
     MockRoute('GET', '${RouteEndpoints.routes}/:id', _detail),
     MockRoute('PUT', '${RouteEndpoints.routes}/:id', _update),
     MockRoute('DELETE', '${RouteEndpoints.routes}/:id', _delete),
@@ -120,6 +123,66 @@ class RouteMockApi implements MockApi {
       monumentIds: [for (final stop in plan.stops) stop.monumentId],
     );
     return MockResponse(201, body: _detailJson(record, _language(request)));
+  }
+
+  /// Kaydetmeden karayolu bacakları (sunucuda kayıtla aynı hesap).
+  Future<MockResponse> _preview(MockRequest request) async {
+    final ids = _stopSequence(request.body);
+    if (ids == null) {
+      return MockResponse.error(400, 'invalid_route');
+    }
+    final legs = [
+      for (var i = 1; i < ids.length; i++) _legJson(ids[i - 1], ids[i]),
+    ];
+    return MockResponse.ok({
+      'legs': legs,
+      'distanceMeters': legs.fold<int>(
+        0,
+        (sum, leg) => sum + (leg['distanceMeters']! as int),
+      ),
+      'travelSeconds': legs.fold<int>(
+        0,
+        (sum, leg) => sum + (leg['durationSeconds']! as int),
+      ),
+    });
+  }
+
+  /// Duraklar arası süre / mesafe matrisi (sunucuda OSRM `table`).
+  Future<MockResponse> _matrix(MockRequest request) async {
+    final ids = _stopSequence(request.body);
+    if (ids == null) {
+      return MockResponse.error(400, 'invalid_route');
+    }
+    final legs = [
+      for (final from in ids)
+        [for (final to in ids) from == to ? null : _leg(from, to)],
+    ];
+    return MockResponse.ok({
+      'durationSeconds': [
+        for (final row in legs) [for (final leg in row) leg?.duration ?? 0],
+      ],
+      'distanceMeters': [
+        for (final row in legs) [for (final leg in row) leg?.distance ?? 0],
+      ],
+    });
+  }
+
+  /// 2–10 tekil ve katalogda bulunan eser; değilse `null`.
+  static List<String>? _stopSequence(Object? body) {
+    final ids = body is Map<String, dynamic> ? body['monumentIds'] : null;
+    if (ids is! List || ids.any((id) => id is! String)) {
+      return null;
+    }
+    final sequence = ids.cast<String>();
+    final known = {
+      for (final monument in CatalogFixtures.monuments) monument.id,
+    };
+    final valid =
+        sequence.length >= RoutePlanRules.minStops &&
+        sequence.length <= RoutePlanRules.maxStops &&
+        sequence.toSet().length == sequence.length &&
+        sequence.every(known.contains);
+    return valid ? sequence : null;
   }
 
   Future<MockResponse> _detail(MockRequest request) async {
@@ -364,9 +427,27 @@ class RouteMockApi implements MockApi {
     return {
       'distanceMeters': leg.distance,
       'durationSeconds': leg.duration,
-      'geometry': leg.geometry,
+      'geometry': _anchored(leg.geometry, _monument(from), _monument(to)),
     };
   }
+
+  /// Sunucudaki `RouteLeg.Anchored` gibi: yönlendirme motoru yolu en yakın
+  /// karayolundan başlatır; çizgi eserlerin konumunda başlayıp biter.
+  static String _anchored(String geometry, MockMonument from, MockMonument to) {
+    final start = GeoPoint(latitude: from.latitude, longitude: from.longitude);
+    final end = GeoPoint(latitude: to.latitude, longitude: to.longitude);
+    final points = PolylineCodec.decode(geometry);
+    return PolylineCodec.encode([
+      if (points.isEmpty || !_samePoint(points.first, start)) start,
+      ...points,
+      if (points.isEmpty || !_samePoint(points.last, end)) end,
+    ]);
+  }
+
+  /// Kodlama hassasiyetinde (≈1 m) aynı nokta.
+  static bool _samePoint(GeoPoint a, GeoPoint b) =>
+      (a.latitude * 1e5).round() == (b.latitude * 1e5).round() &&
+      (a.longitude * 1e5).round() == (b.longitude * 1e5).round();
 
   String _randomHex(int bytes) => [
     for (var i = 0; i < bytes; i++)

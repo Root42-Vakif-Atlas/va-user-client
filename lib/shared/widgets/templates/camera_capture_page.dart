@@ -9,6 +9,7 @@ import 'package:vakif_atlas/core/media/camera_capture_controller.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_colors.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/app_snack_bar.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 
@@ -138,7 +139,7 @@ class _CameraCapturePageState extends State<CameraCapturePage> {
         false,
       ),
       CameraCaptureIssue.failed || null => (
-        Icons.error_outline,
+        Icons.error_outlined,
         l10n.cameraCaptureFailedTitle,
         l10n.cameraCaptureFailedBody,
         true,
@@ -238,11 +239,10 @@ class _Viewfinder extends StatelessWidget {
                     ),
                     onPressed: isCapturing ? null : onCapture,
                     child: isCapturing
-                        ? SizedBox.square(
-                            dimension: AppSizes.iconMd,
-                            child: CircularProgressIndicator(
-                              color: colors.onPrimary,
-                            ),
+                        ? AppProgressIndicator(
+                            size: AppSizes.iconMd,
+                            strokeWidth: 4,
+                            color: colors.onPrimary,
                           )
                         : const Icon(Icons.photo_camera, size: AppSizes.iconLg),
                   ),

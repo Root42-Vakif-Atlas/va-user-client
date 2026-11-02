@@ -23,8 +23,7 @@ import 'package:vakif_atlas/shared/widgets/molecules/app_snack_bar.dart';
 /// Her kutucuk bir [AccessibilityFeature]'dır; dokunuş bir sonraki seviyeye
 /// geçer (son seviyeden sonra kapanır), yeni durum duyurulur. Değişiklik
 /// `AppSettingsCubit` (kök) üzerinden anında tüm uygulamaya uygulanır.
-/// Haritadaki Erişilebilirlik butonu, hesap menüsü, Ayarlar ve tanıtım bu
-/// sayfayı açar (tanıtım sırasında da açılabilir). "Varsayılanlara dön" tema
+/// Haritadaki Erişilebilirlik butonu, Ayarlar ve tanıtım bu sayfayı açar (tanıtım sırasında da açılabilir). "Varsayılanlara dön" tema
 /// ve dili korur, geri alınabilir.
 ///
 /// "Büyük İmleç" yalnızca fare bağlı cihazda (veya açıkken) gösterilir.
@@ -42,19 +41,41 @@ class AccessibilityPage extends StatefulWidget {
   State<AccessibilityPage> createState() => _AccessibilityPageState();
 }
 
-class _AccessibilityPageState extends State<AccessibilityPage> {
+class _AccessibilityPageState extends State<AccessibilityPage>
+    with WidgetsBindingObserver {
   final MouseTracker _mouse = RendererBinding.instance.mouseTracker;
+
+  /// Cihazın "hareketi azalt" ayarı (kökteki `MediaQuery` uygulama içi
+  /// tercihle OR'landığından burada platformdan okunur). Sayfa açıkken
+  /// ayar değişirse kutucuk kilidi güncellenir.
+  late bool _systemReducesMotion = _readSystemReducesMotion();
+
+  static bool _readSystemReducesMotion() => WidgetsBinding
+      .instance
+      .platformDispatcher
+      .accessibilityFeatures
+      .disableAnimations;
 
   @override
   void initState() {
     super.initState();
     _mouse.addListener(_onMouseChanged);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _mouse.removeListener(_onMouseChanged);
     super.dispose();
+  }
+
+  @override
+  void didChangeAccessibilityFeatures() {
+    final value = _readSystemReducesMotion();
+    if (mounted && value != _systemReducesMotion) {
+      setState(() => _systemReducesMotion = value);
+    }
   }
 
   void _onMouseChanged() {
@@ -67,8 +88,11 @@ class _AccessibilityPageState extends State<AccessibilityPage> {
     final l10n = context.l10n;
     final cubit = context.read<AppSettingsCubit>();
     final announcer = context.read<A11yAnnouncer>();
-    unawaited(context.read<HapticFeedbackService>().selection());
+    final haptics = context.read<HapticFeedbackService>();
     await cubit.cycleAccessibility(feature);
+    // Titreşim kutucuğu kapatıldıysa son bir titreşim verilmez: servis,
+    // durumla eşitlendikten sonra çağrılır.
+    unawaited(haptics.selection());
     final level = cubit.state.settings.accessibility.level(feature);
     unawaited(
       announcer.announce(
@@ -140,6 +164,7 @@ class _AccessibilityPageState extends State<AccessibilityPage> {
                   _TileGrid(
                     features: features,
                     preferences: preferences,
+                    systemReducesMotion: _systemReducesMotion,
                     onTap: (feature) => unawaited(_cycle(feature)),
                   ),
                   const SizedBox(height: AppSpacing.lg),
@@ -174,11 +199,15 @@ class _TileGrid extends StatelessWidget {
   const _TileGrid({
     required this.features,
     required this.preferences,
+    required this.systemReducesMotion,
     required this.onTap,
   });
 
   final List<AccessibilityFeature> features;
   final AccessibilityPreferences preferences;
+
+  /// Cihazda "hareketi azalt" açıksa "Animasyonları Durdur" kilitli açıktır.
+  final bool systemReducesMotion;
   final ValueChanged<AccessibilityFeature> onTap;
 
   @override
@@ -186,9 +215,6 @@ class _TileGrid extends StatelessWidget {
     final scale =
         MediaQuery.textScalerOf(context).scale(1) *
         (preferences.wideTextSpacing ? AccessibilityPage.wideSpacingFactor : 1);
-    // Cihazda "hareketi azalt" açıksa uygulama her zaman uyar (kökte OR'lanır).
-    final systemReducesMotion = MediaQueryData.fromView(View.of(context))
-        .disableAnimations;
     return LayoutBuilder(
       builder: (context, constraints) {
         final columns =

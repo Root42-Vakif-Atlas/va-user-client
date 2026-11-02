@@ -312,9 +312,10 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
       urlTemplate: source.urlTemplateFor(brightness),
       userAgentPackageName: source.userAgentPackageName,
       tileProvider: _tileProvider,
-      retinaMode:
-          source.supportsRetina(brightness) &&
-          RetinaMode.isHighDensity(context),
+      // Yüksek yoğunluklu ekranda keskin harita: `{r}` destekleyen sunucudan
+      // gerçek @2x tile, desteklemeyenden (OSM) bir üst yakınlaştırma
+      // seviyesi yarı boyda çizilir (flutter_map retina benzetimi).
+      retinaMode: RetinaMode.isHighDensity(context),
       tileDisplay: context.reduceMotion
           ? const TileDisplay.instantaneous()
           : const TileDisplay.fadeIn(),
@@ -326,12 +327,16 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
     // Tüm katman için tek filtre (tile başına filtre katmanı oluşturulmaz).
     return ColorFiltered(
       colorFilter: duotoneTileFilter(
-        shadow: colors.surface,
-        highlight: colors.onSurfaceVariant,
+        shadow: colors.mapShadow,
+        highlight: colors.mapHighlight,
+        chroma: colors.isHighContrast ? 0 : _tileChroma,
       ),
       child: tiles,
     );
   }
+
+  /// Koyu altlıkta kaynağın renk bileşeninden korunan pay (su/park ayrımı).
+  static const double _tileChroma = 0.9;
 
   static const double _accuracyFillOpacity = 0.15;
   static const double _accuracyBorderOpacity = 0.5;
@@ -390,7 +395,7 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
         cameraConstraint: CameraConstraint.containCenter(
           bounds: MapDefaults.region,
         ),
-        backgroundColor: colors.surfaceVariant,
+        backgroundColor: colors.mapBackground,
         interactionOptions: InteractionOptions(
           flags: interactive
               ? InteractiveFlag.all & ~InteractiveFlag.rotate

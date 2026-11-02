@@ -6,6 +6,7 @@ import 'package:vakif_atlas/features/catalog/domain/entities/monument_search.dar
 import 'package:vakif_atlas/features/catalog/presentation/catalog_presentation.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 
@@ -52,9 +53,14 @@ class MonumentClusterSheet extends StatelessWidget {
             ),
           ),
           if (isLoading)
-            const Padding(
-              padding: EdgeInsets.all(AppSpacing.lg),
-              child: Center(child: CircularProgressIndicator()),
+            Semantics(
+              label: l10n.commonLoading,
+              liveRegion: true,
+              excludeSemantics: true,
+              child: const Padding(
+                padding: EdgeInsets.all(AppSpacing.lg),
+                child: Center(child: AppProgressIndicator(strokeWidth: 4)),
+              ),
             )
           else if (hasError)
             Padding(

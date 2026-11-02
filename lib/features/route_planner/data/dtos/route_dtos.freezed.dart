@@ -2630,4 +2630,571 @@ as List<RouteOverviewDto>,
 
 }
 
+
+/// @nodoc
+mixin _$RoutePreviewDto {
+
+ List<RouteLegDto> get legs; int get distanceMeters; int get travelSeconds;
+/// Create a copy of RoutePreviewDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RoutePreviewDtoCopyWith<RoutePreviewDto> get copyWith => _$RoutePreviewDtoCopyWithImpl<RoutePreviewDto>(this as RoutePreviewDto, _$identity);
+
+  /// Serializes this RoutePreviewDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as RoutePreviewDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RoutePreviewDto&&const DeepCollectionEquality().equals(other.legs, _this.legs)&&(identical(other.distanceMeters, _this.distanceMeters) || other.distanceMeters == _this.distanceMeters)&&(identical(other.travelSeconds, _this.travelSeconds) || other.travelSeconds == _this.travelSeconds));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as RoutePreviewDto;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.legs),_this.distanceMeters,_this.travelSeconds);
+}
+
+@override
+String toString() {
+  final _this = this as RoutePreviewDto;
+  return 'RoutePreviewDto(legs: ${_this.legs}, distanceMeters: ${_this.distanceMeters}, travelSeconds: ${_this.travelSeconds})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RoutePreviewDtoCopyWith<$Res>  {
+  factory $RoutePreviewDtoCopyWith(RoutePreviewDto value, $Res Function(RoutePreviewDto) _then) = _$RoutePreviewDtoCopyWithImpl;
+@useResult
+$Res call({
+ List<RouteLegDto> legs, int distanceMeters, int travelSeconds
+});
+
+
+
+
+}
+/// @nodoc
+class _$RoutePreviewDtoCopyWithImpl<$Res>
+    implements $RoutePreviewDtoCopyWith<$Res> {
+  _$RoutePreviewDtoCopyWithImpl(this._self, this._then);
+
+  final RoutePreviewDto _self;
+  final $Res Function(RoutePreviewDto) _then;
+
+/// Create a copy of RoutePreviewDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? legs = null,Object? distanceMeters = null,Object? travelSeconds = null,}) {
+  return _then(RoutePreviewDto(
+legs: null == legs ? _self.legs : legs // ignore: cast_nullable_to_non_nullable
+as List<RouteLegDto>,distanceMeters: null == distanceMeters ? _self.distanceMeters : distanceMeters // ignore: cast_nullable_to_non_nullable
+as int,travelSeconds: null == travelSeconds ? _self.travelSeconds : travelSeconds // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [RoutePreviewDto].
+extension RoutePreviewDtoPatterns on RoutePreviewDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RoutePreviewDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RoutePreviewDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RoutePreviewDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _RoutePreviewDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RoutePreviewDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RoutePreviewDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<RouteLegDto> legs,  int distanceMeters,  int travelSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RoutePreviewDto() when $default != null:
+return $default(_that.legs,_that.distanceMeters,_that.travelSeconds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<RouteLegDto> legs,  int distanceMeters,  int travelSeconds)  $default,) {final _that = this;
+switch (_that) {
+case _RoutePreviewDto():
+return $default(_that.legs,_that.distanceMeters,_that.travelSeconds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<RouteLegDto> legs,  int distanceMeters,  int travelSeconds)?  $default,) {final _that = this;
+switch (_that) {
+case _RoutePreviewDto() when $default != null:
+return $default(_that.legs,_that.distanceMeters,_that.travelSeconds);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _RoutePreviewDto extends RoutePreviewDto {
+  const _RoutePreviewDto({required  List<RouteLegDto> legs, required this.distanceMeters, required this.travelSeconds}): _legs = legs,super._();
+  factory _RoutePreviewDto.fromJson(Map<String, dynamic> json) => _$RoutePreviewDtoFromJson(json);
+
+ final  List<RouteLegDto> _legs;
+@override List<RouteLegDto> get legs {
+  if (_legs is EqualUnmodifiableListView) return _legs;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_legs);
+}
+
+@override final  int distanceMeters;
+@override final  int travelSeconds;
+
+/// Create a copy of RoutePreviewDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RoutePreviewDtoCopyWith<_RoutePreviewDto> get copyWith => __$RoutePreviewDtoCopyWithImpl<_RoutePreviewDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RoutePreviewDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoutePreviewDto&&const DeepCollectionEquality().equals(other.legs, _legs)&&(identical(other.distanceMeters, distanceMeters) || other.distanceMeters == distanceMeters)&&(identical(other.travelSeconds, travelSeconds) || other.travelSeconds == travelSeconds));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_legs),distanceMeters,travelSeconds);
+}
+
+@override
+String toString() {
+    return 'RoutePreviewDto(legs: $legs, distanceMeters: $distanceMeters, travelSeconds: $travelSeconds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RoutePreviewDtoCopyWith<$Res> implements $RoutePreviewDtoCopyWith<$Res> {
+  factory _$RoutePreviewDtoCopyWith(_RoutePreviewDto value, $Res Function(_RoutePreviewDto) _then) = __$RoutePreviewDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ List<RouteLegDto> legs, int distanceMeters, int travelSeconds
+});
+
+
+
+
+}
+/// @nodoc
+class __$RoutePreviewDtoCopyWithImpl<$Res>
+    implements _$RoutePreviewDtoCopyWith<$Res> {
+  __$RoutePreviewDtoCopyWithImpl(this._self, this._then);
+
+  final _RoutePreviewDto _self;
+  final $Res Function(_RoutePreviewDto) _then;
+
+/// Create a copy of RoutePreviewDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? legs = null,Object? distanceMeters = null,Object? travelSeconds = null,}) {
+  return _then(_RoutePreviewDto(
+legs: null == legs ? _self._legs : legs // ignore: cast_nullable_to_non_nullable
+as List<RouteLegDto>,distanceMeters: null == distanceMeters ? _self.distanceMeters : distanceMeters // ignore: cast_nullable_to_non_nullable
+as int,travelSeconds: null == travelSeconds ? _self.travelSeconds : travelSeconds // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$TravelMatrixDto {
+
+ List<List<int>> get durationSeconds; List<List<int>> get distanceMeters;
+/// Create a copy of TravelMatrixDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TravelMatrixDtoCopyWith<TravelMatrixDto> get copyWith => _$TravelMatrixDtoCopyWithImpl<TravelMatrixDto>(this as TravelMatrixDto, _$identity);
+
+  /// Serializes this TravelMatrixDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as TravelMatrixDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TravelMatrixDto&&const DeepCollectionEquality().equals(other.durationSeconds, _this.durationSeconds)&&const DeepCollectionEquality().equals(other.distanceMeters, _this.distanceMeters));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as TravelMatrixDto;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.durationSeconds),const DeepCollectionEquality().hash(_this.distanceMeters));
+}
+
+@override
+String toString() {
+  final _this = this as TravelMatrixDto;
+  return 'TravelMatrixDto(durationSeconds: ${_this.durationSeconds}, distanceMeters: ${_this.distanceMeters})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TravelMatrixDtoCopyWith<$Res>  {
+  factory $TravelMatrixDtoCopyWith(TravelMatrixDto value, $Res Function(TravelMatrixDto) _then) = _$TravelMatrixDtoCopyWithImpl;
+@useResult
+$Res call({
+ List<List<int>> durationSeconds, List<List<int>> distanceMeters
+});
+
+
+
+
+}
+/// @nodoc
+class _$TravelMatrixDtoCopyWithImpl<$Res>
+    implements $TravelMatrixDtoCopyWith<$Res> {
+  _$TravelMatrixDtoCopyWithImpl(this._self, this._then);
+
+  final TravelMatrixDto _self;
+  final $Res Function(TravelMatrixDto) _then;
+
+/// Create a copy of TravelMatrixDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? durationSeconds = null,Object? distanceMeters = null,}) {
+  return _then(TravelMatrixDto(
+durationSeconds: null == durationSeconds ? _self.durationSeconds : durationSeconds // ignore: cast_nullable_to_non_nullable
+as List<List<int>>,distanceMeters: null == distanceMeters ? _self.distanceMeters : distanceMeters // ignore: cast_nullable_to_non_nullable
+as List<List<int>>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [TravelMatrixDto].
+extension TravelMatrixDtoPatterns on TravelMatrixDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TravelMatrixDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TravelMatrixDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TravelMatrixDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _TravelMatrixDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TravelMatrixDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TravelMatrixDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<List<int>> durationSeconds,  List<List<int>> distanceMeters)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TravelMatrixDto() when $default != null:
+return $default(_that.durationSeconds,_that.distanceMeters);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<List<int>> durationSeconds,  List<List<int>> distanceMeters)  $default,) {final _that = this;
+switch (_that) {
+case _TravelMatrixDto():
+return $default(_that.durationSeconds,_that.distanceMeters);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<List<int>> durationSeconds,  List<List<int>> distanceMeters)?  $default,) {final _that = this;
+switch (_that) {
+case _TravelMatrixDto() when $default != null:
+return $default(_that.durationSeconds,_that.distanceMeters);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TravelMatrixDto extends TravelMatrixDto {
+  const _TravelMatrixDto({required  List<List<int>> durationSeconds, required  List<List<int>> distanceMeters}): _durationSeconds = durationSeconds,_distanceMeters = distanceMeters,super._();
+  factory _TravelMatrixDto.fromJson(Map<String, dynamic> json) => _$TravelMatrixDtoFromJson(json);
+
+ final  List<List<int>> _durationSeconds;
+@override List<List<int>> get durationSeconds {
+  if (_durationSeconds is EqualUnmodifiableListView) return _durationSeconds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_durationSeconds);
+}
+
+ final  List<List<int>> _distanceMeters;
+@override List<List<int>> get distanceMeters {
+  if (_distanceMeters is EqualUnmodifiableListView) return _distanceMeters;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_distanceMeters);
+}
+
+
+/// Create a copy of TravelMatrixDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TravelMatrixDtoCopyWith<_TravelMatrixDto> get copyWith => __$TravelMatrixDtoCopyWithImpl<_TravelMatrixDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TravelMatrixDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TravelMatrixDto&&const DeepCollectionEquality().equals(other.durationSeconds, _durationSeconds)&&const DeepCollectionEquality().equals(other.distanceMeters, _distanceMeters));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_durationSeconds),const DeepCollectionEquality().hash(_distanceMeters));
+}
+
+@override
+String toString() {
+    return 'TravelMatrixDto(durationSeconds: $durationSeconds, distanceMeters: $distanceMeters)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TravelMatrixDtoCopyWith<$Res> implements $TravelMatrixDtoCopyWith<$Res> {
+  factory _$TravelMatrixDtoCopyWith(_TravelMatrixDto value, $Res Function(_TravelMatrixDto) _then) = __$TravelMatrixDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ List<List<int>> durationSeconds, List<List<int>> distanceMeters
+});
+
+
+
+
+}
+/// @nodoc
+class __$TravelMatrixDtoCopyWithImpl<$Res>
+    implements _$TravelMatrixDtoCopyWith<$Res> {
+  __$TravelMatrixDtoCopyWithImpl(this._self, this._then);
+
+  final _TravelMatrixDto _self;
+  final $Res Function(_TravelMatrixDto) _then;
+
+/// Create a copy of TravelMatrixDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? durationSeconds = null,Object? distanceMeters = null,}) {
+  return _then(_TravelMatrixDto(
+durationSeconds: null == durationSeconds ? _self._durationSeconds : durationSeconds // ignore: cast_nullable_to_non_nullable
+as List<List<int>>,distanceMeters: null == distanceMeters ? _self._distanceMeters : distanceMeters // ignore: cast_nullable_to_non_nullable
+as List<List<int>>,
+  ));
+}
+
+
+}
+
 // dart format on

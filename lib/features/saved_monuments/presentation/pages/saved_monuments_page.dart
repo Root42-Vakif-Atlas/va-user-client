@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vakif_atlas/core/l10n/failure_messages.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
-import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/catalog/presentation/catalog_presentation.dart';
 import 'package:vakif_atlas/features/saved_monuments/presentation/cubit/saved_monuments_cubit.dart';
 import 'package:vakif_atlas/features/saved_monuments/presentation/cubit/saved_monuments_list_cubit.dart';
 import 'package:vakif_atlas/features/saved_monuments/presentation/widgets/saved_monument_feedback.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 
@@ -196,7 +195,6 @@ class _SavedRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final colors = context.colors;
     final id = entry.saved.monumentId;
     final pin = entry.pin;
     final savedOn = l10n.savedMonumentSavedOn(
@@ -209,17 +207,9 @@ class _SavedRow extends StatelessWidget {
       onPressed: () => onRemove(entry),
       icon: const Icon(Icons.bookmark_remove_outlined),
     );
-    final leading = Container(
-      width: AppSizes.minTouchTarget,
-      height: AppSizes.minTouchTarget,
-      decoration: BoxDecoration(
-        color: colors.surfaceVariant,
-        borderRadius: BorderRadius.circular(AppRadius.md),
-      ),
-      child: AppIcon.decorative(
-        pin?.category.icon ?? Icons.help_outline,
-        color: colors.accentText,
-      ),
+    final leading = LeadingIconTile(
+      icon: pin?.category.icon ?? Icons.help_outlined,
+      tone: LeadingIconTone.heritage,
     );
     if (pin == null) {
       return ListTile(

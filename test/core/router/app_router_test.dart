@@ -259,6 +259,8 @@ void main() {
       GetRouteUseCase(routes),
       SaveRouteUseCase(routes),
       const OptimizeStopOrderUseCase(),
+      PreviewRouteUseCase(routes),
+      GetTravelMatrixUseCase(routes),
     );
   });
 

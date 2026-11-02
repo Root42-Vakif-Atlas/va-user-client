@@ -90,6 +90,22 @@ class RouteRepositoryImpl implements RouteRepository {
     return unit;
   });
 
+  @override
+  ResultFuture<RoutePreview> previewRoute({
+    required List<String> monumentIds,
+  }) => _guard(() async {
+    final preview = await _remote.previewRoute(monumentIds: monumentIds);
+    return preview.toDomain(monumentIds);
+  });
+
+  @override
+  ResultFuture<TravelMatrix> getTravelMatrix({
+    required List<String> monumentIds,
+  }) => _guard(() async {
+    final matrix = await _remote.fetchTravelMatrix(monumentIds: monumentIds);
+    return matrix.toDomain(monumentIds.length);
+  });
+
   static ResultFuture<T> _guard<T>(Future<T> Function() action) async {
     try {
       return Right(await action());

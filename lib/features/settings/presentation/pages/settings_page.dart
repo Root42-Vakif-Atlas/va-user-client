@@ -9,7 +9,9 @@ import 'package:vakif_atlas/features/settings/presentation/widgets/app_about_car
 import 'package:vakif_atlas/features/settings/presentation/widgets/permission_card_list.dart';
 import 'package:vakif_atlas/features/settings/presentation/widgets/preference_settings.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/diamond_divider.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/grouped_section.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/section_header.dart';
 
 /// Uygulama, görünüm (tema), dil ve izin ayarları.
 ///
@@ -59,89 +61,107 @@ class SettingsPage extends StatelessWidget {
                 maxWidth: AppSizes.maxContentWidth,
               ),
               child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                padding: const EdgeInsets.all(AppSpacing.md),
                 children: [
-                  _SectionHeader(l10n.settingsAppearanceSection),
+                  SectionHeader(l10n.settingsAppearanceSection),
                   const ThemeSetting(),
-                  const _SectionDivider(),
-                  _SectionHeader(l10n.settingsLanguageSection),
+                  const SizedBox(height: AppSpacing.lg),
+                  SectionHeader(l10n.settingsLanguageSection),
                   const LanguageSetting(),
-                  const _SectionDivider(),
-                  _SectionHeader(l10n.settingsAccessibilitySection),
-                  ListTile(
-                    key: const Key('settings_accessibility_tile'),
-                    leading: const Icon(Icons.accessibility_new),
-                    title: Text(l10n.accessibilityTitle),
-                    subtitle: Text(l10n.settingsAccessibilityDescription),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: onOpenAccessibility,
-                  ),
-                  const AccessibilityButtonSetting(),
-                  const _SectionDivider(),
-                  _SectionHeader(l10n.settingsPermissionsSection),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                    child: PermissionCardList(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.md,
-                      AppSpacing.sm,
-                      AppSpacing.md,
-                      0,
-                    ),
-                    child: AppText(
-                      l10n.permissionOnDemandNote,
-                      role: AppTextRole.bodyMedium,
-                      color: context.colors.onSurfaceVariant,
-                    ),
-                  ),
-                  const _SectionDivider(),
-                  _SectionHeader(l10n.settingsAboutSection),
-                  AppAboutCard(version: appVersion),
-                  ListTile(
-                    key: const Key('settings_feedback_tile'),
-                    leading: const Icon(Icons.rate_review_outlined),
-                    title: Text(l10n.settingsFeedback),
-                    subtitle: Text(l10n.settingsFeedbackSubtitle),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: onOpenFeedback,
-                  ),
-                  ListTile(
-                    key: const Key('settings_replay_onboarding_tile'),
-                    leading: const Icon(Icons.school_outlined),
-                    title: Text(l10n.settingsReplayOnboarding),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: onReplayOnboarding,
-                  ),
-                  ListTile(
-                    key: const Key('settings_privacy_notice_tile'),
-                    leading: const Icon(Icons.privacy_tip_outlined),
-                    title: Text(l10n.settingsPrivacyNotice),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: onOpenPrivacyNotice,
-                  ),
-                  ListTile(
-                    key: const Key('settings_terms_tile'),
-                    leading: const Icon(Icons.gavel_outlined),
-                    title: Text(l10n.settingsTermsOfUse),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: onOpenTermsOfUse,
-                  ),
-                  ListTile(
-                    key: const Key('settings_licenses_tile'),
-                    leading: const Icon(Icons.description_outlined),
-                    title: Text(l10n.settingsLicenses),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => showLicensePage(
-                      context: context,
-                      applicationName: l10n.appTitle,
-                      applicationVersion: appVersion,
-                      applicationIcon: Padding(
-                        padding: const EdgeInsets.all(AppSpacing.sm),
-                        child: AppAboutCard.appIcon(),
+                  const SizedBox(height: AppSpacing.lg),
+                  SectionHeader(l10n.settingsAccessibilitySection),
+                  const SizedBox(height: AppSpacing.xs),
+                  GroupedSection(
+                    children: [
+                      ListTile(
+                        key: const Key('settings_accessibility_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.accessibility_new_outlined,
+                          tone: LeadingIconTone.primary,
+                        ),
+                        title: Text(l10n.accessibilityTitle),
+                        subtitle: Text(l10n.settingsAccessibilityDescription),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: onOpenAccessibility,
                       ),
-                    ),
+                      const AccessibilityButtonSetting(),
+                    ],
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  SectionHeader(l10n.settingsPermissionsSection),
+                  const SizedBox(height: AppSpacing.xs),
+                  const PermissionCardList(),
+                  const SizedBox(height: AppSpacing.sm),
+                  AppText(
+                    l10n.permissionOnDemandNote,
+                    role: AppTextRole.bodyMedium,
+                    color: context.colors.onSurfaceVariant,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  SectionHeader(l10n.settingsAboutSection),
+                  const SizedBox(height: AppSpacing.xs),
+                  AppAboutCard(version: appVersion),
+                  const SizedBox(height: AppSpacing.sm),
+                  GroupedSection(
+                    children: [
+                      ListTile(
+                        key: const Key('settings_feedback_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.rate_review_outlined,
+                          tone: LeadingIconTone.heritage,
+                        ),
+                        title: Text(l10n.settingsFeedback),
+                        subtitle: Text(l10n.settingsFeedbackSubtitle),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: onOpenFeedback,
+                      ),
+                      ListTile(
+                        key: const Key('settings_replay_onboarding_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.school_outlined,
+                        ),
+                        title: Text(l10n.settingsReplayOnboarding),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: onReplayOnboarding,
+                      ),
+                      ListTile(
+                        key: const Key('settings_privacy_notice_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.privacy_tip_outlined,
+                          tone: LeadingIconTone.complex,
+                        ),
+                        title: Text(l10n.settingsPrivacyNotice),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: onOpenPrivacyNotice,
+                      ),
+                      ListTile(
+                        key: const Key('settings_terms_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.gavel_outlined,
+                          tone: LeadingIconTone.complex,
+                        ),
+                        title: Text(l10n.settingsTermsOfUse),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: onOpenTermsOfUse,
+                      ),
+                      ListTile(
+                        key: const Key('settings_licenses_tile'),
+                        leading: const LeadingIconTile(
+                          icon: Icons.description_outlined,
+                        ),
+                        title: Text(l10n.settingsLicenses),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => showLicensePage(
+                          context: context,
+                          applicationName: l10n.appTitle,
+                          applicationVersion: appVersion,
+                          applicationIcon: Padding(
+                            padding: const EdgeInsets.all(AppSpacing.sm),
+                            child: AppAboutCard.appIcon(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -149,45 +169,6 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.md,
-        AppSpacing.md,
-        AppSpacing.xs,
-      ),
-      child: AppText(
-        title,
-        role: AppTextRole.headlineMedium,
-        color: context.colors.accentText,
-        isHeading: true,
-      ),
-    );
-  }
-}
-
-class _SectionDivider extends StatelessWidget {
-  const _SectionDivider();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.sm,
-      ),
-      child: DiamondDivider(),
     );
   }
 }

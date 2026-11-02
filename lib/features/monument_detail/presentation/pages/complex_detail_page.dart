@@ -18,7 +18,6 @@ import 'package:vakif_atlas/features/monument_detail/presentation/widgets/monume
 import 'package:vakif_atlas/features/monument_detail/presentation/widgets/monument_route_button.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/widgets/monument_sections.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/diamond_divider.dart';
 import 'package:vakif_atlas/shared/widgets/organisms/photo_gallery.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
@@ -264,7 +263,7 @@ class _ComplexDetailView extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: AppSpacing.lg),
-                        const DiamondDivider(),
+                        const Divider(),
                         const SizedBox(height: AppSpacing.lg),
                         ComplexMembersSection(
                           complex: complex,

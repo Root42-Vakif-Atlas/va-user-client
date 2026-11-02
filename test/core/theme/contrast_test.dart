@@ -59,6 +59,29 @@ void main() {
         'accentText / surfaceVariant': (c.accentText, c.surfaceVariant),
         'error / surface': (c.error, c.surface),
         'error / surfaceVariant': (c.error, c.surfaceVariant),
+        'error / surfaceElevated': (c.error, c.surfaceElevated),
+        'success / surfaceElevated': (c.success, c.surfaceElevated),
+        'warning / surfaceElevated': (c.warning, c.surfaceElevated),
+        'info / surfaceElevated': (c.info, c.surfaceElevated),
+        'success / surfaceVariant': (c.success, c.surfaceVariant),
+        'warning / surfaceVariant': (c.warning, c.surfaceVariant),
+        'info / surfaceVariant': (c.info, c.surfaceVariant),
+        'onBrandAccentContainer / brandAccentContainer': (
+          c.onBrandAccentContainer,
+          c.brandAccentContainer,
+        ),
+        'onComplexAccentContainer / complexAccentContainer': (
+          c.onComplexAccentContainer,
+          c.complexAccentContainer,
+        ),
+        'onSurface / brandAccentContainer': (
+          c.onSurface,
+          c.brandAccentContainer,
+        ),
+        'onSurface / complexAccentContainer': (
+          c.onSurface,
+          c.complexAccentContainer,
+        ),
         'onError / error': (c.onError, c.error),
         'success / surface': (c.success, c.surface),
         'warning / surface': (c.warning, c.surface),
@@ -118,6 +141,13 @@ void main() {
         );
       });
 
+      test('harita yazı ucu, harita zemininde ≥ 4.5:1 (filtre uçları)', () {
+        expect(
+          Contrast.ratio(c.mapHighlight, c.mapShadow),
+          greaterThanOrEqualTo(Contrast.normalText),
+        );
+      });
+
       test('primary dolgu / surface ≥ 3:1 (WCAG 1.4.11)', () {
         expect(
           Contrast.ratio(c.primary, c.surface),
@@ -126,6 +156,52 @@ void main() {
       });
     });
   }
+
+  group('ters renk ekranı', () {
+    // Filtre RGB'yi çevirir: çevrilmiş ön plan / çevrilmiş zemin ≥ 4.5:1.
+    Color flip(Color c) =>
+        Color.from(alpha: c.a, red: 1 - c.r, green: 1 - c.g, blue: 1 - c.b);
+
+    for (final MapEntry(key: name, value: base) in {
+      'dark': AppColorScheme.dark,
+      'light': AppColorScheme.light,
+    }.entries) {
+      final c = base.forInvertedDisplay();
+      test('$name: metin ve durum renkleri çevrildikten sonra ≥ 4.5:1', () {
+        for (final background in [
+          c.surface,
+          c.surfaceVariant,
+          c.surfaceElevated,
+        ]) {
+          for (final foreground in [
+            c.onSurface,
+            c.onSurfaceVariant,
+            c.accentText,
+            c.error,
+            c.success,
+            c.warning,
+            c.info,
+          ]) {
+            expect(
+              Contrast.ratio(flip(foreground), flip(background)),
+              greaterThanOrEqualTo(Contrast.normalText),
+            );
+          }
+        }
+      });
+    }
+
+    test('yüksek kontrast ve açık şema değişmez', () {
+      expect(
+        AppColorScheme.highContrastDark.forInvertedDisplay(),
+        same(AppColorScheme.highContrastDark),
+      );
+      expect(
+        AppColorScheme.light.forInvertedDisplay(),
+        same(AppColorScheme.light),
+      );
+    });
+  });
 
   group('açılış ekranı (temadan bağımsız)', () {
     test('metin ≥ 7:1 (yüksek kontrast kullanıcısı için de)', () {

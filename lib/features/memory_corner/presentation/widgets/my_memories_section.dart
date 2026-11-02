@@ -15,6 +15,7 @@ import 'package:vakif_atlas/shared/widgets/atoms/app_network_image.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/features/memory_corner/presentation/widgets/memory_status_badge.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/section_header.dart';
 
 /// Eserin Anı Köşesi'ni açar (eser adı başlık için taşınır).
 typedef OpenMonumentMemories = void Function(
@@ -126,12 +127,7 @@ class _MyMemoriesProfileSectionState extends State<MyMemoriesProfileSection> {
       key: const Key('my_memories_section'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppText(
-          l10n.myMemoriesTitle,
-          role: AppTextRole.titleMedium,
-          color: colors.accentText,
-          isHeading: true,
-        ),
+        SectionHeader(l10n.myMemoriesTitle),
         const SizedBox(height: AppSpacing.sm),
         body,
       ],

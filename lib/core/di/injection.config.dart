@@ -202,6 +202,8 @@ import 'package:vakif_atlas/features/onboarding/domain/usecases/onboarding_useca
     as _i667;
 import 'package:vakif_atlas/features/onboarding/presentation/cubit/onboarding_cubit.dart'
     as _i208;
+import 'package:vakif_atlas/features/route_export/data/render/route_basemap.dart'
+    as _i476;
 import 'package:vakif_atlas/features/route_export/data/render/route_pdf_renderer.dart'
     as _i888;
 import 'package:vakif_atlas/features/route_export/data/repositories/route_export_repository_impl.dart'
@@ -281,8 +283,8 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     final routePlannerModule = _$RoutePlannerModule();
-    final mapModule = _$MapModule();
     final settingsModule = _$SettingsModule();
+    final mapModule = _$MapModule();
     final networkModule = _$NetworkModule();
     final onboardingModule = _$OnboardingModule();
     final aiAssistantModule = _$AiAssistantModule();
@@ -331,7 +333,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1019.LocalDbService(),
       dispose: (i) => i.close(),
     );
-    gh.lazySingleton<_i888.RoutePdfRenderer>(() => _i888.RoutePdfRenderer());
     gh.lazySingleton<_i617.OptimizeStopOrderUseCase>(
       () => routePlannerModule.optimizeStopOrderUseCase,
     );
@@ -400,12 +401,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i958.DeviceNetworkStatus(gh<_i895.Connectivity>()),
       dispose: (i) => i.dispose(),
     );
-    gh.lazySingleton<_i1068.MapTileSource>(
-      () => mapModule.mapTileSource(
-        gh<_i634.AppConfig>(),
-        gh<_i655.PackageInfo>(),
-      ),
-    );
     gh.lazySingleton<_i890.SavedMonumentsLocalDataSource>(
       () =>
           _i890.SavedMonumentsLocalDataSourceImpl(gh<_i1019.LocalDbService>()),
@@ -433,6 +428,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1016.AppLogger>(
       () => _i1016.AppLogger(gh<_i634.AppConfig>()),
     );
+    gh.lazySingleton<_i1068.MapTileSource>(
+      () => mapModule.mapTileSource(
+        gh<_i634.AppConfig>(),
+        gh<_i655.PackageInfo>(),
+        gh<_i1016.AppLogger>(),
+      ),
+    );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.storageDio(
         gh<_i898.DioFactory>(),
@@ -445,6 +447,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.probeDio(gh<_i898.DioFactory>()),
       instanceName: 'probeDio',
+    );
+    gh.lazySingleton<_i476.RouteBasemapRenderer>(
+      () => _i476.RouteBasemapRenderer(
+        gh<_i1068.MapTileSource>(),
+        logger: gh<_i1016.AppLogger>(),
+      ),
     );
     gh.factory<_i653.DevicePermissionsCubit>(
       () => _i653.DevicePermissionsCubit(gh<_i636.PermissionService>()),
@@ -485,6 +493,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i895.Connectivity>(),
         gh<_i361.Dio>(instanceName: 'probeDio'),
       ),
+    );
+    gh.lazySingleton<_i888.RoutePdfRenderer>(
+      () => _i888.RoutePdfRenderer(gh<_i476.RouteBasemapRenderer>()),
     );
     gh.lazySingleton<_i208.OnboardingCubit>(
       () => _i208.OnboardingCubit(
@@ -709,13 +720,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i15.RouteRepository>(),
       ),
     );
-    gh.factory<_i362.RouteBuilderBloc>(
-      () => _i362.RouteBuilderBloc(
-        gh<_i735.GetMonumentPinsUseCase>(),
-        gh<_i327.GetRouteUseCase>(),
-        gh<_i327.SaveRouteUseCase>(),
-        gh<_i617.OptimizeStopOrderUseCase>(),
-      ),
+    gh.lazySingleton<_i327.PreviewRouteUseCase>(
+      () => routePlannerModule.previewRouteUseCase(gh<_i15.RouteRepository>()),
+    );
+    gh.lazySingleton<_i327.GetTravelMatrixUseCase>(
+      () =>
+          routePlannerModule.getTravelMatrixUseCase(gh<_i15.RouteRepository>()),
     );
     gh.lazySingleton<_i492.DamageReportRepository>(
       () => _i209.DamageReportRepositoryImpl(
@@ -830,15 +840,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i977.MonumentTilesCubit>(
       () => _i977.MonumentTilesCubit(gh<_i735.GetMapTileUseCase>()),
     );
-    gh.lazySingleton<_i362.RouteBuilderBloc>(
-      () => routePlannerModule.routeDraft(
-        gh<_i735.GetMonumentPinsUseCase>(),
-        gh<_i327.GetRouteUseCase>(),
-        gh<_i327.SaveRouteUseCase>(),
-        gh<_i617.OptimizeStopOrderUseCase>(),
-      ),
-      instanceName: 'routeDraft',
-    );
     gh.lazySingleton<_i978.GetGamificationProfileUseCase>(
       () => gamificationModule.getGamificationProfileUseCase(
         gh<_i561.GamificationRepository>(),
@@ -918,6 +919,17 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       dispose: (i) => i.dispose(),
     );
+    gh.lazySingleton<_i362.RouteBuilderBloc>(
+      () => routePlannerModule.routeDraft(
+        gh<_i735.GetMonumentPinsUseCase>(),
+        gh<_i327.GetRouteUseCase>(),
+        gh<_i327.SaveRouteUseCase>(),
+        gh<_i617.OptimizeStopOrderUseCase>(),
+        gh<_i327.PreviewRouteUseCase>(),
+        gh<_i327.GetTravelMatrixUseCase>(),
+      ),
+      instanceName: 'routeDraft',
+    );
     gh.lazySingleton<_i146.SubmitFeedbackUseCase>(
       () =>
           feedbackModule.submitFeedbackUseCase(gh<_i559.FeedbackRepository>()),
@@ -980,6 +992,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i113.GetSavedMonumentsUseCase>(),
         gh<_i735.GetMonumentPinsUseCase>(),
         gh<_i113.WatchSavedMonumentsUseCase>(),
+      ),
+    );
+    gh.factory<_i362.RouteBuilderBloc>(
+      () => _i362.RouteBuilderBloc(
+        gh<_i735.GetMonumentPinsUseCase>(),
+        gh<_i327.GetRouteUseCase>(),
+        gh<_i327.SaveRouteUseCase>(),
+        gh<_i617.OptimizeStopOrderUseCase>(),
+        gh<_i327.PreviewRouteUseCase>(),
+        gh<_i327.GetTravelMatrixUseCase>(),
       ),
     );
     gh.factoryParam<
@@ -1087,9 +1109,9 @@ class _$RegisterModule extends _i407.RegisterModule {}
 
 class _$RoutePlannerModule extends _i242.RoutePlannerModule {}
 
-class _$MapModule extends _i736.MapModule {}
-
 class _$SettingsModule extends _i220.SettingsModule {}
+
+class _$MapModule extends _i736.MapModule {}
 
 class _$NetworkModule extends _i1000.NetworkModule {}
 

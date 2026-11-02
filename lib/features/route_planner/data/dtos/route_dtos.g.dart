@@ -286,3 +286,61 @@ _RouteListResponseDto _$RouteListResponseDtoFromJson(
 Map<String, dynamic> _$RouteListResponseDtoToJson(
   _RouteListResponseDto instance,
 ) => <String, dynamic>{'items': instance.items.map((e) => e.toJson()).toList()};
+
+_RoutePreviewDto _$RoutePreviewDtoFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('_RoutePreviewDto', json, ($checkedConvert) {
+      final val = _RoutePreviewDto(
+        legs: $checkedConvert(
+          'legs',
+          (v) => (v as List<dynamic>)
+              .map((e) => RouteLegDto.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
+        distanceMeters: $checkedConvert(
+          'distanceMeters',
+          (v) => (v as num).toInt(),
+        ),
+        travelSeconds: $checkedConvert(
+          'travelSeconds',
+          (v) => (v as num).toInt(),
+        ),
+      );
+      return val;
+    });
+
+Map<String, dynamic> _$RoutePreviewDtoToJson(_RoutePreviewDto instance) =>
+    <String, dynamic>{
+      'legs': instance.legs.map((e) => e.toJson()).toList(),
+      'distanceMeters': instance.distanceMeters,
+      'travelSeconds': instance.travelSeconds,
+    };
+
+_TravelMatrixDto _$TravelMatrixDtoFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate('_TravelMatrixDto', json, ($checkedConvert) {
+  final val = _TravelMatrixDto(
+    durationSeconds: $checkedConvert(
+      'durationSeconds',
+      (v) => (v as List<dynamic>)
+          .map(
+            (e) => (e as List<dynamic>).map((e) => (e as num).toInt()).toList(),
+          )
+          .toList(),
+    ),
+    distanceMeters: $checkedConvert(
+      'distanceMeters',
+      (v) => (v as List<dynamic>)
+          .map(
+            (e) => (e as List<dynamic>).map((e) => (e as num).toInt()).toList(),
+          )
+          .toList(),
+    ),
+  );
+  return val;
+});
+
+Map<String, dynamic> _$TravelMatrixDtoToJson(_TravelMatrixDto instance) =>
+    <String, dynamic>{
+      'durationSeconds': instance.durationSeconds,
+      'distanceMeters': instance.distanceMeters,
+    };

@@ -13,11 +13,17 @@ part of 'route_builder_bloc.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RouteBuilderEvent {
+mixin _$RouteBuilderEvent implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -29,7 +35,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent()';
 }
 
@@ -56,7 +62,7 @@ extension RouteBuilderEventPatterns on RouteBuilderEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RouteBuilderStarted value)?  started,TResult Function( RouteBuilderEditRequested value)?  editRequested,TResult Function( RouteBuilderMonumentToggled value)?  monumentToggled,TResult Function( RouteBuilderMonumentsResolveRequested value)?  monumentsResolveRequested,TResult Function( RouteBuilderStopMoved value)?  stopMoved,TResult Function( RouteBuilderStopRemoved value)?  stopRemoved,TResult Function( RouteBuilderVisitChanged value)?  visitChanged,TResult Function( RouteBuilderBreakAdded value)?  breakAdded,TResult Function( RouteBuilderBreakChanged value)?  breakChanged,TResult Function( RouteBuilderBreakRemoved value)?  breakRemoved,TResult Function( RouteBuilderNameChanged value)?  nameChanged,TResult Function( RouteBuilderOrderOptimized value)?  orderOptimized,TResult Function( RouteBuilderSubmitted value)?  submitted,TResult Function( RouteBuilderReset value)?  reset,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RouteBuilderStarted value)?  started,TResult Function( RouteBuilderEditRequested value)?  editRequested,TResult Function( RouteBuilderMonumentToggled value)?  monumentToggled,TResult Function( RouteBuilderMonumentsResolveRequested value)?  monumentsResolveRequested,TResult Function( RouteBuilderStopMoved value)?  stopMoved,TResult Function( RouteBuilderStopRemoved value)?  stopRemoved,TResult Function( RouteBuilderVisitChanged value)?  visitChanged,TResult Function( RouteBuilderBreakAdded value)?  breakAdded,TResult Function( RouteBuilderBreakChanged value)?  breakChanged,TResult Function( RouteBuilderBreakRemoved value)?  breakRemoved,TResult Function( RouteBuilderNameChanged value)?  nameChanged,TResult Function( RouteBuilderOrderOptimized value)?  orderOptimized,TResult Function( RouteBuilderPreviewRequested value)?  previewRequested,TResult Function( RouteBuilderSubmitted value)?  submitted,TResult Function( RouteBuilderReset value)?  reset,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RouteBuilderStarted() when started != null:
@@ -71,7 +77,8 @@ return breakAdded(_that);case RouteBuilderBreakChanged() when breakChanged != nu
 return breakChanged(_that);case RouteBuilderBreakRemoved() when breakRemoved != null:
 return breakRemoved(_that);case RouteBuilderNameChanged() when nameChanged != null:
 return nameChanged(_that);case RouteBuilderOrderOptimized() when orderOptimized != null:
-return orderOptimized(_that);case RouteBuilderSubmitted() when submitted != null:
+return orderOptimized(_that);case RouteBuilderPreviewRequested() when previewRequested != null:
+return previewRequested(_that);case RouteBuilderSubmitted() when submitted != null:
 return submitted(_that);case RouteBuilderReset() when reset != null:
 return reset(_that);case _:
   return orElse();
@@ -91,7 +98,7 @@ return reset(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RouteBuilderStarted value)  started,required TResult Function( RouteBuilderEditRequested value)  editRequested,required TResult Function( RouteBuilderMonumentToggled value)  monumentToggled,required TResult Function( RouteBuilderMonumentsResolveRequested value)  monumentsResolveRequested,required TResult Function( RouteBuilderStopMoved value)  stopMoved,required TResult Function( RouteBuilderStopRemoved value)  stopRemoved,required TResult Function( RouteBuilderVisitChanged value)  visitChanged,required TResult Function( RouteBuilderBreakAdded value)  breakAdded,required TResult Function( RouteBuilderBreakChanged value)  breakChanged,required TResult Function( RouteBuilderBreakRemoved value)  breakRemoved,required TResult Function( RouteBuilderNameChanged value)  nameChanged,required TResult Function( RouteBuilderOrderOptimized value)  orderOptimized,required TResult Function( RouteBuilderSubmitted value)  submitted,required TResult Function( RouteBuilderReset value)  reset,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RouteBuilderStarted value)  started,required TResult Function( RouteBuilderEditRequested value)  editRequested,required TResult Function( RouteBuilderMonumentToggled value)  monumentToggled,required TResult Function( RouteBuilderMonumentsResolveRequested value)  monumentsResolveRequested,required TResult Function( RouteBuilderStopMoved value)  stopMoved,required TResult Function( RouteBuilderStopRemoved value)  stopRemoved,required TResult Function( RouteBuilderVisitChanged value)  visitChanged,required TResult Function( RouteBuilderBreakAdded value)  breakAdded,required TResult Function( RouteBuilderBreakChanged value)  breakChanged,required TResult Function( RouteBuilderBreakRemoved value)  breakRemoved,required TResult Function( RouteBuilderNameChanged value)  nameChanged,required TResult Function( RouteBuilderOrderOptimized value)  orderOptimized,required TResult Function( RouteBuilderPreviewRequested value)  previewRequested,required TResult Function( RouteBuilderSubmitted value)  submitted,required TResult Function( RouteBuilderReset value)  reset,}){
 final _that = this;
 switch (_that) {
 case RouteBuilderStarted():
@@ -106,7 +113,8 @@ return breakAdded(_that);case RouteBuilderBreakChanged():
 return breakChanged(_that);case RouteBuilderBreakRemoved():
 return breakRemoved(_that);case RouteBuilderNameChanged():
 return nameChanged(_that);case RouteBuilderOrderOptimized():
-return orderOptimized(_that);case RouteBuilderSubmitted():
+return orderOptimized(_that);case RouteBuilderPreviewRequested():
+return previewRequested(_that);case RouteBuilderSubmitted():
 return submitted(_that);case RouteBuilderReset():
 return reset(_that);}
 }
@@ -122,7 +130,7 @@ return reset(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RouteBuilderStarted value)?  started,TResult? Function( RouteBuilderEditRequested value)?  editRequested,TResult? Function( RouteBuilderMonumentToggled value)?  monumentToggled,TResult? Function( RouteBuilderMonumentsResolveRequested value)?  monumentsResolveRequested,TResult? Function( RouteBuilderStopMoved value)?  stopMoved,TResult? Function( RouteBuilderStopRemoved value)?  stopRemoved,TResult? Function( RouteBuilderVisitChanged value)?  visitChanged,TResult? Function( RouteBuilderBreakAdded value)?  breakAdded,TResult? Function( RouteBuilderBreakChanged value)?  breakChanged,TResult? Function( RouteBuilderBreakRemoved value)?  breakRemoved,TResult? Function( RouteBuilderNameChanged value)?  nameChanged,TResult? Function( RouteBuilderOrderOptimized value)?  orderOptimized,TResult? Function( RouteBuilderSubmitted value)?  submitted,TResult? Function( RouteBuilderReset value)?  reset,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RouteBuilderStarted value)?  started,TResult? Function( RouteBuilderEditRequested value)?  editRequested,TResult? Function( RouteBuilderMonumentToggled value)?  monumentToggled,TResult? Function( RouteBuilderMonumentsResolveRequested value)?  monumentsResolveRequested,TResult? Function( RouteBuilderStopMoved value)?  stopMoved,TResult? Function( RouteBuilderStopRemoved value)?  stopRemoved,TResult? Function( RouteBuilderVisitChanged value)?  visitChanged,TResult? Function( RouteBuilderBreakAdded value)?  breakAdded,TResult? Function( RouteBuilderBreakChanged value)?  breakChanged,TResult? Function( RouteBuilderBreakRemoved value)?  breakRemoved,TResult? Function( RouteBuilderNameChanged value)?  nameChanged,TResult? Function( RouteBuilderOrderOptimized value)?  orderOptimized,TResult? Function( RouteBuilderPreviewRequested value)?  previewRequested,TResult? Function( RouteBuilderSubmitted value)?  submitted,TResult? Function( RouteBuilderReset value)?  reset,}){
 final _that = this;
 switch (_that) {
 case RouteBuilderStarted() when started != null:
@@ -137,7 +145,8 @@ return breakAdded(_that);case RouteBuilderBreakChanged() when breakChanged != nu
 return breakChanged(_that);case RouteBuilderBreakRemoved() when breakRemoved != null:
 return breakRemoved(_that);case RouteBuilderNameChanged() when nameChanged != null:
 return nameChanged(_that);case RouteBuilderOrderOptimized() when orderOptimized != null:
-return orderOptimized(_that);case RouteBuilderSubmitted() when submitted != null:
+return orderOptimized(_that);case RouteBuilderPreviewRequested() when previewRequested != null:
+return previewRequested(_that);case RouteBuilderSubmitted() when submitted != null:
 return submitted(_that);case RouteBuilderReset() when reset != null:
 return reset(_that);case _:
   return null;
@@ -156,7 +165,7 @@ return reset(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String languageCode)?  started,TResult Function( String routeId,  String languageCode)?  editRequested,TResult Function( String monumentId,  MonumentPin? monument)?  monumentToggled,TResult Function()?  monumentsResolveRequested,TResult Function( int from,  int to)?  stopMoved,TResult Function( int index)?  stopRemoved,TResult Function( int index,  Duration visit)?  visitChanged,TResult Function( int stopIndex,  RouteBreakKind kind)?  breakAdded,TResult Function( int stopIndex,  int breakIndex,  Duration duration)?  breakChanged,TResult Function( int stopIndex,  int breakIndex)?  breakRemoved,TResult Function( String name)?  nameChanged,TResult Function()?  orderOptimized,TResult Function( String languageCode,  String fallbackName)?  submitted,TResult Function()?  reset,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String languageCode)?  started,TResult Function( String routeId,  String languageCode)?  editRequested,TResult Function( String monumentId,  MonumentPin? monument)?  monumentToggled,TResult Function()?  monumentsResolveRequested,TResult Function( int from,  int to)?  stopMoved,TResult Function( int index)?  stopRemoved,TResult Function( int index,  Duration visit)?  visitChanged,TResult Function( int stopIndex,  RouteBreakKind kind)?  breakAdded,TResult Function( int stopIndex,  int breakIndex,  Duration duration)?  breakChanged,TResult Function( int stopIndex,  int breakIndex)?  breakRemoved,TResult Function( String name)?  nameChanged,TResult Function()?  orderOptimized,TResult Function()?  previewRequested,TResult Function( String languageCode,  String fallbackName)?  submitted,TResult Function()?  reset,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RouteBuilderStarted() when started != null:
 return started(_that.languageCode);case RouteBuilderEditRequested() when editRequested != null:
@@ -170,7 +179,8 @@ return breakAdded(_that.stopIndex,_that.kind);case RouteBuilderBreakChanged() wh
 return breakChanged(_that.stopIndex,_that.breakIndex,_that.duration);case RouteBuilderBreakRemoved() when breakRemoved != null:
 return breakRemoved(_that.stopIndex,_that.breakIndex);case RouteBuilderNameChanged() when nameChanged != null:
 return nameChanged(_that.name);case RouteBuilderOrderOptimized() when orderOptimized != null:
-return orderOptimized();case RouteBuilderSubmitted() when submitted != null:
+return orderOptimized();case RouteBuilderPreviewRequested() when previewRequested != null:
+return previewRequested();case RouteBuilderSubmitted() when submitted != null:
 return submitted(_that.languageCode,_that.fallbackName);case RouteBuilderReset() when reset != null:
 return reset();case _:
   return orElse();
@@ -190,7 +200,7 @@ return reset();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String languageCode)  started,required TResult Function( String routeId,  String languageCode)  editRequested,required TResult Function( String monumentId,  MonumentPin? monument)  monumentToggled,required TResult Function()  monumentsResolveRequested,required TResult Function( int from,  int to)  stopMoved,required TResult Function( int index)  stopRemoved,required TResult Function( int index,  Duration visit)  visitChanged,required TResult Function( int stopIndex,  RouteBreakKind kind)  breakAdded,required TResult Function( int stopIndex,  int breakIndex,  Duration duration)  breakChanged,required TResult Function( int stopIndex,  int breakIndex)  breakRemoved,required TResult Function( String name)  nameChanged,required TResult Function()  orderOptimized,required TResult Function( String languageCode,  String fallbackName)  submitted,required TResult Function()  reset,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String languageCode)  started,required TResult Function( String routeId,  String languageCode)  editRequested,required TResult Function( String monumentId,  MonumentPin? monument)  monumentToggled,required TResult Function()  monumentsResolveRequested,required TResult Function( int from,  int to)  stopMoved,required TResult Function( int index)  stopRemoved,required TResult Function( int index,  Duration visit)  visitChanged,required TResult Function( int stopIndex,  RouteBreakKind kind)  breakAdded,required TResult Function( int stopIndex,  int breakIndex,  Duration duration)  breakChanged,required TResult Function( int stopIndex,  int breakIndex)  breakRemoved,required TResult Function( String name)  nameChanged,required TResult Function()  orderOptimized,required TResult Function()  previewRequested,required TResult Function( String languageCode,  String fallbackName)  submitted,required TResult Function()  reset,}) {final _that = this;
 switch (_that) {
 case RouteBuilderStarted():
 return started(_that.languageCode);case RouteBuilderEditRequested():
@@ -204,7 +214,8 @@ return breakAdded(_that.stopIndex,_that.kind);case RouteBuilderBreakChanged():
 return breakChanged(_that.stopIndex,_that.breakIndex,_that.duration);case RouteBuilderBreakRemoved():
 return breakRemoved(_that.stopIndex,_that.breakIndex);case RouteBuilderNameChanged():
 return nameChanged(_that.name);case RouteBuilderOrderOptimized():
-return orderOptimized();case RouteBuilderSubmitted():
+return orderOptimized();case RouteBuilderPreviewRequested():
+return previewRequested();case RouteBuilderSubmitted():
 return submitted(_that.languageCode,_that.fallbackName);case RouteBuilderReset():
 return reset();}
 }
@@ -220,7 +231,7 @@ return reset();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String languageCode)?  started,TResult? Function( String routeId,  String languageCode)?  editRequested,TResult? Function( String monumentId,  MonumentPin? monument)?  monumentToggled,TResult? Function()?  monumentsResolveRequested,TResult? Function( int from,  int to)?  stopMoved,TResult? Function( int index)?  stopRemoved,TResult? Function( int index,  Duration visit)?  visitChanged,TResult? Function( int stopIndex,  RouteBreakKind kind)?  breakAdded,TResult? Function( int stopIndex,  int breakIndex,  Duration duration)?  breakChanged,TResult? Function( int stopIndex,  int breakIndex)?  breakRemoved,TResult? Function( String name)?  nameChanged,TResult? Function()?  orderOptimized,TResult? Function( String languageCode,  String fallbackName)?  submitted,TResult? Function()?  reset,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String languageCode)?  started,TResult? Function( String routeId,  String languageCode)?  editRequested,TResult? Function( String monumentId,  MonumentPin? monument)?  monumentToggled,TResult? Function()?  monumentsResolveRequested,TResult? Function( int from,  int to)?  stopMoved,TResult? Function( int index)?  stopRemoved,TResult? Function( int index,  Duration visit)?  visitChanged,TResult? Function( int stopIndex,  RouteBreakKind kind)?  breakAdded,TResult? Function( int stopIndex,  int breakIndex,  Duration duration)?  breakChanged,TResult? Function( int stopIndex,  int breakIndex)?  breakRemoved,TResult? Function( String name)?  nameChanged,TResult? Function()?  orderOptimized,TResult? Function()?  previewRequested,TResult? Function( String languageCode,  String fallbackName)?  submitted,TResult? Function()?  reset,}) {final _that = this;
 switch (_that) {
 case RouteBuilderStarted() when started != null:
 return started(_that.languageCode);case RouteBuilderEditRequested() when editRequested != null:
@@ -234,7 +245,8 @@ return breakAdded(_that.stopIndex,_that.kind);case RouteBuilderBreakChanged() wh
 return breakChanged(_that.stopIndex,_that.breakIndex,_that.duration);case RouteBuilderBreakRemoved() when breakRemoved != null:
 return breakRemoved(_that.stopIndex,_that.breakIndex);case RouteBuilderNameChanged() when nameChanged != null:
 return nameChanged(_that.name);case RouteBuilderOrderOptimized() when orderOptimized != null:
-return orderOptimized();case RouteBuilderSubmitted() when submitted != null:
+return orderOptimized();case RouteBuilderPreviewRequested() when previewRequested != null:
+return previewRequested();case RouteBuilderSubmitted() when submitted != null:
 return submitted(_that.languageCode,_that.fallbackName);case RouteBuilderReset() when reset != null:
 return reset();case _:
   return null;
@@ -247,7 +259,7 @@ return reset();case _:
 /// @nodoc
 
 
-class RouteBuilderStarted implements RouteBuilderEvent {
+class RouteBuilderStarted with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderStarted({required this.languageCode});
   
 
@@ -260,6 +272,12 @@ class RouteBuilderStarted implements RouteBuilderEvent {
 $RouteBuilderStartedCopyWith<RouteBuilderStarted> get copyWith => _$RouteBuilderStartedCopyWithImpl<RouteBuilderStarted>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.started'))
+    ..add(DiagnosticsProperty('languageCode', languageCode));
+}
 
 @override
 bool operator ==(Object other) {
@@ -273,7 +291,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.started(languageCode: $languageCode)';
 }
 
@@ -315,7 +333,7 @@ as String,
 /// @nodoc
 
 
-class RouteBuilderEditRequested implements RouteBuilderEvent {
+class RouteBuilderEditRequested with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderEditRequested({required this.routeId, required this.languageCode});
   
 
@@ -329,6 +347,12 @@ class RouteBuilderEditRequested implements RouteBuilderEvent {
 $RouteBuilderEditRequestedCopyWith<RouteBuilderEditRequested> get copyWith => _$RouteBuilderEditRequestedCopyWithImpl<RouteBuilderEditRequested>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.editRequested'))
+    ..add(DiagnosticsProperty('routeId', routeId))..add(DiagnosticsProperty('languageCode', languageCode));
+}
 
 @override
 bool operator ==(Object other) {
@@ -342,7 +366,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.editRequested(routeId: $routeId, languageCode: $languageCode)';
 }
 
@@ -385,7 +409,7 @@ as String,
 /// @nodoc
 
 
-class RouteBuilderMonumentToggled implements RouteBuilderEvent {
+class RouteBuilderMonumentToggled with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderMonumentToggled(this.monumentId, {this.monument});
   
 
@@ -399,6 +423,12 @@ class RouteBuilderMonumentToggled implements RouteBuilderEvent {
 $RouteBuilderMonumentToggledCopyWith<RouteBuilderMonumentToggled> get copyWith => _$RouteBuilderMonumentToggledCopyWithImpl<RouteBuilderMonumentToggled>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.monumentToggled'))
+    ..add(DiagnosticsProperty('monumentId', monumentId))..add(DiagnosticsProperty('monument', monument));
+}
 
 @override
 bool operator ==(Object other) {
@@ -412,7 +442,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.monumentToggled(monumentId: $monumentId, monument: $monument)';
 }
 
@@ -455,7 +485,7 @@ as MonumentPin?,
 /// @nodoc
 
 
-class RouteBuilderMonumentsResolveRequested implements RouteBuilderEvent {
+class RouteBuilderMonumentsResolveRequested with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderMonumentsResolveRequested();
   
 
@@ -463,6 +493,12 @@ class RouteBuilderMonumentsResolveRequested implements RouteBuilderEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.monumentsResolveRequested'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -474,7 +510,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.monumentsResolveRequested()';
 }
 
@@ -487,7 +523,7 @@ String toString() {
 /// @nodoc
 
 
-class RouteBuilderStopMoved implements RouteBuilderEvent {
+class RouteBuilderStopMoved with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderStopMoved({required this.from, required this.to});
   
 
@@ -501,6 +537,12 @@ class RouteBuilderStopMoved implements RouteBuilderEvent {
 $RouteBuilderStopMovedCopyWith<RouteBuilderStopMoved> get copyWith => _$RouteBuilderStopMovedCopyWithImpl<RouteBuilderStopMoved>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.stopMoved'))
+    ..add(DiagnosticsProperty('from', from))..add(DiagnosticsProperty('to', to));
+}
 
 @override
 bool operator ==(Object other) {
@@ -514,7 +556,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.stopMoved(from: $from, to: $to)';
 }
 
@@ -557,7 +599,7 @@ as int,
 /// @nodoc
 
 
-class RouteBuilderStopRemoved implements RouteBuilderEvent {
+class RouteBuilderStopRemoved with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderStopRemoved(this.index);
   
 
@@ -570,6 +612,12 @@ class RouteBuilderStopRemoved implements RouteBuilderEvent {
 $RouteBuilderStopRemovedCopyWith<RouteBuilderStopRemoved> get copyWith => _$RouteBuilderStopRemovedCopyWithImpl<RouteBuilderStopRemoved>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.stopRemoved'))
+    ..add(DiagnosticsProperty('index', index));
+}
 
 @override
 bool operator ==(Object other) {
@@ -583,7 +631,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.stopRemoved(index: $index)';
 }
 
@@ -625,7 +673,7 @@ as int,
 /// @nodoc
 
 
-class RouteBuilderVisitChanged implements RouteBuilderEvent {
+class RouteBuilderVisitChanged with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderVisitChanged({required this.index, required this.visit});
   
 
@@ -639,6 +687,12 @@ class RouteBuilderVisitChanged implements RouteBuilderEvent {
 $RouteBuilderVisitChangedCopyWith<RouteBuilderVisitChanged> get copyWith => _$RouteBuilderVisitChangedCopyWithImpl<RouteBuilderVisitChanged>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.visitChanged'))
+    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('visit', visit));
+}
 
 @override
 bool operator ==(Object other) {
@@ -652,7 +706,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.visitChanged(index: $index, visit: $visit)';
 }
 
@@ -695,7 +749,7 @@ as Duration,
 /// @nodoc
 
 
-class RouteBuilderBreakAdded implements RouteBuilderEvent {
+class RouteBuilderBreakAdded with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderBreakAdded({required this.stopIndex, required this.kind});
   
 
@@ -709,6 +763,12 @@ class RouteBuilderBreakAdded implements RouteBuilderEvent {
 $RouteBuilderBreakAddedCopyWith<RouteBuilderBreakAdded> get copyWith => _$RouteBuilderBreakAddedCopyWithImpl<RouteBuilderBreakAdded>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.breakAdded'))
+    ..add(DiagnosticsProperty('stopIndex', stopIndex))..add(DiagnosticsProperty('kind', kind));
+}
 
 @override
 bool operator ==(Object other) {
@@ -722,7 +782,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.breakAdded(stopIndex: $stopIndex, kind: $kind)';
 }
 
@@ -765,7 +825,7 @@ as RouteBreakKind,
 /// @nodoc
 
 
-class RouteBuilderBreakChanged implements RouteBuilderEvent {
+class RouteBuilderBreakChanged with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderBreakChanged({required this.stopIndex, required this.breakIndex, required this.duration});
   
 
@@ -780,6 +840,12 @@ class RouteBuilderBreakChanged implements RouteBuilderEvent {
 $RouteBuilderBreakChangedCopyWith<RouteBuilderBreakChanged> get copyWith => _$RouteBuilderBreakChangedCopyWithImpl<RouteBuilderBreakChanged>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.breakChanged'))
+    ..add(DiagnosticsProperty('stopIndex', stopIndex))..add(DiagnosticsProperty('breakIndex', breakIndex))..add(DiagnosticsProperty('duration', duration));
+}
 
 @override
 bool operator ==(Object other) {
@@ -793,7 +859,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.breakChanged(stopIndex: $stopIndex, breakIndex: $breakIndex, duration: $duration)';
 }
 
@@ -837,7 +903,7 @@ as Duration,
 /// @nodoc
 
 
-class RouteBuilderBreakRemoved implements RouteBuilderEvent {
+class RouteBuilderBreakRemoved with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderBreakRemoved({required this.stopIndex, required this.breakIndex});
   
 
@@ -851,6 +917,12 @@ class RouteBuilderBreakRemoved implements RouteBuilderEvent {
 $RouteBuilderBreakRemovedCopyWith<RouteBuilderBreakRemoved> get copyWith => _$RouteBuilderBreakRemovedCopyWithImpl<RouteBuilderBreakRemoved>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.breakRemoved'))
+    ..add(DiagnosticsProperty('stopIndex', stopIndex))..add(DiagnosticsProperty('breakIndex', breakIndex));
+}
 
 @override
 bool operator ==(Object other) {
@@ -864,7 +936,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.breakRemoved(stopIndex: $stopIndex, breakIndex: $breakIndex)';
 }
 
@@ -907,7 +979,7 @@ as int,
 /// @nodoc
 
 
-class RouteBuilderNameChanged implements RouteBuilderEvent {
+class RouteBuilderNameChanged with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderNameChanged(this.name);
   
 
@@ -920,6 +992,12 @@ class RouteBuilderNameChanged implements RouteBuilderEvent {
 $RouteBuilderNameChangedCopyWith<RouteBuilderNameChanged> get copyWith => _$RouteBuilderNameChangedCopyWithImpl<RouteBuilderNameChanged>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.nameChanged'))
+    ..add(DiagnosticsProperty('name', name));
+}
 
 @override
 bool operator ==(Object other) {
@@ -933,7 +1011,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.nameChanged(name: $name)';
 }
 
@@ -975,7 +1053,7 @@ as String,
 /// @nodoc
 
 
-class RouteBuilderOrderOptimized implements RouteBuilderEvent {
+class RouteBuilderOrderOptimized with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderOrderOptimized();
   
 
@@ -983,6 +1061,12 @@ class RouteBuilderOrderOptimized implements RouteBuilderEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.orderOptimized'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -994,7 +1078,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.orderOptimized()';
 }
 
@@ -1007,7 +1091,45 @@ String toString() {
 /// @nodoc
 
 
-class RouteBuilderSubmitted implements RouteBuilderEvent {
+class RouteBuilderPreviewRequested with DiagnosticableTreeMixin implements RouteBuilderEvent {
+  const RouteBuilderPreviewRequested();
+  
+
+
+
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.previewRequested'))
+    ;
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteBuilderPreviewRequested);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+    return 'RouteBuilderEvent.previewRequested()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class RouteBuilderSubmitted with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderSubmitted({required this.languageCode, required this.fallbackName});
   
 
@@ -1021,6 +1143,12 @@ class RouteBuilderSubmitted implements RouteBuilderEvent {
 $RouteBuilderSubmittedCopyWith<RouteBuilderSubmitted> get copyWith => _$RouteBuilderSubmittedCopyWithImpl<RouteBuilderSubmitted>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.submitted'))
+    ..add(DiagnosticsProperty('languageCode', languageCode))..add(DiagnosticsProperty('fallbackName', fallbackName));
+}
 
 @override
 bool operator ==(Object other) {
@@ -1034,7 +1162,7 @@ int get hashCode {
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.submitted(languageCode: $languageCode, fallbackName: $fallbackName)';
 }
 
@@ -1077,7 +1205,7 @@ as String,
 /// @nodoc
 
 
-class RouteBuilderReset implements RouteBuilderEvent {
+class RouteBuilderReset with DiagnosticableTreeMixin implements RouteBuilderEvent {
   const RouteBuilderReset();
   
 
@@ -1085,6 +1213,12 @@ class RouteBuilderReset implements RouteBuilderEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderEvent.reset'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -1096,7 +1230,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
     return 'RouteBuilderEvent.reset()';
 }
 
@@ -1107,9 +1241,10 @@ String toString() {
 
 
 /// @nodoc
-mixin _$RouteOptimizationOutcome {
+mixin _$RouteOptimizationOutcome implements DiagnosticableTreeMixin {
 
- double get beforeMeters; double get afterMeters;/// Her optimizasyonda artar; aynı sonucun tekrar duyurulmasını sağlar.
+ RouteOptimizationBasis get basis;/// [basis] biriminde (saniye / metre) önceki ve yeni toplam.
+ double get before; double get after;/// Her optimizasyonda artar; aynı sonucun tekrar duyurulmasını sağlar.
  int get sequence;
 /// Create a copy of RouteOptimizationOutcome
 /// with the given fields replaced by the non-null parameter values.
@@ -1118,24 +1253,31 @@ mixin _$RouteOptimizationOutcome {
 $RouteOptimizationOutcomeCopyWith<RouteOptimizationOutcome> get copyWith => _$RouteOptimizationOutcomeCopyWithImpl<RouteOptimizationOutcome>(this as RouteOptimizationOutcome, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as RouteOptimizationOutcome;
+  properties
+    ..add(DiagnosticsProperty('type', 'RouteOptimizationOutcome'))
+    ..add(DiagnosticsProperty('basis', _this.basis))..add(DiagnosticsProperty('before', _this.before))..add(DiagnosticsProperty('after', _this.after))..add(DiagnosticsProperty('sequence', _this.sequence));
+}
 
 @override
 bool operator ==(Object other) {
   final _this = this as RouteOptimizationOutcome;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteOptimizationOutcome&&(identical(other.beforeMeters, _this.beforeMeters) || other.beforeMeters == _this.beforeMeters)&&(identical(other.afterMeters, _this.afterMeters) || other.afterMeters == _this.afterMeters)&&(identical(other.sequence, _this.sequence) || other.sequence == _this.sequence));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteOptimizationOutcome&&(identical(other.basis, _this.basis) || other.basis == _this.basis)&&(identical(other.before, _this.before) || other.before == _this.before)&&(identical(other.after, _this.after) || other.after == _this.after)&&(identical(other.sequence, _this.sequence) || other.sequence == _this.sequence));
 }
 
 
 @override
 int get hashCode {
   final _this = this as RouteOptimizationOutcome;
-  return Object.hash(runtimeType,_this.beforeMeters,_this.afterMeters,_this.sequence);
+  return Object.hash(runtimeType,_this.basis,_this.before,_this.after,_this.sequence);
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as RouteOptimizationOutcome;
-  return 'RouteOptimizationOutcome(beforeMeters: ${_this.beforeMeters}, afterMeters: ${_this.afterMeters}, sequence: ${_this.sequence})';
+  return 'RouteOptimizationOutcome(basis: ${_this.basis}, before: ${_this.before}, after: ${_this.after}, sequence: ${_this.sequence})';
 }
 
 
@@ -1146,7 +1288,7 @@ abstract mixin class $RouteOptimizationOutcomeCopyWith<$Res>  {
   factory $RouteOptimizationOutcomeCopyWith(RouteOptimizationOutcome value, $Res Function(RouteOptimizationOutcome) _then) = _$RouteOptimizationOutcomeCopyWithImpl;
 @useResult
 $Res call({
- double beforeMeters, double afterMeters, int sequence
+ RouteOptimizationBasis basis, double before, double after, int sequence
 });
 
 
@@ -1163,10 +1305,11 @@ class _$RouteOptimizationOutcomeCopyWithImpl<$Res>
 
 /// Create a copy of RouteOptimizationOutcome
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? beforeMeters = null,Object? afterMeters = null,Object? sequence = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? basis = null,Object? before = null,Object? after = null,Object? sequence = null,}) {
   return _then(RouteOptimizationOutcome(
-beforeMeters: null == beforeMeters ? _self.beforeMeters : beforeMeters // ignore: cast_nullable_to_non_nullable
-as double,afterMeters: null == afterMeters ? _self.afterMeters : afterMeters // ignore: cast_nullable_to_non_nullable
+basis: null == basis ? _self.basis : basis // ignore: cast_nullable_to_non_nullable
+as RouteOptimizationBasis,before: null == before ? _self.before : before // ignore: cast_nullable_to_non_nullable
+as double,after: null == after ? _self.after : after // ignore: cast_nullable_to_non_nullable
 as double,sequence: null == sequence ? _self.sequence : sequence // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -1253,10 +1396,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double beforeMeters,  double afterMeters,  int sequence)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RouteOptimizationBasis basis,  double before,  double after,  int sequence)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteOptimizationOutcome() when $default != null:
-return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
+return $default(_that.basis,_that.before,_that.after,_that.sequence);case _:
   return orElse();
 
 }
@@ -1274,10 +1417,10 @@ return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double beforeMeters,  double afterMeters,  int sequence)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RouteOptimizationBasis basis,  double before,  double after,  int sequence)  $default,) {final _that = this;
 switch (_that) {
 case _RouteOptimizationOutcome():
-return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
+return $default(_that.basis,_that.before,_that.after,_that.sequence);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1294,10 +1437,10 @@ return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double beforeMeters,  double afterMeters,  int sequence)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RouteOptimizationBasis basis,  double before,  double after,  int sequence)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteOptimizationOutcome() when $default != null:
-return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
+return $default(_that.basis,_that.before,_that.after,_that.sequence);case _:
   return null;
 
 }
@@ -1308,12 +1451,14 @@ return $default(_that.beforeMeters,_that.afterMeters,_that.sequence);case _:
 /// @nodoc
 
 
-class _RouteOptimizationOutcome extends RouteOptimizationOutcome {
-  const _RouteOptimizationOutcome({required this.beforeMeters, required this.afterMeters, required this.sequence}): super._();
+class _RouteOptimizationOutcome extends RouteOptimizationOutcome with DiagnosticableTreeMixin {
+  const _RouteOptimizationOutcome({required this.basis, required this.before, required this.after, required this.sequence}): super._();
   
 
-@override final  double beforeMeters;
-@override final  double afterMeters;
+@override final  RouteOptimizationBasis basis;
+/// [basis] biriminde (saniye / metre) önceki ve yeni toplam.
+@override final  double before;
+@override final  double after;
 /// Her optimizasyonda artar; aynı sonucun tekrar duyurulmasını sağlar.
 @override final  int sequence;
 
@@ -1324,21 +1469,27 @@ class _RouteOptimizationOutcome extends RouteOptimizationOutcome {
 _$RouteOptimizationOutcomeCopyWith<_RouteOptimizationOutcome> get copyWith => __$RouteOptimizationOutcomeCopyWithImpl<_RouteOptimizationOutcome>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteOptimizationOutcome'))
+    ..add(DiagnosticsProperty('basis', basis))..add(DiagnosticsProperty('before', before))..add(DiagnosticsProperty('after', after))..add(DiagnosticsProperty('sequence', sequence));
+}
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteOptimizationOutcome&&(identical(other.beforeMeters, beforeMeters) || other.beforeMeters == beforeMeters)&&(identical(other.afterMeters, afterMeters) || other.afterMeters == afterMeters)&&(identical(other.sequence, sequence) || other.sequence == sequence));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteOptimizationOutcome&&(identical(other.basis, basis) || other.basis == basis)&&(identical(other.before, before) || other.before == before)&&(identical(other.after, after) || other.after == after)&&(identical(other.sequence, sequence) || other.sequence == sequence));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,beforeMeters,afterMeters,sequence);
+    return Object.hash(runtimeType,basis,before,after,sequence);
 }
 
 @override
-String toString() {
-    return 'RouteOptimizationOutcome(beforeMeters: $beforeMeters, afterMeters: $afterMeters, sequence: $sequence)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+    return 'RouteOptimizationOutcome(basis: $basis, before: $before, after: $after, sequence: $sequence)';
 }
 
 
@@ -1349,7 +1500,7 @@ abstract mixin class _$RouteOptimizationOutcomeCopyWith<$Res> implements $RouteO
   factory _$RouteOptimizationOutcomeCopyWith(_RouteOptimizationOutcome value, $Res Function(_RouteOptimizationOutcome) _then) = __$RouteOptimizationOutcomeCopyWithImpl;
 @override @useResult
 $Res call({
- double beforeMeters, double afterMeters, int sequence
+ RouteOptimizationBasis basis, double before, double after, int sequence
 });
 
 
@@ -1366,10 +1517,11 @@ class __$RouteOptimizationOutcomeCopyWithImpl<$Res>
 
 /// Create a copy of RouteOptimizationOutcome
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? beforeMeters = null,Object? afterMeters = null,Object? sequence = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? basis = null,Object? before = null,Object? after = null,Object? sequence = null,}) {
   return _then(_RouteOptimizationOutcome(
-beforeMeters: null == beforeMeters ? _self.beforeMeters : beforeMeters // ignore: cast_nullable_to_non_nullable
-as double,afterMeters: null == afterMeters ? _self.afterMeters : afterMeters // ignore: cast_nullable_to_non_nullable
+basis: null == basis ? _self.basis : basis // ignore: cast_nullable_to_non_nullable
+as RouteOptimizationBasis,before: null == before ? _self.before : before // ignore: cast_nullable_to_non_nullable
+as double,after: null == after ? _self.after : after // ignore: cast_nullable_to_non_nullable
 as double,sequence: null == sequence ? _self.sequence : sequence // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -1379,7 +1531,7 @@ as int,
 }
 
 /// @nodoc
-mixin _$RouteBuilderState {
+mixin _$RouteBuilderState implements DiagnosticableTreeMixin {
 
  RouteBuilderStatus get status;/// Duraklardaki eserlerin ad / il / konum bilgisi (arayüz dilinde).
 /// Tüm katalog indirilmez: seçiciden gelen kayıt saklanır, eksikler
@@ -1389,7 +1541,9 @@ mixin _$RouteBuilderState {
  String? get routeId;/// İlk gönderim denemesinden sonra doğrulama mesajları gösterilir.
  bool get showValidation;/// Geçersiz her gönderimde artar (aynı hatanın tekrar duyurulması).
  int get invalidSubmissions;/// Durak sınırına ulaşılmışken eklenmek istendiğinde artar.
- int get limitNotices; RouteOptimizationOutcome? get optimization; Failure? get loadFailure; Failure? get saveFailure; TravelRoute? get savedRoute;
+ int get limitNotices; RouteOptimizationOutcome? get optimization;/// Karayolu matrisi beklenirken optimize butonu meşguldür.
+ bool get isOptimizing;/// Son karayolu ön hesabı; dizi değiştiyse eskidir ([currentPreview]).
+ RoutePreview? get preview; Failure? get loadFailure; Failure? get saveFailure; TravelRoute? get savedRoute;
 /// Create a copy of RouteBuilderState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1397,24 +1551,31 @@ mixin _$RouteBuilderState {
 $RouteBuilderStateCopyWith<RouteBuilderState> get copyWith => _$RouteBuilderStateCopyWithImpl<RouteBuilderState>(this as RouteBuilderState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as RouteBuilderState;
+  properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderState'))
+    ..add(DiagnosticsProperty('status', _this.status))..add(DiagnosticsProperty('monuments', _this.monuments))..add(DiagnosticsProperty('unavailableMonumentIds', _this.unavailableMonumentIds))..add(DiagnosticsProperty('languageCode', _this.languageCode))..add(DiagnosticsProperty('stops', _this.stops))..add(DiagnosticsProperty('name', _this.name))..add(DiagnosticsProperty('routeId', _this.routeId))..add(DiagnosticsProperty('showValidation', _this.showValidation))..add(DiagnosticsProperty('invalidSubmissions', _this.invalidSubmissions))..add(DiagnosticsProperty('limitNotices', _this.limitNotices))..add(DiagnosticsProperty('optimization', _this.optimization))..add(DiagnosticsProperty('isOptimizing', _this.isOptimizing))..add(DiagnosticsProperty('preview', _this.preview))..add(DiagnosticsProperty('loadFailure', _this.loadFailure))..add(DiagnosticsProperty('saveFailure', _this.saveFailure))..add(DiagnosticsProperty('savedRoute', _this.savedRoute));
+}
 
 @override
 bool operator ==(Object other) {
   final _this = this as RouteBuilderState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteBuilderState&&(identical(other.status, _this.status) || other.status == _this.status)&&const DeepCollectionEquality().equals(other.monuments, _this.monuments)&&const DeepCollectionEquality().equals(other.unavailableMonumentIds, _this.unavailableMonumentIds)&&(identical(other.languageCode, _this.languageCode) || other.languageCode == _this.languageCode)&&const DeepCollectionEquality().equals(other.stops, _this.stops)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.routeId, _this.routeId) || other.routeId == _this.routeId)&&(identical(other.showValidation, _this.showValidation) || other.showValidation == _this.showValidation)&&(identical(other.invalidSubmissions, _this.invalidSubmissions) || other.invalidSubmissions == _this.invalidSubmissions)&&(identical(other.limitNotices, _this.limitNotices) || other.limitNotices == _this.limitNotices)&&(identical(other.optimization, _this.optimization) || other.optimization == _this.optimization)&&(identical(other.loadFailure, _this.loadFailure) || other.loadFailure == _this.loadFailure)&&(identical(other.saveFailure, _this.saveFailure) || other.saveFailure == _this.saveFailure)&&(identical(other.savedRoute, _this.savedRoute) || other.savedRoute == _this.savedRoute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteBuilderState&&(identical(other.status, _this.status) || other.status == _this.status)&&const DeepCollectionEquality().equals(other.monuments, _this.monuments)&&const DeepCollectionEquality().equals(other.unavailableMonumentIds, _this.unavailableMonumentIds)&&(identical(other.languageCode, _this.languageCode) || other.languageCode == _this.languageCode)&&const DeepCollectionEquality().equals(other.stops, _this.stops)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.routeId, _this.routeId) || other.routeId == _this.routeId)&&(identical(other.showValidation, _this.showValidation) || other.showValidation == _this.showValidation)&&(identical(other.invalidSubmissions, _this.invalidSubmissions) || other.invalidSubmissions == _this.invalidSubmissions)&&(identical(other.limitNotices, _this.limitNotices) || other.limitNotices == _this.limitNotices)&&(identical(other.optimization, _this.optimization) || other.optimization == _this.optimization)&&(identical(other.isOptimizing, _this.isOptimizing) || other.isOptimizing == _this.isOptimizing)&&(identical(other.preview, _this.preview) || other.preview == _this.preview)&&(identical(other.loadFailure, _this.loadFailure) || other.loadFailure == _this.loadFailure)&&(identical(other.saveFailure, _this.saveFailure) || other.saveFailure == _this.saveFailure)&&(identical(other.savedRoute, _this.savedRoute) || other.savedRoute == _this.savedRoute));
 }
 
 
 @override
 int get hashCode {
   final _this = this as RouteBuilderState;
-  return Object.hash(runtimeType,_this.status,const DeepCollectionEquality().hash(_this.monuments),const DeepCollectionEquality().hash(_this.unavailableMonumentIds),_this.languageCode,const DeepCollectionEquality().hash(_this.stops),_this.name,_this.routeId,_this.showValidation,_this.invalidSubmissions,_this.limitNotices,_this.optimization,_this.loadFailure,_this.saveFailure,_this.savedRoute);
+  return Object.hash(runtimeType,_this.status,const DeepCollectionEquality().hash(_this.monuments),const DeepCollectionEquality().hash(_this.unavailableMonumentIds),_this.languageCode,const DeepCollectionEquality().hash(_this.stops),_this.name,_this.routeId,_this.showValidation,_this.invalidSubmissions,_this.limitNotices,_this.optimization,_this.isOptimizing,_this.preview,_this.loadFailure,_this.saveFailure,_this.savedRoute);
 }
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as RouteBuilderState;
-  return 'RouteBuilderState(status: ${_this.status}, monuments: ${_this.monuments}, unavailableMonumentIds: ${_this.unavailableMonumentIds}, languageCode: ${_this.languageCode}, stops: ${_this.stops}, name: ${_this.name}, routeId: ${_this.routeId}, showValidation: ${_this.showValidation}, invalidSubmissions: ${_this.invalidSubmissions}, limitNotices: ${_this.limitNotices}, optimization: ${_this.optimization}, loadFailure: ${_this.loadFailure}, saveFailure: ${_this.saveFailure}, savedRoute: ${_this.savedRoute})';
+  return 'RouteBuilderState(status: ${_this.status}, monuments: ${_this.monuments}, unavailableMonumentIds: ${_this.unavailableMonumentIds}, languageCode: ${_this.languageCode}, stops: ${_this.stops}, name: ${_this.name}, routeId: ${_this.routeId}, showValidation: ${_this.showValidation}, invalidSubmissions: ${_this.invalidSubmissions}, limitNotices: ${_this.limitNotices}, optimization: ${_this.optimization}, isOptimizing: ${_this.isOptimizing}, preview: ${_this.preview}, loadFailure: ${_this.loadFailure}, saveFailure: ${_this.saveFailure}, savedRoute: ${_this.savedRoute})';
 }
 
 
@@ -1425,7 +1586,7 @@ abstract mixin class $RouteBuilderStateCopyWith<$Res>  {
   factory $RouteBuilderStateCopyWith(RouteBuilderState value, $Res Function(RouteBuilderState) _then) = _$RouteBuilderStateCopyWithImpl;
 @useResult
 $Res call({
- RouteBuilderStatus status, Map<String, MonumentPin> monuments, Set<String> unavailableMonumentIds, String? languageCode, List<RouteStopPlan> stops, String name, String? routeId, bool showValidation, int invalidSubmissions, int limitNotices, RouteOptimizationOutcome? optimization, Failure? loadFailure, Failure? saveFailure, TravelRoute? savedRoute
+ RouteBuilderStatus status, Map<String, MonumentPin> monuments, Set<String> unavailableMonumentIds, String? languageCode, List<RouteStopPlan> stops, String name, String? routeId, bool showValidation, int invalidSubmissions, int limitNotices, RouteOptimizationOutcome? optimization, bool isOptimizing, RoutePreview? preview, Failure? loadFailure, Failure? saveFailure, TravelRoute? savedRoute
 });
 
 
@@ -1442,7 +1603,7 @@ class _$RouteBuilderStateCopyWithImpl<$Res>
 
 /// Create a copy of RouteBuilderState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? monuments = null,Object? unavailableMonumentIds = null,Object? languageCode = freezed,Object? stops = null,Object? name = null,Object? routeId = freezed,Object? showValidation = null,Object? invalidSubmissions = null,Object? limitNotices = null,Object? optimization = freezed,Object? loadFailure = freezed,Object? saveFailure = freezed,Object? savedRoute = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? monuments = null,Object? unavailableMonumentIds = null,Object? languageCode = freezed,Object? stops = null,Object? name = null,Object? routeId = freezed,Object? showValidation = null,Object? invalidSubmissions = null,Object? limitNotices = null,Object? optimization = freezed,Object? isOptimizing = null,Object? preview = freezed,Object? loadFailure = freezed,Object? saveFailure = freezed,Object? savedRoute = freezed,}) {
   return _then(RouteBuilderState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as RouteBuilderStatus,monuments: null == monuments ? _self.monuments : monuments // ignore: cast_nullable_to_non_nullable
@@ -1455,7 +1616,9 @@ as String?,showValidation: null == showValidation ? _self.showValidation : showV
 as bool,invalidSubmissions: null == invalidSubmissions ? _self.invalidSubmissions : invalidSubmissions // ignore: cast_nullable_to_non_nullable
 as int,limitNotices: null == limitNotices ? _self.limitNotices : limitNotices // ignore: cast_nullable_to_non_nullable
 as int,optimization: freezed == optimization ? _self.optimization : optimization // ignore: cast_nullable_to_non_nullable
-as RouteOptimizationOutcome?,loadFailure: freezed == loadFailure ? _self.loadFailure : loadFailure // ignore: cast_nullable_to_non_nullable
+as RouteOptimizationOutcome?,isOptimizing: null == isOptimizing ? _self.isOptimizing : isOptimizing // ignore: cast_nullable_to_non_nullable
+as bool,preview: freezed == preview ? _self.preview : preview // ignore: cast_nullable_to_non_nullable
+as RoutePreview?,loadFailure: freezed == loadFailure ? _self.loadFailure : loadFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,saveFailure: freezed == saveFailure ? _self.saveFailure : saveFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,savedRoute: freezed == savedRoute ? _self.savedRoute : savedRoute // ignore: cast_nullable_to_non_nullable
 as TravelRoute?,
@@ -1555,10 +1718,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  bool isOptimizing,  RoutePreview? preview,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteBuilderState() when $default != null:
-return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
+return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.isOptimizing,_that.preview,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
   return orElse();
 
 }
@@ -1576,10 +1739,10 @@ return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  bool isOptimizing,  RoutePreview? preview,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)  $default,) {final _that = this;
 switch (_that) {
 case _RouteBuilderState():
-return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
+return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.isOptimizing,_that.preview,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1596,10 +1759,10 @@ return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RouteBuilderStatus status,  Map<String, MonumentPin> monuments,  Set<String> unavailableMonumentIds,  String? languageCode,  List<RouteStopPlan> stops,  String name,  String? routeId,  bool showValidation,  int invalidSubmissions,  int limitNotices,  RouteOptimizationOutcome? optimization,  bool isOptimizing,  RoutePreview? preview,  Failure? loadFailure,  Failure? saveFailure,  TravelRoute? savedRoute)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteBuilderState() when $default != null:
-return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
+return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.languageCode,_that.stops,_that.name,_that.routeId,_that.showValidation,_that.invalidSubmissions,_that.limitNotices,_that.optimization,_that.isOptimizing,_that.preview,_that.loadFailure,_that.saveFailure,_that.savedRoute);case _:
   return null;
 
 }
@@ -1610,8 +1773,8 @@ return $default(_that.status,_that.monuments,_that.unavailableMonumentIds,_that.
 /// @nodoc
 
 
-class _RouteBuilderState extends RouteBuilderState {
-  const _RouteBuilderState({this.status = RouteBuilderStatus.loading,  Map<String, MonumentPin> monuments = const <String, MonumentPin>{},  Set<String> unavailableMonumentIds = const <String>{}, this.languageCode,  List<RouteStopPlan> stops = const <RouteStopPlan>[], this.name = '', this.routeId, this.showValidation = false, this.invalidSubmissions = 0, this.limitNotices = 0, this.optimization, this.loadFailure, this.saveFailure, this.savedRoute}): _monuments = monuments,_unavailableMonumentIds = unavailableMonumentIds,_stops = stops,super._();
+class _RouteBuilderState extends RouteBuilderState with DiagnosticableTreeMixin {
+  const _RouteBuilderState({this.status = RouteBuilderStatus.loading,  Map<String, MonumentPin> monuments = const <String, MonumentPin>{},  Set<String> unavailableMonumentIds = const <String>{}, this.languageCode,  List<RouteStopPlan> stops = const <RouteStopPlan>[], this.name = '', this.routeId, this.showValidation = false, this.invalidSubmissions = 0, this.limitNotices = 0, this.optimization, this.isOptimizing = false, this.preview, this.loadFailure, this.saveFailure, this.savedRoute}): _monuments = monuments,_unavailableMonumentIds = unavailableMonumentIds,_stops = stops,super._();
   
 
 @override@JsonKey() final  RouteBuilderStatus status;
@@ -1655,6 +1818,10 @@ class _RouteBuilderState extends RouteBuilderState {
 /// Durak sınırına ulaşılmışken eklenmek istendiğinde artar.
 @override@JsonKey() final  int limitNotices;
 @override final  RouteOptimizationOutcome? optimization;
+/// Karayolu matrisi beklenirken optimize butonu meşguldür.
+@override@JsonKey() final  bool isOptimizing;
+/// Son karayolu ön hesabı; dizi değiştiyse eskidir ([currentPreview]).
+@override final  RoutePreview? preview;
 @override final  Failure? loadFailure;
 @override final  Failure? saveFailure;
 @override final  TravelRoute? savedRoute;
@@ -1666,21 +1833,27 @@ class _RouteBuilderState extends RouteBuilderState {
 _$RouteBuilderStateCopyWith<_RouteBuilderState> get copyWith => __$RouteBuilderStateCopyWithImpl<_RouteBuilderState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+    ..add(DiagnosticsProperty('type', 'RouteBuilderState'))
+    ..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('monuments', monuments))..add(DiagnosticsProperty('unavailableMonumentIds', unavailableMonumentIds))..add(DiagnosticsProperty('languageCode', languageCode))..add(DiagnosticsProperty('stops', stops))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('routeId', routeId))..add(DiagnosticsProperty('showValidation', showValidation))..add(DiagnosticsProperty('invalidSubmissions', invalidSubmissions))..add(DiagnosticsProperty('limitNotices', limitNotices))..add(DiagnosticsProperty('optimization', optimization))..add(DiagnosticsProperty('isOptimizing', isOptimizing))..add(DiagnosticsProperty('preview', preview))..add(DiagnosticsProperty('loadFailure', loadFailure))..add(DiagnosticsProperty('saveFailure', saveFailure))..add(DiagnosticsProperty('savedRoute', savedRoute));
+}
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteBuilderState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.monuments, _monuments)&&const DeepCollectionEquality().equals(other.unavailableMonumentIds, _unavailableMonumentIds)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&const DeepCollectionEquality().equals(other.stops, _stops)&&(identical(other.name, name) || other.name == name)&&(identical(other.routeId, routeId) || other.routeId == routeId)&&(identical(other.showValidation, showValidation) || other.showValidation == showValidation)&&(identical(other.invalidSubmissions, invalidSubmissions) || other.invalidSubmissions == invalidSubmissions)&&(identical(other.limitNotices, limitNotices) || other.limitNotices == limitNotices)&&(identical(other.optimization, optimization) || other.optimization == optimization)&&(identical(other.loadFailure, loadFailure) || other.loadFailure == loadFailure)&&(identical(other.saveFailure, saveFailure) || other.saveFailure == saveFailure)&&(identical(other.savedRoute, savedRoute) || other.savedRoute == savedRoute));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteBuilderState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.monuments, _monuments)&&const DeepCollectionEquality().equals(other.unavailableMonumentIds, _unavailableMonumentIds)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&const DeepCollectionEquality().equals(other.stops, _stops)&&(identical(other.name, name) || other.name == name)&&(identical(other.routeId, routeId) || other.routeId == routeId)&&(identical(other.showValidation, showValidation) || other.showValidation == showValidation)&&(identical(other.invalidSubmissions, invalidSubmissions) || other.invalidSubmissions == invalidSubmissions)&&(identical(other.limitNotices, limitNotices) || other.limitNotices == limitNotices)&&(identical(other.optimization, optimization) || other.optimization == optimization)&&(identical(other.isOptimizing, isOptimizing) || other.isOptimizing == isOptimizing)&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.loadFailure, loadFailure) || other.loadFailure == loadFailure)&&(identical(other.saveFailure, saveFailure) || other.saveFailure == saveFailure)&&(identical(other.savedRoute, savedRoute) || other.savedRoute == savedRoute));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_monuments),const DeepCollectionEquality().hash(_unavailableMonumentIds),languageCode,const DeepCollectionEquality().hash(_stops),name,routeId,showValidation,invalidSubmissions,limitNotices,optimization,loadFailure,saveFailure,savedRoute);
+    return Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_monuments),const DeepCollectionEquality().hash(_unavailableMonumentIds),languageCode,const DeepCollectionEquality().hash(_stops),name,routeId,showValidation,invalidSubmissions,limitNotices,optimization,isOptimizing,preview,loadFailure,saveFailure,savedRoute);
 }
 
 @override
-String toString() {
-    return 'RouteBuilderState(status: $status, monuments: $monuments, unavailableMonumentIds: $unavailableMonumentIds, languageCode: $languageCode, stops: $stops, name: $name, routeId: $routeId, showValidation: $showValidation, invalidSubmissions: $invalidSubmissions, limitNotices: $limitNotices, optimization: $optimization, loadFailure: $loadFailure, saveFailure: $saveFailure, savedRoute: $savedRoute)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+    return 'RouteBuilderState(status: $status, monuments: $monuments, unavailableMonumentIds: $unavailableMonumentIds, languageCode: $languageCode, stops: $stops, name: $name, routeId: $routeId, showValidation: $showValidation, invalidSubmissions: $invalidSubmissions, limitNotices: $limitNotices, optimization: $optimization, isOptimizing: $isOptimizing, preview: $preview, loadFailure: $loadFailure, saveFailure: $saveFailure, savedRoute: $savedRoute)';
 }
 
 
@@ -1691,7 +1864,7 @@ abstract mixin class _$RouteBuilderStateCopyWith<$Res> implements $RouteBuilderS
   factory _$RouteBuilderStateCopyWith(_RouteBuilderState value, $Res Function(_RouteBuilderState) _then) = __$RouteBuilderStateCopyWithImpl;
 @override @useResult
 $Res call({
- RouteBuilderStatus status, Map<String, MonumentPin> monuments, Set<String> unavailableMonumentIds, String? languageCode, List<RouteStopPlan> stops, String name, String? routeId, bool showValidation, int invalidSubmissions, int limitNotices, RouteOptimizationOutcome? optimization, Failure? loadFailure, Failure? saveFailure, TravelRoute? savedRoute
+ RouteBuilderStatus status, Map<String, MonumentPin> monuments, Set<String> unavailableMonumentIds, String? languageCode, List<RouteStopPlan> stops, String name, String? routeId, bool showValidation, int invalidSubmissions, int limitNotices, RouteOptimizationOutcome? optimization, bool isOptimizing, RoutePreview? preview, Failure? loadFailure, Failure? saveFailure, TravelRoute? savedRoute
 });
 
 
@@ -1708,7 +1881,7 @@ class __$RouteBuilderStateCopyWithImpl<$Res>
 
 /// Create a copy of RouteBuilderState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? monuments = null,Object? unavailableMonumentIds = null,Object? languageCode = freezed,Object? stops = null,Object? name = null,Object? routeId = freezed,Object? showValidation = null,Object? invalidSubmissions = null,Object? limitNotices = null,Object? optimization = freezed,Object? loadFailure = freezed,Object? saveFailure = freezed,Object? savedRoute = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? monuments = null,Object? unavailableMonumentIds = null,Object? languageCode = freezed,Object? stops = null,Object? name = null,Object? routeId = freezed,Object? showValidation = null,Object? invalidSubmissions = null,Object? limitNotices = null,Object? optimization = freezed,Object? isOptimizing = null,Object? preview = freezed,Object? loadFailure = freezed,Object? saveFailure = freezed,Object? savedRoute = freezed,}) {
   return _then(_RouteBuilderState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as RouteBuilderStatus,monuments: null == monuments ? _self._monuments : monuments // ignore: cast_nullable_to_non_nullable
@@ -1721,7 +1894,9 @@ as String?,showValidation: null == showValidation ? _self.showValidation : showV
 as bool,invalidSubmissions: null == invalidSubmissions ? _self.invalidSubmissions : invalidSubmissions // ignore: cast_nullable_to_non_nullable
 as int,limitNotices: null == limitNotices ? _self.limitNotices : limitNotices // ignore: cast_nullable_to_non_nullable
 as int,optimization: freezed == optimization ? _self.optimization : optimization // ignore: cast_nullable_to_non_nullable
-as RouteOptimizationOutcome?,loadFailure: freezed == loadFailure ? _self.loadFailure : loadFailure // ignore: cast_nullable_to_non_nullable
+as RouteOptimizationOutcome?,isOptimizing: null == isOptimizing ? _self.isOptimizing : isOptimizing // ignore: cast_nullable_to_non_nullable
+as bool,preview: freezed == preview ? _self.preview : preview // ignore: cast_nullable_to_non_nullable
+as RoutePreview?,loadFailure: freezed == loadFailure ? _self.loadFailure : loadFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,saveFailure: freezed == saveFailure ? _self.saveFailure : saveFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,savedRoute: freezed == savedRoute ? _self.savedRoute : savedRoute // ignore: cast_nullable_to_non_nullable
 as TravelRoute?,

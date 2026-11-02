@@ -33,6 +33,13 @@ abstract interface class RouteRemoteDataSource {
   });
 
   Future<void> deleteRoute({required String id});
+
+  /// Kaydetmeden karayolu bacakları; sahiplik yoktur.
+  Future<RoutePreviewDto> previewRoute({required List<String> monumentIds});
+
+  Future<TravelMatrixDto> fetchTravelMatrix({
+    required List<String> monumentIds,
+  });
 }
 
 @LazySingleton(as: RouteRemoteDataSource)
@@ -100,6 +107,30 @@ class RouteRemoteDataSourceImpl implements RouteRemoteDataSource {
     );
   }
 
+  @override
+  Future<RoutePreviewDto> previewRoute({
+    required List<String> monumentIds,
+  }) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      RouteEndpoints.preview,
+      data: {'monumentIds': monumentIds},
+      options: await _options(null),
+    );
+    return RoutePreviewDto.fromJson(_body(response));
+  }
+
+  @override
+  Future<TravelMatrixDto> fetchTravelMatrix({
+    required List<String> monumentIds,
+  }) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      RouteEndpoints.matrix,
+      data: {'monumentIds': monumentIds},
+      options: await _options(null),
+    );
+    return TravelMatrixDto.fromJson(_body(response));
+  }
+
   /// Bearer'ı `AuthInterceptor` ekler (oturum yoksa eklenmez).
   Future<Options> _options(String? languageCode) async => Options(
     headers: {
@@ -114,6 +145,8 @@ class RouteRemoteDataSourceImpl implements RouteRemoteDataSource {
 
 abstract final class RouteEndpoints {
   static const String routes = 'routes';
+  static const String preview = '$routes/preview';
+  static const String matrix = '$routes/matrix';
 
   static String route(String id) => '$routes/${Uri.encodeComponent(id)}';
 }

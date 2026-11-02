@@ -83,6 +83,78 @@ final class RouteLeg {
       Object.hash(distanceMeters, duration, Object.hashAll(geometry));
 }
 
+/// Kaydetmeden hesaplanan karayolu (oluşturucunun ön hesabı); kayıttaki
+/// bacaklarla aynıdır.
+final class RoutePreview {
+  RoutePreview({
+    required List<String> monumentIds,
+    required List<RouteLeg> legs,
+    required this.distanceMeters,
+    required this.travel,
+  }) : monumentIds = List.unmodifiable(monumentIds),
+       legs = List.unmodifiable(legs);
+
+  /// Hesaplanan durak sırası; taslak değişince ön hesap eskir.
+  final List<String> monumentIds;
+
+  /// `legs.length == monumentIds.length - 1`.
+  final List<RouteLeg> legs;
+  final int distanceMeters;
+  final Duration travel;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RoutePreview &&
+          elementsEqual(other.monumentIds, monumentIds) &&
+          elementsEqual(other.legs, legs) &&
+          other.distanceMeters == distanceMeters &&
+          other.travel == travel;
+
+  @override
+  int get hashCode => Object.hash(
+    Object.hashAll(monumentIds),
+    Object.hashAll(legs),
+    distanceMeters,
+    travel,
+  );
+}
+
+/// Durak çiftleri arası karayolu süresi ve mesafesi: `[i][j]` = `i` → `j`.
+final class TravelMatrix {
+  TravelMatrix({
+    required List<List<Duration>> durations,
+    required List<List<int>> distances,
+  }) : durations = List.unmodifiable(
+         durations.map(List<Duration>.unmodifiable),
+       ),
+       distances = List.unmodifiable(distances.map(List<int>.unmodifiable));
+
+  final List<List<Duration>> durations;
+  final List<List<int>> distances;
+
+  int get size => durations.length;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TravelMatrix &&
+          elementsEqual(
+            other.durations.expand((row) => row).toList(),
+            durations.expand((row) => row).toList(),
+          ) &&
+          elementsEqual(
+            other.distances.expand((row) => row).toList(),
+            distances.expand((row) => row).toList(),
+          );
+
+  @override
+  int get hashCode => Object.hash(
+    Object.hashAll(durations.expand((row) => row)),
+    Object.hashAll(distances.expand((row) => row)),
+  );
+}
+
 /// Rotanın süre ve mesafe dökümü.
 final class RouteSummary {
   const RouteSummary({

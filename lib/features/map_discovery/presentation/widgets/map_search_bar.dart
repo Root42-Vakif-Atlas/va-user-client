@@ -71,13 +71,16 @@ class MapSearchBar extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSpacing.sm),
                         Expanded(
+                          // Tek satır: ipucu veya sorgu sığmazsa sonu "…" ile
+                          // kısalır, çubuk dikeyde büyümez (tam metin ekran
+                          // okuyucu etiketinde ve arama ekranındadır).
                           child: AppText(
                             hasQuery ? query : l10n.mapSearchHint,
                             role: AppTextRole.bodyLarge,
                             color: hasQuery
                                 ? colors.onSurface
                                 : colors.onSurfaceVariant,
-                            maxLines: 2,
+                            maxLines: 1,
                           ),
                         ),
                       ],

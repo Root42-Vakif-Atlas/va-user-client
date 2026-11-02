@@ -435,6 +435,7 @@ class _MapDiscoveryPageState extends State<MapDiscoveryPage> {
     final bloc = _bloc..add(MapDiscoveryEvent.clusterOpened(cluster.bounds));
     final id = await showModalBottomSheet<String>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       isScrollControlled: true,
       useSafeArea: true,
       showDragHandle: true,

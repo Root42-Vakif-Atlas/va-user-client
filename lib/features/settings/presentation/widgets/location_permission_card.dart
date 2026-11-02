@@ -58,7 +58,7 @@ class _LocationPermissionCardState extends State<LocationPermissionCard> {
         l10n.permissionStatusChecking,
       ),
       LocationAccess.granted => (
-        Icons.check_circle_outline,
+        Icons.check_circle_outlined,
         colors.success,
         l10n.permissionStatusGranted,
       ),

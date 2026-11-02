@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vakif_atlas/core/a11y/a11y_announcer.dart';
 import 'package:vakif_atlas/core/a11y/haptic_feedback_service.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/failure_messages.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/l10n/measure_format.dart';
@@ -18,6 +19,7 @@ import 'package:vakif_atlas/features/route_planner/presentation/pages/route_monu
 import 'package:vakif_atlas/features/route_planner/presentation/route_presentation.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/builder_summary_bar.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/route_builder_sheets.dart';
+import 'package:vakif_atlas/features/route_planner/presentation/widgets/route_map_preview.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/stop_editor_card.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
@@ -164,6 +166,7 @@ class _RouteBuilderPageState extends State<RouteBuilderPage> {
   Future<void> _addBreak(int stopIndex) async {
     final kind = await showModalBottomSheet<RouteBreakKind>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       useSafeArea: true,
       showDragHandle: true,
       builder: (_) => const BreakPickerSheet(),
@@ -233,14 +236,23 @@ class _RouteBuilderPageState extends State<RouteBuilderPage> {
       listener: (context, state) {
         final outcome = state.optimization!;
         final l10n = context.l10n;
-        _showMessage(
-          outcome.changed
-              ? l10n.routeOptimizedAnnouncement(
-                  l10n.distance(outcome.beforeMeters),
-                  l10n.distance(outcome.afterMeters),
-                )
-              : l10n.routeOptimizedUnchanged,
-        );
+        String travel(double seconds) =>
+            l10n.durationShort(Duration(seconds: seconds.round()));
+        _showMessage(switch (outcome) {
+          RouteOptimizationOutcome(changed: false) =>
+            l10n.routeOptimizedUnchanged,
+          RouteOptimizationOutcome(
+            basis: RouteOptimizationBasis.roadTravelSeconds,
+          ) =>
+            l10n.routeOptimizedRoadAnnouncement(
+              travel(outcome.before),
+              travel(outcome.after),
+            ),
+          RouteOptimizationOutcome() => l10n.routeOptimizedAnnouncement(
+            l10n.distance(outcome.before),
+            l10n.distance(outcome.after),
+          ),
+        });
       },
     ),
     BlocListener<RouteBuilderBloc, RouteBuilderState>(
@@ -382,6 +394,7 @@ class _BuilderBody extends StatelessWidget {
             ? state.validationError(fallbackName)
             : null;
         final locations = state.stopLocations;
+        final preview = state.currentPreview;
         return ReorderableListView.builder(
           key: const Key('route_builder_list'),
           buildDefaultDragHandles: false,
@@ -399,10 +412,31 @@ class _BuilderBody extends StatelessWidget {
                 : null,
             stopCount: state.stops.length,
             canOptimize: state.stops.length > 2 && locations != null,
+            isOptimizing: state.isOptimizing,
             onNameChanged: onNameChanged,
             onAddMonuments: onAddMonuments,
             onOptimize: onOptimize,
           ),
+          // Karayolu önizlemesi düzenlenen durakların altındadır.
+          footer: preview == null || locations == null
+              ? null
+              : _BuilderMap(
+                  map: RouteMapPreview(
+                    key: const Key('route_builder_map'),
+                    stops: [
+                      for (final (index, location) in locations.indexed)
+                        (
+                          location: location,
+                          name:
+                              state
+                                  .monument(state.stops[index].monumentId)
+                                  ?.name ??
+                              state.stops[index].monumentId,
+                        ),
+                    ],
+                    legs: preview.legs,
+                  ),
+                ),
           itemCount: state.stops.length,
           onReorderItem: onMove,
           itemBuilder: (context, index) {
@@ -419,6 +453,7 @@ class _BuilderBody extends StatelessWidget {
                 straightLineToNextMeters: isLast || locations == null
                     ? null
                     : locations[index].distanceTo(locations[index + 1]),
+                nextLeg: isLast ? null : preview?.legs[index],
                 onMoveUp: () => onMove(index, index - 1),
                 onMoveDown: () => onMove(index, index + 1),
                 onRemove: () => onRemove(index),
@@ -461,9 +496,12 @@ class _BuilderSummary extends StatelessWidget {
         final validation = state.showValidation
             ? state.validationError(suggestedRouteName(l10n, state.cities))
             : null;
+        final preview = state.currentPreview;
         return BuilderSummaryBar(
           stopCount: state.stops.length,
           straightLineMeters: state.straightLineMeters,
+          roadMeters: preview?.distanceMeters,
+          travel: preview?.travel,
           visitTotal: state.visitTotal,
           breakTotal: state.breakTotal,
           isEditing: state.isEditing,
@@ -488,6 +526,7 @@ class _BuilderHeader extends StatelessWidget {
     required this.nameError,
     required this.stopCount,
     required this.canOptimize,
+    required this.isOptimizing,
     required this.onNameChanged,
     required this.onAddMonuments,
     required this.onOptimize,
@@ -498,6 +537,7 @@ class _BuilderHeader extends StatelessWidget {
   final String? nameError;
   final int stopCount;
   final bool canOptimize;
+  final bool isOptimizing;
   final ValueChanged<String> onNameChanged;
   final VoidCallback onAddMonuments;
   final VoidCallback onOptimize;
@@ -542,7 +582,8 @@ class _BuilderHeader extends StatelessWidget {
                 key: const Key('route_optimize_button'),
                 label: l10n.routeOptimize,
                 icon: Icons.auto_fix_high_outlined,
-                onPressed: canOptimize ? onOptimize : null,
+                isLoading: isOptimizing,
+                onPressed: canOptimize && !isOptimizing ? onOptimize : null,
               ),
             ),
           ],
@@ -564,4 +605,32 @@ class _BuilderHeader extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Durak dizisinin karayolu ön hesabı (bizim OSRM) haritada; metin karşılığı
+/// durak kartlarındaki "Sonraki durağa karayolu" satırlarıdır.
+class _BuilderMap extends StatelessWidget {
+  const _BuilderMap({required this.map});
+
+  final Widget map;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: AppSpacing.sm),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AppText(
+          context.l10n.routeBuilderMapHeading,
+          role: AppTextRole.titleMedium,
+          isHeading: true,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          child: map,
+        ),
+      ],
+    ),
+  );
 }

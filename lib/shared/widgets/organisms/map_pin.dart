@@ -78,7 +78,7 @@ class MapPin extends StatelessWidget {
                 : AppSizes.borderThick,
           ),
           borderRadius: BorderRadius.circular(AppRadius.xs),
-          boxShadow: AppShadows.cardShadow,
+          boxShadow: AppShadows.marker(colors),
         ),
       ),
     );

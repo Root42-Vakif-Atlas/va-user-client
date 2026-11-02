@@ -9,6 +9,7 @@ import 'package:vakif_atlas/features/memory_corner/presentation/bloc/memory_list
 import 'package:vakif_atlas/features/memory_corner/presentation/memory_presentation.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/account_avatar.dart';
 
 /// Eser detayındaki Anı Köşesi girişi: eser bilgisinden ayrı, kendi
@@ -150,17 +151,9 @@ class _EntryCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      width: AppSizes.minTouchTarget,
-                      height: AppSizes.minTouchTarget,
-                      decoration: BoxDecoration(
-                        color: colors.surfaceVariant,
-                        borderRadius: BorderRadius.circular(AppRadius.md),
-                      ),
-                      child: AppIcon.decorative(
-                        Icons.auto_stories_outlined,
-                        color: colors.accentText,
-                      ),
+                    const LeadingIconTile(
+                      icon: Icons.auto_stories_outlined,
+                      tone: LeadingIconTone.primary,
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Expanded(

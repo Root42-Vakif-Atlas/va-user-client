@@ -233,6 +233,93 @@ void main() {
       expect(body.height, 2);
     });
 
+    test(
+      'AppBar başlığı da Kolay Okuma aralığını ve satır yüksekliğini alır',
+      () {
+        final title = AppTheme.fromColors(
+          AppColorScheme.light,
+          options: const AppThemeOptions(wideTextSpacing: true, lineHeight: 2),
+        ).appBarTheme.titleTextStyle!;
+        expect(title.letterSpacing, closeTo(title.fontSize! * 0.12, 1e-9));
+        expect(title.wordSpacing, closeTo(title.fontSize! * 0.16, 1e-9));
+        expect(title.height, 2);
+
+        final standard = AppTheme.fromColors(AppColorScheme.light)
+            .appBarTheme
+            .titleTextStyle!;
+        expect(standard.letterSpacing, -0.2);
+        expect(standard.height, lessThan(2));
+      },
+    );
+
+    test(
+      'Animasyonları durdur sayfa geçişlerini süresiz ve geçişsiz yapar',
+      () {
+        final theme = AppTheme.fromColors(
+          AppColorScheme.light,
+          options: const AppThemeOptions(reduceMotion: true),
+        );
+        for (final platform in TargetPlatform.values) {
+          final builder = theme.pageTransitionsTheme.builders[platform]!;
+          expect(builder.transitionDuration, Duration.zero);
+          expect(builder.reverseTransitionDuration, Duration.zero);
+        }
+        final normal = AppTheme.fromColors(AppColorScheme.light);
+        expect(
+          normal
+              .pageTransitionsTheme
+              .builders[TargetPlatform.android]!
+              .transitionDuration,
+          isNot(Duration.zero),
+        );
+      },
+    );
+
+    test(
+      'Kolay Okuma satır yüksekliğini WCAG 1.4.12 alt sınırına (1.5) çeker',
+      () {
+        final text = AppTextTheme.fromColors(
+          AppColorScheme.light,
+          options: const AppThemeOptions(wideTextSpacing: true),
+        );
+        for (final style in [
+          text.bodyLarge,
+          text.bodyMedium,
+          text.bodySmall,
+          text.labelMedium,
+        ]) {
+          expect(style.height, greaterThanOrEqualTo(1.5));
+        }
+        // Kullanıcı daha büyük bir satır yüksekliği seçtiyse o korunur.
+        expect(
+          const AppThemeOptions(
+            wideTextSpacing: true,
+            lineHeight: 2,
+          ).effectiveLineHeight,
+          2,
+        );
+        expect(const AppThemeOptions().effectiveLineHeight, isNull);
+      },
+    );
+
+    test('bağlantı vurgusu liste satırı başlıklarını da alt çizgili yapar', () {
+      final theme = AppTheme.fromColors(
+        AppColorScheme.light,
+        options: const AppThemeOptions(highlightLinks: true),
+      );
+      expect(
+        theme.listTileTheme.titleTextStyle!.decoration,
+        TextDecoration.underline,
+      );
+      expect(
+        AppTheme.fromColors(AppColorScheme.light)
+            .listTileTheme
+            .titleTextStyle!
+            .decoration,
+        isNot(TextDecoration.underline),
+      );
+    });
+
     test('krem zemin yalnızca açık, standart kontrastlı temada', () {
       const options = AppThemeOptions(creamBackground: true);
       expect(

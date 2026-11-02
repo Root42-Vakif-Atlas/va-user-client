@@ -7,6 +7,7 @@ import 'package:vakif_atlas/core/media/photo_draft.dart';
 import 'package:vakif_atlas/core/media/photo_picker_service.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 
@@ -285,6 +286,7 @@ Future<String?> showPhotoDescriptionSheet(
   required int maxLength,
 }) => showModalBottomSheet<String>(
   context: context,
+  sheetAnimationStyle: context.motionAnimationStyle,
   useSafeArea: true,
   showDragHandle: true,
   isScrollControlled: true,
@@ -304,6 +306,7 @@ Future<PhotoSource?> choosePhotoSource(
   final colors = context.colors;
   return showModalBottomSheet<PhotoSource>(
     context: context,
+    sheetAnimationStyle: context.motionAnimationStyle,
     useSafeArea: true,
     showDragHandle: true,
     builder: (context) => SafeArea(
@@ -414,10 +417,11 @@ class _PhotoDescriptionSheetState extends State<_PhotoDescriptionSheet> {
               ),
             ),
             const SizedBox(height: AppSpacing.md),
-            FilledButton(
+            AppButton.primary(
               key: const Key('photo_description_save'),
+              label: l10n.commonSave,
+              expand: true,
               onPressed: _save,
-              child: Text(l10n.commonSave),
             ),
           ],
         ),

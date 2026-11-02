@@ -19,6 +19,10 @@ class _MockGetRoute extends Mock implements GetRouteUseCase {}
 
 class _MockSaveRoute extends Mock implements SaveRouteUseCase {}
 
+class _MockPreviewRoute extends Mock implements PreviewRouteUseCase {}
+
+class _MockTravelMatrix extends Mock implements GetTravelMatrixUseCase {}
+
 const _selimiye = 'selimiye-camii';
 const _suleymaniye = 'suleymaniye-camii';
 const _bursa = 'bursa-ulu-camii';
@@ -58,6 +62,8 @@ void main() {
   late _MockGetMonuments getMonuments;
   late _MockGetRoute getRoute;
   late _MockSaveRoute saveRoute;
+  late _MockPreviewRoute previewRoute;
+  late _MockTravelMatrix travelMatrix;
   late List<MonumentPin> catalog;
 
   setUpAll(() {
@@ -77,6 +83,13 @@ void main() {
     getMonuments = _MockGetMonuments();
     getRoute = _MockGetRoute();
     saveRoute = _MockSaveRoute();
+    previewRoute = _MockPreviewRoute();
+    travelMatrix = _MockTravelMatrix();
+    // Varsayılan: karayolu servisine ulaşılamaz (kuş uçuşu gösterilir).
+    when(() => previewRoute(any()))
+        .thenAnswer((_) async => const Left(NetworkFailure()));
+    when(() => travelMatrix(any()))
+        .thenAnswer((_) async => const Left(NetworkFailure()));
     catalog = fixturePins();
     // Sunucu yalnızca istenen kimlikleri döndürür.
     when(() => getMonuments(any())).thenAnswer((invocation) async {
@@ -99,6 +112,22 @@ void main() {
     getRoute,
     saveRoute,
     const OptimizeStopOrderUseCase(),
+    previewRoute,
+    travelMatrix,
+  );
+
+  RoutePreview previewOf(List<String> ids) => RoutePreview(
+    monumentIds: ids,
+    legs: [
+      for (var i = 1; i < ids.length; i++)
+        RouteLeg(
+          distanceMeters: 1000 * i,
+          duration: Duration(minutes: 10 * i),
+          geometry: const [],
+        ),
+    ],
+    distanceMeters: 1000 * ids.length,
+    travel: Duration(minutes: 10 * ids.length),
   );
 
   RouteBuilderState ready(List<String> ids) => RouteBuilderState(
@@ -430,7 +459,7 @@ void main() {
     );
 
     blocTest<RouteBuilderBloc, RouteBuilderState>(
-      'optimizasyon ilk durağı sabit tutar ve sonucu raporlar',
+      'matris alınamazsa optimizasyon kuş uçuşuyla ilk durağı sabit tutar',
       build: build,
       // Edirne → İzmir → İstanbul → Bursa: İstanbul araya girmeli.
       seed: () => ready([_selimiye, _izmir, _suleymaniye, _bursa]),
@@ -444,9 +473,129 @@ void main() {
           _izmir,
         ]);
         final outcome = state.optimization!;
+        expect(outcome.basis, RouteOptimizationBasis.straightLineMeters);
         expect(outcome.changed, isTrue);
-        expect(outcome.afterMeters, lessThan(outcome.beforeMeters));
+        expect(outcome.after, lessThan(outcome.before));
         expect(outcome.sequence, 1);
+        expect(state.isOptimizing, isFalse);
+      },
+    );
+
+    blocTest<RouteBuilderBloc, RouteBuilderState>(
+      'optimizasyon sunucunun karayolu süre matrisini kullanır',
+      setUp: () {
+        // Kuş uçuşunun sırası Edirne → İstanbul → Bursa → İzmir'dir;
+        // karayolu süresi İzmir'i Bursa'dan önce koyar.
+        const minutes = [
+          [0, 300, 100, 200],
+          [300, 0, 50, 400],
+          [100, 50, 0, 600],
+          [200, 400, 600, 0],
+        ];
+        when(() => travelMatrix(any())).thenAnswer(
+          (_) async => Right(
+            TravelMatrix(
+              durations: [
+                for (final row in minutes)
+                  [for (final m in row) Duration(minutes: m)],
+              ],
+              distances: [
+                for (final row in minutes) [for (final m in row) m * 1000],
+              ],
+            ),
+          ),
+        );
+      },
+      build: build,
+      seed: () => ready([_selimiye, _izmir, _suleymaniye, _bursa]),
+      act: (bloc) => bloc.add(const RouteBuilderEvent.orderOptimized()),
+      verify: (bloc) {
+        verify(() => travelMatrix([_selimiye, _izmir, _suleymaniye, _bursa]))
+            .called(1);
+        final state = bloc.state;
+        // Açık yolların en kısası: Edirne → İstanbul → İzmir → Bursa.
+        expect(state.stops.map((s) => s.monumentId), [
+          _selimiye,
+          _suleymaniye,
+          _izmir,
+          _bursa,
+        ]);
+        final outcome = state.optimization!;
+        expect(outcome.basis, RouteOptimizationBasis.roadTravelSeconds);
+        expect(outcome.before, (300 + 50 + 600) * 60);
+        expect(outcome.after, (100 + 50 + 400) * 60);
+      },
+    );
+  });
+
+  group('karayolu ön hesabı', () {
+    blocTest<RouteBuilderBloc, RouteBuilderState>(
+      'durak dizisi değişince ön hesap istenir ve uygulanır',
+      setUp: () => when(() => previewRoute(any())).thenAnswer(
+        (invocation) async => Right(
+          previewOf(invocation.positionalArguments.single as List<String>),
+        ),
+      ),
+      build: build,
+      seed: () => ready([_selimiye, _suleymaniye]),
+      act: (bloc) => bloc.add(
+        RouteBuilderEvent.monumentToggled(
+          _bursa,
+          monument: catalog.firstWhere((pin) => pin.id == _bursa),
+        ),
+      ),
+      verify: (bloc) {
+        verify(() => previewRoute([_selimiye, _suleymaniye, _bursa])).called(1);
+        final preview = bloc.state.currentPreview!;
+        expect(preview.monumentIds, [_selimiye, _suleymaniye, _bursa]);
+        expect(preview.legs, hasLength(2));
+      },
+    );
+
+    blocTest<RouteBuilderBloc, RouteBuilderState>(
+      'ziyaret süresi değişimi ön hesabı yinelemez; sıra değişimi eskitir',
+      setUp: () => when(() => previewRoute(any())).thenAnswer(
+        (invocation) async => Right(
+          previewOf(invocation.positionalArguments.single as List<String>),
+        ),
+      ),
+      build: build,
+      seed: () =>
+          ready([_selimiye, _suleymaniye, _bursa])
+              .copyWith(preview: previewOf([_selimiye, _suleymaniye, _bursa])),
+      act: (bloc) => bloc
+        ..add(
+          const RouteBuilderEvent.visitChanged(
+            index: 0,
+            visit: Duration(hours: 2),
+          ),
+        )
+        ..add(const RouteBuilderEvent.stopMoved(from: 2, to: 1)),
+      verify: (bloc) {
+        verify(() => previewRoute([_selimiye, _bursa, _suleymaniye])).called(1);
+        verifyNoMoreInteractions(previewRoute);
+        expect(bloc.state.currentPreview?.monumentIds, [
+          _selimiye,
+          _bursa,
+          _suleymaniye,
+        ]);
+      },
+    );
+
+    blocTest<RouteBuilderBloc, RouteBuilderState>(
+      'ön hesap alınamazsa hata gösterilmez; kuş uçuşu kalır',
+      build: build,
+      seed: () => ready([_selimiye]),
+      act: (bloc) => bloc.add(
+        RouteBuilderEvent.monumentToggled(
+          _bursa,
+          monument: catalog.firstWhere((pin) => pin.id == _bursa),
+        ),
+      ),
+      verify: (bloc) {
+        expect(bloc.state.currentPreview, isNull);
+        expect(bloc.state.loadFailure, isNull);
+        expect(bloc.state.straightLineMeters, greaterThan(0));
       },
     );
   });

@@ -30,4 +30,12 @@ abstract interface class RouteRepository {
   });
 
   ResultFuture<Unit> deleteRoute({required String id});
+
+  /// Kaydetmeden karayolu bacakları (`POST routes/preview`).
+  ResultFuture<RoutePreview> previewRoute({required List<String> monumentIds});
+
+  /// Duraklar arası karayolu süre / mesafe matrisi (`POST routes/matrix`).
+  ResultFuture<TravelMatrix> getTravelMatrix({
+    required List<String> monumentIds,
+  });
 }

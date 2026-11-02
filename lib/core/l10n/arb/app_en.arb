@@ -1154,7 +1154,7 @@
   "routeAddMonuments": "Add monuments",
   "routePickerDone": "Done",
   "routeOptimize": "Optimise order",
-  "routeOptimizeHint": "The first stop stays as the start; the others are ordered by the shortest straight-line distance.",
+  "routeOptimizeHint": "The first stop stays as the start; the others are ordered by the shortest driving time.",
   "routeOptimizedAnnouncement": "Order optimised: {after} instead of {before} as the crow flies.",
   "@routeOptimizedAnnouncement": {
     "placeholders": {
@@ -1281,6 +1281,43 @@
       }
     }
   },
+  "routeOptimizedRoadAnnouncement": "Order optimised: {after} of driving instead of {before}.",
+  "@routeOptimizedRoadAnnouncement": {
+    "placeholders": {
+      "before": {
+        "type": "String"
+      },
+      "after": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderRoadSummary": "{stops} · {distance} by road · ≈ {duration} driving",
+  "@routeBuilderRoadSummary": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRoadToNext": "{distance} by road to the next stop · ≈ {duration}",
+  "@routeRoadToNext": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderMapHeading": "Road preview",
   "routeBuilderTimes": "Visits {visit} · Breaks {breaks}",
   "@routeBuilderTimes": {
     "placeholders": {
@@ -1292,7 +1329,7 @@
       }
     }
   },
-  "routeBuilderTravelNote": "Road distance and travel time are calculated when the route is created.",
+  "routeBuilderTravelNote": "Road distance and travel time are calculated as you change the stops; without a connection, straight-line distance is shown.",
   "routeCreate": "Create route",
   "routeSaveChanges": "Save changes",
   "routeCreatedAnnouncement": "Route created: {stops}, {distance}, {duration} in total.",
@@ -1600,6 +1637,7 @@
       }
     }
   },
+  "onboardingBack": "Back",
   "onboardingSkip": "Skip",
   "onboardingSkipSemantics": "Skip introduction",
   "onboardingStart": "Get started",
@@ -1683,8 +1721,8 @@
   "routeExportSignIn": "Sign in",
   "routeExportShareFailed": "The share sheet couldn't be opened.",
   "routeExportPrintFailed": "The print dialog couldn't be opened.",
-  "routeExportSketchHeading": "Route sketch",
-  "routeExportSketchCaption": "Schematic drawing with north at the top. Numbers match the stop list below; the filled marker is the starting stop.",
+  "routeExportSketchHeading": "Route map",
+  "routeExportSketchCaption": "North is at the top. Numbers match the stop list below; the filled marker is the starting stop.",
   "routeExportStopsHeading": "Stops and travel",
   "routeExportMapLink": "Open location on map",
   "routeExportAttribution": "Road data © OpenStreetMap contributors (ODbL); distances and times calculated with OSRM.",

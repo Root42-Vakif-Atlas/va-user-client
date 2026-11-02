@@ -2417,7 +2417,7 @@ abstract class AppLocalizations {
   /// No description provided for @routeOptimizeHint.
   ///
   /// In tr, this message translates to:
-  /// **'İlk durak başlangıç olarak kalır; diğerleri en kısa kuş uçuşu mesafeye göre sıralanır.'**
+  /// **'İlk durak başlangıç olarak kalır; diğerleri en kısa karayolu yolculuk süresine göre sıralanır.'**
   String get routeOptimizeHint;
 
   /// No description provided for @routeOptimizedAnnouncement.
@@ -2534,6 +2534,34 @@ abstract class AppLocalizations {
   /// **'{stops} · kuş uçuşu ≈ {distance}'**
   String routeBuilderSummary(String stops, String distance);
 
+  /// No description provided for @routeOptimizedRoadAnnouncement.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sıra optimize edildi: yolculuk {before} yerine {after}.'**
+  String routeOptimizedRoadAnnouncement(String before, String after);
+
+  /// No description provided for @routeBuilderRoadSummary.
+  ///
+  /// In tr, this message translates to:
+  /// **'{stops} · karayolu {distance} · yolculuk ≈ {duration}'**
+  String routeBuilderRoadSummary(
+    String stops,
+    String distance,
+    String duration,
+  );
+
+  /// No description provided for @routeRoadToNext.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki durağa karayolu {distance} · ≈ {duration}'**
+  String routeRoadToNext(String distance, String duration);
+
+  /// No description provided for @routeBuilderMapHeading.
+  ///
+  /// In tr, this message translates to:
+  /// **'Karayolu önizlemesi'**
+  String get routeBuilderMapHeading;
+
   /// No description provided for @routeBuilderTimes.
   ///
   /// In tr, this message translates to:
@@ -2543,7 +2571,7 @@ abstract class AppLocalizations {
   /// No description provided for @routeBuilderTravelNote.
   ///
   /// In tr, this message translates to:
-  /// **'Karayolu mesafesi ve yolculuk süresi rota oluşturulunca hesaplanır.'**
+  /// **'Karayolu mesafesi ve yolculuk süresi durakları değiştirdikçe hesaplanır; bağlantı yoksa kuş uçuşu gösterilir.'**
   String get routeBuilderTravelNote;
 
   /// No description provided for @routeCreate.
@@ -3162,6 +3190,12 @@ abstract class AppLocalizations {
   /// **'Adım {current} / {total}: {title}'**
   String onboardingStepAnnouncement(int current, int total, String title);
 
+  /// No description provided for @onboardingBack.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri'**
+  String get onboardingBack;
+
   /// No description provided for @onboardingSkip.
   ///
   /// In tr, this message translates to:
@@ -3477,13 +3511,13 @@ abstract class AppLocalizations {
   /// No description provided for @routeExportSketchHeading.
   ///
   /// In tr, this message translates to:
-  /// **'Rota çizimi'**
+  /// **'Rota haritası'**
   String get routeExportSketchHeading;
 
   /// No description provided for @routeExportSketchCaption.
   ///
   /// In tr, this message translates to:
-  /// **'Şematik çizimdir, kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.'**
+  /// **'Kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.'**
   String get routeExportSketchCaption;
 
   /// No description provided for @routeExportStopsHeading.

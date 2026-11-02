@@ -32,7 +32,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
   }) {
     TextStyle tune(TextStyle style) {
       final fontSize = style.fontSize!;
-      final lineHeight = options.lineHeight;
+      final lineHeight = options.effectiveLineHeight;
       return style.copyWith(
         fontFamily: options.legibleFont
             ? AppFonts.atkinsonHyperlegible

@@ -30,14 +30,17 @@ const MapTileConfig testMapTileConfig = MapTileConfig(
   attribution: '© OpenStreetMap contributors',
 );
 
-/// Testlerde ağa çıkmayan harita altlığı kaynağı.
+/// Testlerde ağa çıkmayan harita altlığı kaynağı; [tileFetcher] verilmezse
+/// karo alınamaz (PDF altlıksız üretilir).
 MapTileSource testMapTileSource({
   List<String>? requestedUrls,
   MapTileConfig config = testMapTileConfig,
+  MapTileFetcher? tileFetcher,
 }) {
   return MapTileSource(
     config: config,
     userAgentPackageName: 'tr.gov.vgm.vakif_atlas.test',
     providerFactory: () => BlankTileProvider(requestedUrls),
+    tileFetcher: tileFetcher ?? (_) async => null,
   );
 }

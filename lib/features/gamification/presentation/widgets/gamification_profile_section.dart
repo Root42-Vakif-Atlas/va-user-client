@@ -12,6 +12,7 @@ import 'package:vakif_atlas/features/gamification/presentation/widgets/level_pro
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/section_header.dart';
 
 /// Profildeki seviye, XP ve son kazanılan rozetler.
 /// `GamificationCubit` üst ağaçtan sağlanır.
@@ -36,12 +37,7 @@ class GamificationProfileSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
     final children = <Widget>[
-      AppText(
-        l10n.gamificationSectionTitle,
-        role: AppTextRole.titleMedium,
-        color: colors.accentText,
-        isHeading: true,
-      ),
+      SectionHeader(l10n.gamificationSectionTitle),
       const SizedBox(height: AppSpacing.sm),
     ];
     if (profile == null) {

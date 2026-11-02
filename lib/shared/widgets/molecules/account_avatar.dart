@@ -60,7 +60,7 @@ class AccountAvatar extends StatelessWidget {
         ),
         child: guest
             ? Icon(
-                Icons.person_outline,
+                Icons.person_outlined,
                 color: colors.onSurface,
                 size: size / 2,
               )

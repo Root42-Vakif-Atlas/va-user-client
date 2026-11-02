@@ -14,6 +14,7 @@ import 'package:vakif_atlas/features/memory_corner/presentation/widgets/memory_a
 import 'package:vakif_atlas/features/memory_corner/presentation/widgets/memory_card.dart';
 import 'package:vakif_atlas/features/memory_corner/presentation/widgets/my_memories_section.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
@@ -230,12 +231,7 @@ class _OwnMemory extends StatelessWidget {
       key: Key('my_memory_${memory.id}'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppText(
-          monumentName,
-          role: AppTextRole.titleMedium,
-          color: colors.accentText,
-          isHeading: true,
-        ),
+        AppText(monumentName, role: AppTextRole.titleMedium, isHeading: true),
         // Yayında olmayan anı Anı Köşesi'nde görünmez; bağlantı yanıltırdı.
         if (memory.status == MemoryModerationStatus.approved)
           Align(
@@ -312,7 +308,7 @@ class _ListFooter extends StatelessWidget {
         excludeSemantics: true,
         child: const Padding(
           padding: EdgeInsets.all(AppSpacing.md),
-          child: Center(child: CircularProgressIndicator()),
+          child: Center(child: AppProgressIndicator(strokeWidth: 4)),
         ),
       );
     }

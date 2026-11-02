@@ -11,6 +11,7 @@ import 'package:vakif_atlas/features/catalog/presentation/widgets/monument_searc
 import 'package:vakif_atlas/features/monument_detail/presentation/cubit/complex_members_cubit.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/widgets/complex_widgets.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
@@ -207,7 +208,12 @@ class _Footer extends StatelessWidget {
     final l10n = context.l10n;
     final Widget child;
     if (state.isLoadingMore) {
-      child = const Center(child: CircularProgressIndicator());
+      child = Semantics(
+        label: l10n.commonLoading,
+        liveRegion: true,
+        excludeSemantics: true,
+        child: const Center(child: AppProgressIndicator(strokeWidth: 4)),
+      );
     } else if (state.failure != null && state.items.isNotEmpty) {
       child = AppButton.secondary(
         key: const Key('complex_members_retry_more'),

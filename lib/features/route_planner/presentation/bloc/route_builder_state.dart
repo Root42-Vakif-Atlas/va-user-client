@@ -2,12 +2,19 @@ part of 'route_builder_bloc.dart';
 
 enum RouteBuilderStatus { loading, ready, submitting, saved }
 
+/// Optimizasyonun maliyeti: sunucunun karayolu süresi veya (matris
+/// alınamadıysa) kuş uçuşu mesafe.
+enum RouteOptimizationBasis { roadTravelSeconds, straightLineMeters }
+
 /// "Sırayı optimize et" sonucu (duyuru için).
 @freezed
 abstract class RouteOptimizationOutcome with _$RouteOptimizationOutcome {
   const factory RouteOptimizationOutcome({
-    required double beforeMeters,
-    required double afterMeters,
+    required RouteOptimizationBasis basis,
+
+    /// [basis] biriminde (saniye / metre) önceki ve yeni toplam.
+    required double before,
+    required double after,
 
     /// Her optimizasyonda artar; aynı sonucun tekrar duyurulmasını sağlar.
     required int sequence,
@@ -15,7 +22,7 @@ abstract class RouteOptimizationOutcome with _$RouteOptimizationOutcome {
 
   const RouteOptimizationOutcome._();
 
-  bool get changed => afterMeters < beforeMeters - 1;
+  bool get changed => after < before - 1;
 }
 
 @freezed
@@ -46,6 +53,12 @@ abstract class RouteBuilderState with _$RouteBuilderState {
     /// Durak sınırına ulaşılmışken eklenmek istendiğinde artar.
     @Default(0) int limitNotices,
     RouteOptimizationOutcome? optimization,
+
+    /// Karayolu matrisi beklenirken optimize butonu meşguldür.
+    @Default(false) bool isOptimizing,
+
+    /// Son karayolu ön hesabı; dizi değiştiyse eskidir ([currentPreview]).
+    RoutePreview? preview,
     Failure? loadFailure,
     Failure? saveFailure,
     TravelRoute? savedRoute,
@@ -64,6 +77,18 @@ abstract class RouteBuilderState with _$RouteBuilderState {
   bool get isSubmitting => status == RouteBuilderStatus.submitting;
 
   bool get isFull => stops.length >= RoutePlanRules.maxStops;
+
+  /// Durak eserleri, sırasıyla.
+  List<String> get monumentIds => [for (final stop in stops) stop.monumentId];
+
+  /// Bugünkü durak dizisinin karayolu ön hesabı; yoksa (bekleniyor,
+  /// alınamadı) `null` ve kuş uçuşu gösterilir.
+  RoutePreview? get currentPreview {
+    final value = preview;
+    return value != null && listEquals(value.monumentIds, monumentIds)
+        ? value
+        : null;
+  }
 
   bool contains(String monumentId) =>
       stops.any((stop) => stop.monumentId == monumentId);

@@ -57,8 +57,13 @@ sealed class RouteBuilderEvent with _$RouteBuilderEvent {
   const factory RouteBuilderEvent.nameChanged(String name) =
       RouteBuilderNameChanged;
 
-  /// İlk durak sabitken kuş uçuşu en kısa sıra.
+  /// İlk durak sabitken en kısa karayolu süreli sıra (matris alınamazsa
+  /// kuş uçuşu).
   const factory RouteBuilderEvent.orderOptimized() = RouteBuilderOrderOptimized;
+
+  /// Durak dizisinin karayolu ön hesabını ister (iç olay; dizi değişince).
+  const factory RouteBuilderEvent.previewRequested() =
+      RouteBuilderPreviewRequested;
 
   /// [fallbackName]: ad boşsa kullanılacak önerilen ad.
   const factory RouteBuilderEvent.submitted({

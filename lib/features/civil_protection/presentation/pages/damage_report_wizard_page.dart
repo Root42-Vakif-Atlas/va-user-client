@@ -23,6 +23,8 @@ import 'package:vakif_atlas/features/civil_protection/presentation/widgets/repor
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
+import 'package:vakif_atlas/shared/widgets/templates/bottom_action_bar.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/app_snack_bar.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/shared/widgets/organisms/photo_draft_strip.dart';
@@ -123,27 +125,16 @@ class _DamageReportWizardPageState extends State<DamageReportWizardPage> {
       return;
     }
     final l10n = context.l10n;
-    final discard = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.cpDiscardTitle),
-        content: Text(l10n.cpDiscardBody),
-        actions: [
-          TextButton(
-            key: const Key('cp_discard_cancel'),
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.cpKeepEditing),
-          ),
-          TextButton(
-            key: const Key('cp_discard_confirm'),
-            style: TextButton.styleFrom(foregroundColor: context.colors.error),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.cpDiscardConfirm),
-          ),
-        ],
-      ),
+    final discard = await showConfirmDialog(
+      context,
+      title: l10n.cpDiscardTitle,
+      body: l10n.cpDiscardBody,
+      confirmLabel: l10n.cpDiscardConfirm,
+      cancelLabel: l10n.cpKeepEditing,
+      confirmKey: const Key('cp_discard_confirm'),
+      cancelKey: const Key('cp_discard_cancel'),
     );
-    if ((discard ?? false) && mounted) {
+    if (discard && mounted) {
       widget.onClose();
     }
   }
@@ -1083,90 +1074,54 @@ class _WizardBar extends StatelessWidget {
     final progress = state.uploadProgress;
     final isReview = state.step == ReportStep.review;
     final busy = state.isSubmitting || state.processingPhotos > 0;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: Border(
-          top: BorderSide(
-            color: colors.outlineVariant,
-            width: AppSizes.borderThin,
-          ),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Align(
-          heightFactor: 1,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: AppSizes.maxContentWidth,
+    return BottomActionBar(
+      header: progress == null
+          ? null
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppText(
+                  l10n.photosUploading((progress * 100).round()),
+                  role: AppTextRole.bodySmall,
+                  color: colors.onSurfaceVariant,
+                ),
+                const SizedBox(height: AppSpacing.xxs),
+                LinearProgressIndicator(
+                  key: const Key('cp_upload_progress'),
+                  value: progress,
+                  semanticsLabel: l10n.photosUploadingSemantics,
+                  semanticsValue: '%${(progress * 100).round()}',
+                ),
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (progress != null) ...[
-                    AppText(
-                      l10n.photosUploading((progress * 100).round()),
-                      role: AppTextRole.bodySmall,
-                      color: colors.onSurfaceVariant,
-                    ),
-                    const SizedBox(height: AppSpacing.xxs),
-                    LinearProgressIndicator(
-                      key: const Key('cp_upload_progress'),
-                      value: progress,
-                      semanticsLabel: l10n.photosUploadingSemantics,
-                      semanticsValue: '%${(progress * 100).round()}',
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                  ],
-                  Row(
-                    children: [
-                      if (state.step != ReportStep.monument) ...[
-                        Expanded(
-                          child: AppButton.secondary(
-                            key: const Key('cp_back'),
-                            label: l10n.cpBack,
-                            icon: Icons.arrow_back,
-                            expand: true,
-                            onPressed: state.isSubmitting ? null : onBack,
-                          ),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                      ],
-                      Expanded(
-                        flex: 2,
-                        child: isReview
-                            ? AppButton.primary(
-                                key: const Key('cp_submit'),
-                                label: l10n.cpSubmit,
-                                icon: Icons.send_outlined,
-                                expand: true,
-                                isLoading: state.isSubmitting,
-                                onPressed: busy ? null : onSubmit,
-                              )
-                            : AppButton.primary(
-                                key: const Key('cp_next'),
-                                label: l10n.cpNext,
-                                icon: Icons.arrow_forward,
-                                expand: true,
-                                onPressed:
-                                    state.processingPhotos > 0 ||
-                                        state.monumentLoading
-                                    ? null
-                                    : onNext,
-                              ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+      secondary: state.step == ReportStep.monument
+          ? null
+          : AppButton.secondary(
+              key: const Key('cp_back'),
+              label: l10n.cpBack,
+              icon: Icons.arrow_back,
+              expand: true,
+              onPressed: state.isSubmitting ? null : onBack,
             ),
-          ),
-        ),
-      ),
+      primary: isReview
+          ? AppButton.primary(
+              key: const Key('cp_submit'),
+              label: l10n.cpSubmit,
+              icon: Icons.send_outlined,
+              expand: true,
+              isLoading: state.isSubmitting,
+              onPressed: busy ? null : onSubmit,
+            )
+          : AppButton.primary(
+              key: const Key('cp_next'),
+              label: l10n.cpNext,
+              icon: Icons.arrow_forward,
+              expand: true,
+              onPressed: state.processingPhotos > 0 || state.monumentLoading
+                  ? null
+                  : onNext,
+            ),
     );
   }
 }

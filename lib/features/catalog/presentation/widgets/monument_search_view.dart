@@ -13,8 +13,9 @@ import 'package:vakif_atlas/features/catalog/domain/entities/monument_summary.da
 import 'package:vakif_atlas/features/catalog/presentation/bloc/monument_search_bloc.dart';
 import 'package:vakif_atlas/features/catalog/presentation/widgets/search_filter_bar.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 
@@ -299,7 +300,12 @@ class _MonumentSearchViewState extends State<MonumentSearchView> {
     }
     if (state.items.isEmpty && places.isEmpty) {
       if (state.status != MonumentSearchStatus.success) {
-        return const Center(child: CircularProgressIndicator());
+        return Semantics(
+          label: l10n.commonLoading,
+          liveRegion: true,
+          excludeSemantics: true,
+          child: const Center(child: AppProgressIndicator(strokeWidth: 4)),
+        );
       }
       final text = query.normalizedText;
       return StatusMessageView(
@@ -415,14 +421,7 @@ class _ListFooter extends StatelessWidget {
         key: const Key('monument_search_loading_more'),
         label: l10n.searchLoadingMore,
         excludeSemantics: true,
-        child: const Center(
-          child: SizedBox.square(
-            dimension: AppSizes.iconLg,
-            child: CircularProgressIndicator(
-              strokeWidth: AppSizes.spinnerStroke,
-            ),
-          ),
-        ),
+        child: const Center(child: AppProgressIndicator(size: AppSizes.iconLg)),
       );
     } else if (state.items.isNotEmpty) {
       content = AppText(
@@ -470,12 +469,7 @@ class _SectionHeader extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: AppSpacing.xs,
           children: [
-            AppText(
-              title,
-              role: AppTextRole.titleMedium,
-              color: colors.accentText,
-              isHeading: true,
-            ),
+            AppText(title, role: AppTextRole.titleMedium, isHeading: true),
             if (trailing != null)
               AppText(
                 trailing,
@@ -492,21 +486,17 @@ class _SectionHeader extends StatelessWidget {
 
 /// Arama sonucu satırlarının baş ikonu (yapı türü / yer).
 class MonumentSearchLeadingIcon extends StatelessWidget {
-  const MonumentSearchLeadingIcon({required this.icon, super.key});
+  const MonumentSearchLeadingIcon({
+    required this.icon,
+    this.tone = LeadingIconTone.heritage,
+    super.key,
+  });
 
   final IconData icon;
 
+  /// Eser satırları miras tonunda, yer önerileri nötr tonda gösterilir.
+  final LeadingIconTone tone;
+
   @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return Container(
-      width: AppSizes.minTouchTarget,
-      height: AppSizes.minTouchTarget,
-      decoration: BoxDecoration(
-        color: colors.surfaceVariant,
-        borderRadius: BorderRadius.circular(AppRadius.md),
-      ),
-      child: AppIcon.decorative(icon, color: colors.accentText),
-    );
-  }
+  Widget build(BuildContext context) => LeadingIconTile(icon: icon, tone: tone);
 }

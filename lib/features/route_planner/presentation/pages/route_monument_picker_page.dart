@@ -4,7 +4,6 @@ import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_durations.dart';
-import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_search.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_summary.dart';
 import 'package:vakif_atlas/features/catalog/presentation/bloc/monument_search_bloc.dart';
@@ -14,6 +13,7 @@ import 'package:vakif_atlas/features/route_planner/domain/entities/route_plan.da
 import 'package:vakif_atlas/features/route_planner/presentation/bloc/route_builder_bloc.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/templates/bottom_action_bar.dart';
 
 /// Rotaya eser seçimi: haritadaki aramanın aynısı (sunucu tarafı arama,
 /// filtre çipleri, kaydırdıkça yüklenen sayfalı liste); satırlar onay
@@ -128,54 +128,30 @@ class _PickerBar extends StatelessWidget {
     final (count, isFull) = context.select<RouteBuilderBloc, (int, bool)>(
       (bloc) => (bloc.state.stops.length, bloc.state.isFull),
     );
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colors.surfaceElevated,
-        border: Border(top: BorderSide(color: colors.outlineVariant)),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.md,
-            AppSpacing.sm,
-            AppSpacing.md,
-            AppSpacing.sm,
+    return BottomActionBar(
+      header: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AppText(
+            l10n.routeStopsHeading(count, RoutePlanRules.maxStops),
+            key: const Key('route_picker_count'),
+            role: AppTextRole.titleMedium,
           ),
-          child: Align(
-            heightFactor: 1,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: AppSizes.maxContentWidth,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  AppText(
-                    l10n.routeStopsHeading(count, RoutePlanRules.maxStops),
-                    key: const Key('route_picker_count'),
-                    role: AppTextRole.titleMedium,
-                  ),
-                  if (isFull)
-                    AppText(
-                      l10n.routeLimitReached(RoutePlanRules.maxStops),
-                      key: const Key('route_picker_full_hint'),
-                      role: AppTextRole.bodyMedium,
-                      color: colors.onSurfaceVariant,
-                    ),
-                  const SizedBox(height: AppSpacing.xs),
-                  AppButton.primary(
-                    key: const Key('route_picker_done_button'),
-                    label: l10n.routePickerDone,
-                    expand: true,
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
+          if (isFull)
+            AppText(
+              l10n.routeLimitReached(RoutePlanRules.maxStops),
+              key: const Key('route_picker_full_hint'),
+              role: AppTextRole.bodyMedium,
+              color: colors.onSurfaceVariant,
             ),
-          ),
-        ),
+        ],
+      ),
+      primary: AppButton.primary(
+        key: const Key('route_picker_done_button'),
+        label: l10n.routePickerDone,
+        expand: true,
+        onPressed: () => Navigator.of(context).pop(),
       ),
     );
   }

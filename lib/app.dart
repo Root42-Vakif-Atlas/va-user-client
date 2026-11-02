@@ -55,6 +55,8 @@ AppThemeOptions _themeOptions(AccessibilityPreferences a11y) => AppThemeOptions(
   lineHeight: a11y.lineHeight,
   creamBackground: a11y.creamBackground,
   highlightLinks: a11y.highlightLinks,
+  reduceMotion: a11y.reduceMotion,
+  invertColors: a11y.invertColors,
 );
 
 /// Vakıf Atlas kök widget'ı.
@@ -419,7 +421,7 @@ class StartupFailedApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _StartupMessageApp(
-    icon: Icons.error_outline,
+    icon: Icons.error_outlined,
     title: (l10n) => l10n.startupFailedTitle,
     message: (l10n) => l10n.startupFailedBody,
   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
@@ -35,6 +36,7 @@ class SearchFilterBar extends StatelessWidget {
   }) async {
     final values = await showModalBottomSheet<Set<T>>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       isScrollControlled: true,
       useSafeArea: true,
       showDragHandle: true,

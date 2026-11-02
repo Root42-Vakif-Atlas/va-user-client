@@ -1515,7 +1515,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get routeOptimizeHint =>
-      'The first stop stays as the start; the others are ordered by the shortest straight-line distance.';
+      'The first stop stays as the start; the others are ordered by the shortest driving time.';
 
   @override
   String routeOptimizedAnnouncement(String before, String after) {
@@ -1603,13 +1603,35 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String routeOptimizedRoadAnnouncement(String before, String after) {
+    return 'Order optimised: $after of driving instead of $before.';
+  }
+
+  @override
+  String routeBuilderRoadSummary(
+    String stops,
+    String distance,
+    String duration,
+  ) {
+    return '$stops · $distance by road · ≈ $duration driving';
+  }
+
+  @override
+  String routeRoadToNext(String distance, String duration) {
+    return '$distance by road to the next stop · ≈ $duration';
+  }
+
+  @override
+  String get routeBuilderMapHeading => 'Road preview';
+
+  @override
   String routeBuilderTimes(String visit, String breaks) {
     return 'Visits $visit · Breaks $breaks';
   }
 
   @override
   String get routeBuilderTravelNote =>
-      'Road distance and travel time are calculated when the route is created.';
+      'Road distance and travel time are calculated as you change the stops; without a connection, straight-line distance is shown.';
 
   @override
   String get routeCreate => 'Create route';
@@ -2045,6 +2067,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get onboardingBack => 'Back';
+
+  @override
   String get onboardingSkip => 'Skip';
 
   @override
@@ -2224,11 +2249,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get routeExportPrintFailed => 'The print dialog couldn\'t be opened.';
 
   @override
-  String get routeExportSketchHeading => 'Route sketch';
+  String get routeExportSketchHeading => 'Route map';
 
   @override
   String get routeExportSketchCaption =>
-      'Schematic drawing with north at the top. Numbers match the stop list below; the filled marker is the starting stop.';
+      'North is at the top. Numbers match the stop list below; the filled marker is the starting stop.';
 
   @override
   String get routeExportStopsHeading => 'Stops and travel';

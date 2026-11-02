@@ -457,6 +457,17 @@ void main() {
       expect(created.toDomain().legs, hasLength(1));
       expect(await routes.fetchRoutes(languageCode: 'tr'), isNotEmpty);
       await routes.deleteRoute(id: created.id);
+
+      // Oluşturucunun ön hesabı ve optimizasyon matrisi (bizim OSRM).
+      final stopIds = routeStops;
+      final preview = (await routes.previewRoute(monumentIds: stopIds))
+          .toDomain(stopIds);
+      expect(preview.legs, hasLength(stopIds.length - 1));
+      expect(preview.distanceMeters, greaterThan(0));
+      final matrix = (await routes.fetchTravelMatrix(monumentIds: stopIds))
+          .toDomain(stopIds.length);
+      expect(matrix.size, stopIds.length);
+      expect(matrix.distances[0][1], preview.legs.first.distanceMeters);
     } else {
       _skip('routes', 'konumlu en az iki eser yok');
       expect(await routes.fetchRoutes(languageCode: 'tr'), isA<List<Object>>());

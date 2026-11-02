@@ -226,3 +226,56 @@ abstract class RouteListResponseDto with _$RouteListResponseDto {
   factory RouteListResponseDto.fromJson(Map<String, dynamic> json) =>
       _$RouteListResponseDtoFromJson(json);
 }
+
+/// `POST routes/preview` yanıtı.
+@freezed
+abstract class RoutePreviewDto with _$RoutePreviewDto {
+  const factory RoutePreviewDto({
+    required List<RouteLegDto> legs,
+    required int distanceMeters,
+    required int travelSeconds,
+  }) = _RoutePreviewDto;
+
+  const RoutePreviewDto._();
+
+  factory RoutePreviewDto.fromJson(Map<String, dynamic> json) =>
+      _$RoutePreviewDtoFromJson(json);
+
+  /// Bozuk geometri [FormatException] fırlatır.
+  RoutePreview toDomain(List<String> monumentIds) => RoutePreview(
+    monumentIds: monumentIds,
+    legs: [for (final leg in legs) leg.toDomain()],
+    distanceMeters: distanceMeters,
+    travel: Duration(seconds: travelSeconds),
+  );
+}
+
+/// `POST routes/matrix` yanıtı.
+@freezed
+abstract class TravelMatrixDto with _$TravelMatrixDto {
+  const factory TravelMatrixDto({
+    required List<List<int>> durationSeconds,
+    required List<List<int>> distanceMeters,
+  }) = _TravelMatrixDto;
+
+  const TravelMatrixDto._();
+
+  factory TravelMatrixDto.fromJson(Map<String, dynamic> json) =>
+      _$TravelMatrixDtoFromJson(json);
+
+  /// Kare olmayan matris [FormatException] fırlatır.
+  TravelMatrix toDomain(int size) {
+    bool square(List<List<int>> rows) =>
+        rows.length == size && rows.every((row) => row.length == size);
+    if (!square(durationSeconds) || !square(distanceMeters)) {
+      throw const FormatException('Geçersiz yolculuk matrisi');
+    }
+    return TravelMatrix(
+      durations: [
+        for (final row in durationSeconds)
+          [for (final seconds in row) Duration(seconds: seconds)],
+      ],
+      distances: distanceMeters,
+    );
+  }
+}

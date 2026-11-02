@@ -95,7 +95,7 @@ class MonumentFactsCard extends StatelessWidget {
         l10n.monumentConstructionLabel,
         monument.constructionDate,
       ),
-      (Icons.person_outline, l10n.monumentFounderLabel, monument.founder),
+      (Icons.person_outlined, l10n.monumentFounderLabel, monument.founder),
       if (architect != null)
         (Icons.architecture, l10n.monumentArchitectLabel, architect),
       if (memberCount case final count?)
@@ -177,7 +177,7 @@ class _Fact extends StatelessWidget {
           AppIcon.decorative(
             icon,
             size: AppSizes.iconInline,
-            color: colors.accentText,
+            color: colors.onSurfaceVariant,
           ),
           const SizedBox(width: AppSpacing.xs),
           Expanded(

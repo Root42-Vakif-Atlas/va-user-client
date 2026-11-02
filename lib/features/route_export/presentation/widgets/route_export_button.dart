@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vakif_atlas/core/a11y/a11y_announcer.dart';
 import 'package:vakif_atlas/core/a11y/haptic_feedback_service.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/route_export/domain/entities/route_export.dart';
@@ -13,6 +14,7 @@ import 'package:vakif_atlas/features/route_export/presentation/route_document_bu
 import 'package:vakif_atlas/features/route_export/presentation/widgets/route_export_actions.dart';
 import 'package:vakif_atlas/features/route_export/presentation/widgets/route_export_ready_sheet.dart';
 import 'package:vakif_atlas/features/route_planner/domain/entities/travel_route.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_progress_indicator.dart';
 
 /// Rota detayının üst çubuğundaki "PDF olarak dışa aktar" eylemi.
 ///
@@ -83,6 +85,7 @@ class RouteExportButton extends StatelessWidget {
     final title = route.name;
     await showModalBottomSheet<void>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,
@@ -140,12 +143,7 @@ class RouteExportButton extends StatelessWidget {
             ? Semantics(
                 liveRegion: true,
                 label: l10n.routeExportInProgress,
-                child: const SizedBox.square(
-                  dimension: AppSizes.spinner,
-                  child: CircularProgressIndicator(
-                    strokeWidth: AppSizes.spinnerStroke,
-                  ),
-                ),
+                child: const AppProgressIndicator(size: AppSizes.spinner),
               )
             : const Icon(Icons.picture_as_pdf_outlined),
         onPressed: !enabled || state.isExporting

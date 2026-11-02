@@ -15,7 +15,7 @@ import 'package:vakif_atlas/features/route_planner/presentation/widgets/route_ma
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/route_summary_panel.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/route_timeline.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/diamond_divider.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
 
@@ -89,27 +89,16 @@ class _RouteDetailPageState extends State<RouteDetailPage> {
 
   Future<void> _confirmDelete(TravelRoute route) async {
     final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.routeDeleteConfirmTitle),
-        content: Text(l10n.routeDeleteConfirmBody(route.name)),
-        actions: [
-          TextButton(
-            key: const Key('route_delete_cancel_button'),
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.commonCancel),
-          ),
-          TextButton(
-            key: const Key('route_delete_confirm_button'),
-            style: TextButton.styleFrom(foregroundColor: context.colors.error),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.routeDelete),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: l10n.routeDeleteConfirmTitle,
+      body: l10n.routeDeleteConfirmBody(route.name),
+      confirmLabel: l10n.routeDelete,
+      cancelLabel: l10n.commonCancel,
+      confirmKey: const Key('route_delete_confirm_button'),
+      cancelKey: const Key('route_delete_cancel_button'),
     );
-    if (confirmed ?? false) {
+    if (confirmed) {
       await _cubit.delete();
     }
   }
@@ -245,7 +234,7 @@ class _RouteDetailView extends StatelessWidget {
               IconButton(
                 key: const Key('route_delete_button'),
                 tooltip: l10n.routeDelete,
-                icon: const Icon(Icons.delete_outline),
+                icon: const Icon(Icons.delete_outlined),
                 onPressed: isDeleting ? null : onDelete,
               ),
             ],
@@ -263,7 +252,7 @@ class _RouteDetailView extends StatelessWidget {
                   )
                 : null,
           ),
-          SliverToBoxAdapter(child: RouteMapPreview(route: route)),
+          SliverToBoxAdapter(child: RouteMapPreview.route(route)),
           SliverSafeArea(
             top: false,
             sliver: SliverToBoxAdapter(
@@ -295,7 +284,7 @@ class _RouteDetailView extends StatelessWidget {
                         const SizedBox(height: AppSpacing.lg),
                         RouteSummaryPanel(summary: route.summary),
                         const SizedBox(height: AppSpacing.lg),
-                        const DiamondDivider(),
+                        const Divider(),
                         const SizedBox(height: AppSpacing.lg),
                         AppText(
                           l10n.routeStepsHeading,

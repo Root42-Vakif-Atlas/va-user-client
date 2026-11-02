@@ -5,6 +5,7 @@ import 'package:vakif_atlas/core/theme/theme_preference.dart';
 import 'package:vakif_atlas/features/settings/domain/entities/app_settings.dart';
 import 'package:vakif_atlas/features/settings/presentation/cubit/app_settings_cubit.dart';
 import 'package:vakif_atlas/features/settings/presentation/widgets/settings_radio_group.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 
 // Ayarlar sayfası ve ilk açılış tanıtımı aynı tercih denetimlerini (tema,
 // dil) kullanır; değişiklik `AppSettingsCubit` üzerinden anında uygulanır ve
@@ -45,7 +46,7 @@ class AccessibilityButtonSetting extends StatelessWidget {
     final l10n = context.l10n;
     return SwitchListTile(
       key: const Key('settings_show_accessibility_button_switch'),
-      secondary: const Icon(Icons.accessibility_new),
+      secondary: const LeadingIconTile(icon: Icons.map_outlined),
       title: Text(l10n.settingsShowAccessibilityButton),
       subtitle: Text(l10n.settingsShowAccessibilityButtonDescription),
       value: _select(context, (s) => s.showAccessibilityButton),

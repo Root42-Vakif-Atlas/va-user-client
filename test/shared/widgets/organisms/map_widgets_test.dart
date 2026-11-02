@@ -70,6 +70,38 @@ void main() {
       },
     );
 
+    test('chroma gri tonları değiştirmez, mavimsi pikseli mavimsi bırakır', () {
+      const shadow = Color(0xFF12171C);
+      const highlight = Color(0xFFC5CCD6);
+      final plain = duotoneTileMatrix(shadow: shadow, highlight: highlight);
+      final tinted = duotoneTileMatrix(
+        shadow: shadow,
+        highlight: highlight,
+        chroma: 0.9,
+      );
+
+      double apply(List<double> m, int row, List<double> rgb) =>
+          m[row * 5] * rgb[0] +
+          m[row * 5 + 1] * rgb[1] +
+          m[row * 5 + 2] * rgb[2] +
+          m[row * 5 + 4];
+
+      const gray = [128.0, 128.0, 128.0];
+      for (var row = 0; row < 3; row++) {
+        expect(
+          apply(tinted, row, gray),
+          closeTo(apply(plain, row, gray), 0.001),
+        );
+      }
+
+      // Su rengi (açık mavi): mavi kanal kırmızıdan belirgin büyük kalır.
+      const water = [170.0, 211.0, 223.0];
+      expect(
+        apply(tinted, 2, water) - apply(tinted, 0, water),
+        greaterThan(apply(plain, 2, water) - apply(plain, 0, water)),
+      );
+    });
+
     test('her harita kendi tile sağlayıcısını alır', () {
       expect(
         identical(source.createTileProvider(), source.createTileProvider()),
@@ -138,7 +170,8 @@ void main() {
             ),
             isTrue,
           );
-          // OSM `{r}` desteklemez; retina benzetimiyle ek yük oluşturulmaz.
+          // OSM `{r}` desteklemez; URL'ye @2x eklenmez (keskinlik için
+          // yüksek yoğunluklu ekranda üst yakınlaştırma tile'ı kullanılır).
           expect(urls.any((url) => url.contains('@2x')), isFalse);
           expect(
             find.ancestor(
@@ -150,6 +183,50 @@ void main() {
         },
       );
     }
+
+    group('keskinlik (retina)', () {
+      RetinaMode resolved(WidgetTester tester) =>
+          tester.widget<TileLayer>(find.byType(TileLayer)).resolvedRetinaMode;
+
+      testWidgets('OSM + yüksek yoğunluklu ekran: retina benzetimi', (
+        tester,
+      ) async {
+        tester.view.devicePixelRatio = 2;
+        addTearDown(tester.view.resetDevicePixelRatio);
+        await pumpMap(
+          tester,
+          theme: AppTheme.light(),
+          config: MapTileConfig.openStreetMap,
+        );
+        expect(resolved(tester), RetinaMode.simulation);
+      });
+
+      testWidgets('OSM + 1× ekran: ek yük yok', (tester) async {
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.resetDevicePixelRatio);
+        await pumpMap(
+          tester,
+          theme: AppTheme.light(),
+          config: MapTileConfig.openStreetMap,
+        );
+        expect(resolved(tester), RetinaMode.disabled);
+      });
+
+      testWidgets('{r} destekleyen sunucu: gerçek @2x tile', (tester) async {
+        tester.view.devicePixelRatio = 2;
+        addTearDown(tester.view.resetDevicePixelRatio);
+        final urls = await pumpMap(
+          tester,
+          theme: AppTheme.light(),
+          config: const MapTileConfig(
+            lightUrlTemplate: 'https://tiles.example.org/{z}/{x}/{y}{r}.png',
+            attribution: '© OpenStreetMap contributors',
+          ),
+        );
+        expect(resolved(tester), RetinaMode.server);
+        expect(urls.any((url) => url.contains('@2x')), isTrue);
+      });
+    });
 
     testWidgets('tema değişince altlık katmanı korunur ve yeniden çizilir', (
       tester,

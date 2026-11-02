@@ -5,6 +5,7 @@ import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_search.dart';
 import 'package:vakif_atlas/features/route_planner/domain/entities/route_plan.dart';
+import 'package:vakif_atlas/features/route_planner/domain/entities/travel_route.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/route_presentation.dart';
 import 'package:vakif_atlas/features/route_planner/presentation/widgets/duration_stepper.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
@@ -28,6 +29,7 @@ class StopEditorCard extends StatelessWidget {
     required this.onBreakChanged,
     required this.onBreakRemoved,
     this.straightLineToNextMeters,
+    this.nextLeg,
     super.key,
   });
 
@@ -44,7 +46,12 @@ class StopEditorCard extends StatelessWidget {
   final VoidCallback onAddBreak;
   final void Function(int breakIndex, Duration duration) onBreakChanged;
   final ValueChanged<int> onBreakRemoved;
+
+  /// Ön hesap yoksa (bekleniyor, bağlantı yok) gösterilir.
   final double? straightLineToNextMeters;
+
+  /// Sonraki durağa karayolu (bizim OSRM); varsa kuş uçuşunun yerine geçer.
+  final RouteLeg? nextLeg;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,15 @@ class StopEditorCard extends StatelessWidget {
     final colors = context.colors;
     final name = monument?.name ?? stop.monumentId;
     final distance = straightLineToNextMeters;
+    final leg = nextLeg;
+    final toNext = leg != null
+        ? l10n.routeRoadToNext(
+            l10n.distance(leg.distanceMeters),
+            l10n.durationShort(leg.duration),
+          )
+        : distance != null
+        ? l10n.routeStraightLineToNext(l10n.distance(distance))
+        : null;
     final canAddBreak = stop.breaks.length < RoutePlanRules.maxBreaksPerStop;
 
     return DecoratedBox(
@@ -136,7 +152,7 @@ class StopEditorCard extends StatelessWidget {
                     IconButton(
                       key: Key('route_stop_remove_$index'),
                       tooltip: l10n.routeRemoveStop(name),
-                      icon: const Icon(Icons.delete_outline),
+                      icon: const Icon(Icons.delete_outlined),
                       onPressed: onRemove,
                     ),
                   ],
@@ -171,7 +187,7 @@ class StopEditorCard extends StatelessWidget {
                       ),
                     ),
             ),
-            if (distance != null) ...[
+            if (toNext != null) ...[
               const Divider(),
               Row(
                 children: [
@@ -183,7 +199,8 @@ class StopEditorCard extends StatelessWidget {
                   const SizedBox(width: AppSpacing.xs),
                   Expanded(
                     child: AppText(
-                      l10n.routeStraightLineToNext(l10n.distance(distance)),
+                      toNext,
+                      key: Key('route_stop_next_$index'),
                       role: AppTextRole.bodySmall,
                     ),
                   ),

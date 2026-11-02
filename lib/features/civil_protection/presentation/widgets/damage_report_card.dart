@@ -7,6 +7,7 @@ import 'package:vakif_atlas/features/civil_protection/presentation/civil_protect
 import 'package:vakif_atlas/features/civil_protection/presentation/widgets/report_badges.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 
 /// "Bildirimlerim" satırı: eser, tür, kayıt numarası, durum ve tarih. Kartın
 /// tamamı tek bir butondur.
@@ -54,17 +55,9 @@ class DamageReportCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: AppSizes.minTouchTarget,
-                  height: AppSizes.minTouchTarget,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceVariant,
-                    borderRadius: BorderRadius.circular(AppRadius.md),
-                  ),
-                  child: AppIcon.decorative(
-                    report.category.icon,
-                    color: colors.accentText,
-                  ),
+                LeadingIconTile(
+                  icon: report.category.icon,
+                  tone: LeadingIconTone.danger,
                 ),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(

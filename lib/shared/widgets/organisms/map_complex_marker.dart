@@ -78,7 +78,7 @@ class MapComplexMarker extends StatelessWidget {
                           ? AppSizes.borderHeavy
                           : AppSizes.borderThick,
                     ),
-                    boxShadow: AppShadows.cardShadow,
+                    boxShadow: AppShadows.marker(colors),
                   ),
                   child: Icon(
                     Icons.account_balance_outlined,

@@ -10,8 +10,8 @@ import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/civil_protection/presentation/cubit/damage_report_list_cubit.dart';
 import 'package:vakif_atlas/features/civil_protection/presentation/widgets/damage_report_card.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/shared/widgets/templates/loading_status_view.dart';
 import 'package:vakif_atlas/shared/widgets/templates/status_message_view.dart';
@@ -264,20 +264,12 @@ class _GuestIntro extends StatelessWidget {
           key: const Key('cp_guest_intro'),
           padding: const EdgeInsets.all(AppSpacing.md),
           children: [
-            Align(
+            const Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Container(
-                width: AppSizes.onboardingIcon,
-                height: AppSizes.onboardingIcon,
-                decoration: BoxDecoration(
-                  color: colors.secondaryContainer,
-                  borderRadius: BorderRadius.circular(AppRadius.lg),
-                ),
-                child: AppIcon.decorative(
-                  Icons.shield_outlined,
-                  size: AppSizes.iconLg,
-                  color: colors.onSecondaryContainer,
-                ),
+              child: LeadingIconTile(
+                icon: Icons.shield_outlined,
+                tone: LeadingIconTone.primary,
+                size: AppSizes.onboardingIcon,
               ),
             ),
             const SizedBox(height: AppSpacing.md),

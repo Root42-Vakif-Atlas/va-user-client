@@ -13,7 +13,8 @@ import 'package:flutter/painting.dart';
 /// temalarda aynı yeşilin algısal olarak tutarlı açık/koyu tonları kullanılır.
 abstract final class AppColors {
   // ── Brand Core (docs/brand-reference.md) ────────────────────
-  /// Koyu Yeşil — birincil kurumsal renk (HCT hue 190, ton 10).
+  /// Koyu Yeşil — logonun zemini (HCT hue 190, ton 10). Açılış ekranı,
+  /// amblem ve marka anlarında kullanılır; uygulama yüzeyleri nötrdür.
   static const Color darkGreen = Color(0xFF081F1D);
   static const Color darkGreenDarker = Color(0xFF04100E);
 
@@ -39,19 +40,43 @@ abstract final class AppColors {
   static const Color green80 = Color(0xFFA0D0CA);
   static const Color green90 = Color(0xFFBCECE6);
 
-  // ── Koyu zemin tonları (hue 190, chroma 15 — marka yeşili) ──
-  static const Color darkGreen12 = Color(0xFF0D2321);
-  static const Color darkGreen17 = Color(0xFF182E2C);
-  static const Color darkGreen22 = Color(0xFF233936);
-  static const Color darkGreen25 = Color(0xFF293F3D);
+  // ── Marka yeşilinin tonal kapları ───────────────────────────
+  /// Açık temada yumuşak birincil zemin ve seçim göstergesi.
+  static const Color tealContainerLight = Color(0xFFD3EBE7);
+  static const Color tealSelectedLight = Color(0xFFDDEBE9);
 
-  // ── Nötr palet (hue 190, chroma 4) — açık zeminler ──────────
-  static const Color neutral90 = Color(0xFFE0E3E1);
-  static const Color neutral92 = Color(0xFFE6E9E7);
-  static const Color neutral94 = Color(0xFFECEEED);
-  static const Color neutral96 = Color(0xFFF2F4F3);
-  static const Color neutral98 = Color(0xFFF7FAF8);
+  /// Koyu temada birincil eylem rengi: ton 80'in daha doygun kardeşi.
+  static const Color tealOnDark = Color(0xFF7FC4BB);
+  static const Color tealSelectedDark = Color(0xFF213A38);
+
+  // ── Koyu zemin: nötr mürekkep (hue 210, chroma ≈ 5) ─────────
+  // Marka yeşili yüzeylere değil yalnızca eylemlere taşınır; yüzeyler
+  // soğuk nötr basamaklardır (ton ≈ 7 / 10 / 14 / 18).
+  static const Color ink = Color(0xFF0F1316);
+  static const Color inkVariant = Color(0xFF171C20);
+  static const Color inkElevated = Color(0xFF1E242A);
+  static const Color inkOutlineVariant = Color(0xFF343D45);
+  static const Color inkText = Color(0xFFE8ECEF);
+  static const Color inkTextVariant = Color(0xFFA9B3BC);
+
+  // ── Nötr palet (hue 210, chroma ≈ 3) — açık zeminler ────────
+  static const Color neutral90 = Color(0xFFE0E4E8);
+  static const Color neutral92 = Color(0xFFE6E9ED);
+  static const Color neutral94 = Color(0xFFEEF0F3);
+  static const Color neutral96 = Color(0xFFF2F4F6);
+  static const Color neutral98 = Color(0xFFF7F8FA);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color slateText = Color(0xFF14181C);
+
+  // ── Harita: soğuk nötr koyu altlık ve işaretçi tonal kapları ─
+  static const Color mapShadowDark = Color(0xFF12171C);
+  static const Color mapHighlightDark = Color(0xFFC5CCD6);
+  static const Color goldContainerLight = Color(0xFFF1E7D4);
+  static const Color onGoldContainerLight = Color(0xFF5A4620);
+  static const Color goldContainerDark = Color(0xFF3A3020);
+  static const Color onGoldContainerDark = Color(0xFFE3CBA0);
+  static const Color blueContainerLight = Color(0xFFDCE6F5);
+  static const Color blueContainerDark = Color(0xFF1F2F4A);
 
   /// Kamera vizörünün zemini: önizleme dışı alan temadan bağımsız siyahtır
   /// (görüntü renkleri çevreden etkilenmesin).
@@ -69,13 +94,13 @@ abstract final class AppColors {
   static const Color cursorFill = Color(0xFF000000);
   static const Color cursorOutline = Color(0xFFFFFFFF);
 
-  // ── Nötr varyant palet (hue 190, chroma 8) — ikincil metin, çizgi ─
-  static const Color neutralVariant30 = Color(0xFF3F4947);
-  static const Color neutralVariant50 = Color(0xFF6F7977);
-  static const Color neutralVariant60 = Color(0xFF899391);
-  static const Color neutralVariant80 = Color(0xFFBEC9C6);
-  static const Color neutralVariant90 = Color(0xFFDAE5E2);
+  // ── Nötr varyant palet (hue 210, chroma ≈ 6) — ikincil metin, çizgi ─
   static const Color neutralVariant10 = Color(0xFF141D1C);
+  static const Color neutralVariant30 = Color(0xFF444C55);
+  static const Color neutralVariant50 = Color(0xFF6B7480);
+  static const Color neutralVariant60 = Color(0xFF7C8791);
+  static const Color neutralVariant80 = Color(0xFFD5DAE0);
+  static const Color neutralVariant90 = Color(0xFFDAE5E2);
 
   // ── Semantic Status (Light) ─────────────────────────────────
   static const Color success = Color(0xFF1F6B3F);
@@ -86,7 +111,7 @@ abstract final class AppColors {
   // ── Semantic Status (Dark) ──────────────────────────────────
   static const Color successOnDark = Color(0xFF5FBF87);
   static const Color warningOnDark = Color(0xFFE0A93A);
-  static const Color errorOnDark = Color(0xFFFF6B6B);
+  static const Color errorOnDark = Color(0xFFFF8A80);
   static const Color infoOnDark = Color(0xFF6CB8D6);
 
   // ── High Contrast Dark ──────────────────────────────────────

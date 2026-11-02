@@ -6,6 +6,43 @@ import 'package:vakif_atlas/core/theme/tokens/app_colors.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_typography.dart';
 
+/// Geçişsiz sayfa: "Animasyonları durdur" açıkken rota anında değişir.
+class _NoMotionTransitionsBuilder extends PageTransitionsBuilder {
+  const _NoMotionTransitionsBuilder();
+
+  @override
+  Duration get transitionDuration => Duration.zero;
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) => child;
+}
+
+const _noMotionTransitions = PageTransitionsTheme(
+  builders: {
+    TargetPlatform.android: _NoMotionTransitionsBuilder(),
+    TargetPlatform.iOS: _NoMotionTransitionsBuilder(),
+    TargetPlatform.macOS: _NoMotionTransitionsBuilder(),
+    TargetPlatform.windows: _NoMotionTransitionsBuilder(),
+    TargetPlatform.linux: _NoMotionTransitionsBuilder(),
+    TargetPlatform.fuchsia: _NoMotionTransitionsBuilder(),
+  },
+);
+
+/// AppBar başlığının satır yüksekliği: kullanıcı tercihi tasarım değerinden
+/// büyükse tercih uygulanır (metin stilleriyle aynı kural).
+double _appBarTitleHeight(AppThemeOptions options) {
+  final preferred = options.effectiveLineHeight;
+  return preferred != null && preferred > AppTypography.appBarTitleHeight
+      ? preferred
+      : AppTypography.appBarTitleHeight;
+}
+
 /// Dört tema varyantının fabrikası (Design System §3.1).
 ///
 /// Material 3 rolleri marka renklerinden üretilir: birincil = Koyu Yeşil
@@ -30,16 +67,17 @@ abstract final class AppTheme {
     AppColorScheme base, {
     AppThemeOptions options = AppThemeOptions.standard,
   }) {
+    final resolved = options.invertColors ? base.forInvertedDisplay() : base;
     final cream =
         options.creamBackground &&
-        base.brightness == Brightness.light &&
-        !base.isHighContrast;
+        resolved.brightness == Brightness.light &&
+        !resolved.isHighContrast;
     final colors = cream
-        ? base.copyWith(
+        ? resolved.copyWith(
             surface: AppColors.warmIvory,
             surfaceElevated: AppColors.warmIvory,
           )
-        : base;
+        : resolved;
     final textTheme = AppTextTheme.fromColors(colors, options: options);
     final materialTextTheme = textTheme.toMaterialTextTheme();
     final borderWidth = colors.isHighContrast
@@ -61,7 +99,7 @@ abstract final class AppTheme {
     final inversePrimary = colors.isHighContrast
         ? colors.surface
         : (colors.brightness == Brightness.light
-              ? AppColors.green80
+              ? AppColors.tealOnDark
               : AppColors.green30);
 
     // "Bağlantıları vurgula": metin butonları alt çizgili ve çerçeveli,
@@ -123,6 +161,9 @@ abstract final class AppTheme {
           ? AppFonts.atkinsonHyperlegible
           : AppFonts.inter,
       textTheme: materialTextTheme,
+      pageTransitionsTheme: options.reduceMotion
+          ? _noMotionTransitions
+          : const PageTransitionsTheme(),
       materialTapTargetSize: MaterialTapTargetSize.padded,
       visualDensity: VisualDensity.standard,
       extensions: [colors, textTheme],
@@ -142,12 +183,19 @@ abstract final class AppTheme {
         centerTitle: false,
         // Sayfa başlığı: büyük ve kalın, başa hizalı (yaygın mobil uygulama
         // başlığı). Font ailesi (ör. Disleksi Dostu) başlık stilinden gelir.
+        // Kolay Okuma (WCAG 1.4.12) ve Satır Yüksekliği tercihleri başlığa da
+        // uygulanır: tasarım değerleri yalnızca tercih kapalıyken geçerlidir.
         titleTextStyle: textTheme.titleLarge.copyWith(
           fontSize: AppTypography.appBarTitleSize,
-          height: AppTypography.appBarTitleHeight,
+          height: _appBarTitleHeight(options),
           fontWeight: FontWeight.w700,
           fontVariations: const [FontVariation('wght', 700)],
-          letterSpacing: -0.2,
+          letterSpacing: options.wideTextSpacing
+              ? AppTypography.appBarTitleSize * AppThemeOptions.letterSpacingEm
+              : -0.2,
+          wordSpacing: options.wideTextSpacing
+              ? AppTypography.appBarTitleSize * AppThemeOptions.wordSpacingEm
+              : null,
         ),
       ),
       dividerTheme: DividerThemeData(
@@ -268,7 +316,10 @@ abstract final class AppTheme {
       listTileTheme: ListTileThemeData(
         iconColor: colors.onSurfaceVariant,
         textColor: colors.onSurface,
-        titleTextStyle: textTheme.bodyLarge,
+        // "Bağlantıları vurgula": dokunulabilir satır başlıkları da altı çizili.
+        titleTextStyle: options.highlightLinks
+            ? textTheme.bodyLarge.copyWith(decoration: TextDecoration.underline)
+            : textTheme.bodyLarge,
         subtitleTextStyle: textTheme.bodyMedium.copyWith(
           color: colors.onSurfaceVariant,
         ),

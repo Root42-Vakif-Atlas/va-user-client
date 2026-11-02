@@ -3,6 +3,7 @@ import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
 
 /// Tanıtım adımlarının bölümlü ilerleme çubuğu.
 ///
@@ -84,19 +85,10 @@ class OnboardingStepHeader extends StatelessWidget {
           if (leading != null)
             leading!
           else if (symbol != null)
-            Container(
-              width: AppSizes.onboardingIcon,
-              height: AppSizes.onboardingIcon,
-              decoration: BoxDecoration(
-                color: colors.secondaryContainer,
-                borderRadius: BorderRadius.circular(AppRadius.md),
-              ),
-              alignment: Alignment.center,
-              child: AppIcon.decorative(
-                symbol,
-                size: AppSizes.iconLg,
-                color: colors.onSecondaryContainer,
-              ),
+            LeadingIconTile(
+              icon: symbol,
+              tone: LeadingIconTone.primary,
+              size: AppSizes.onboardingIcon,
             ),
           const SizedBox(height: AppSpacing.md),
           AppText(title, role: AppTextRole.headlineLarge, isHeading: true),
@@ -159,7 +151,7 @@ class OnboardingFeatureRow extends StatelessWidget {
 
 /// Adım içindeki açıklayıcı küçük not.
 class OnboardingNote extends StatelessWidget {
-  const OnboardingNote(this.text, {this.icon = Icons.info_outline, super.key});
+  const OnboardingNote(this.text, {this.icon = Icons.info_outlined, super.key});
 
   final String text;
   final IconData icon;

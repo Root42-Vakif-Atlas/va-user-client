@@ -75,7 +75,7 @@ class AchievementBadge extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(AppSpacing.xxs),
                   child: AppIcon.decorative(
-                    Icons.lock_outline,
+                    Icons.lock_outlined,
                     size: AppSizes.iconSm,
                     color: colors.onSurfaceVariant,
                   ),

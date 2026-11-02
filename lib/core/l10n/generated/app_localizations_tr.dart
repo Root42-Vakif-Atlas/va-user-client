@@ -1499,7 +1499,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routeOptimizeHint =>
-      'İlk durak başlangıç olarak kalır; diğerleri en kısa kuş uçuşu mesafeye göre sıralanır.';
+      'İlk durak başlangıç olarak kalır; diğerleri en kısa karayolu yolculuk süresine göre sıralanır.';
 
   @override
   String routeOptimizedAnnouncement(String before, String after) {
@@ -1587,13 +1587,35 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String routeOptimizedRoadAnnouncement(String before, String after) {
+    return 'Sıra optimize edildi: yolculuk $before yerine $after.';
+  }
+
+  @override
+  String routeBuilderRoadSummary(
+    String stops,
+    String distance,
+    String duration,
+  ) {
+    return '$stops · karayolu $distance · yolculuk ≈ $duration';
+  }
+
+  @override
+  String routeRoadToNext(String distance, String duration) {
+    return 'Sonraki durağa karayolu $distance · ≈ $duration';
+  }
+
+  @override
+  String get routeBuilderMapHeading => 'Karayolu önizlemesi';
+
+  @override
   String routeBuilderTimes(String visit, String breaks) {
     return 'Ziyaret $visit · Mola $breaks';
   }
 
   @override
   String get routeBuilderTravelNote =>
-      'Karayolu mesafesi ve yolculuk süresi rota oluşturulunca hesaplanır.';
+      'Karayolu mesafesi ve yolculuk süresi durakları değiştirdikçe hesaplanır; bağlantı yoksa kuş uçuşu gösterilir.';
 
   @override
   String get routeCreate => 'Rotayı oluştur';
@@ -1983,6 +2005,9 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get onboardingBack => 'Geri';
+
+  @override
   String get onboardingSkip => 'Atla';
 
   @override
@@ -2162,11 +2187,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get routeExportPrintFailed => 'Yazdırma penceresi açılamadı.';
 
   @override
-  String get routeExportSketchHeading => 'Rota çizimi';
+  String get routeExportSketchHeading => 'Rota haritası';
 
   @override
   String get routeExportSketchCaption =>
-      'Şematik çizimdir, kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.';
+      'Kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.';
 
   @override
   String get routeExportStopsHeading => 'Duraklar ve yolculuk';

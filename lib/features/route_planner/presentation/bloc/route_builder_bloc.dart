@@ -1,4 +1,5 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +22,11 @@ part 'route_builder_state.dart';
 /// tutulur; böylece eser detayından "Rotaya ekle" ile eklenenler ve sekme
 /// değişimleri taslağı kaybettirmez. Düzenleme ekranı kendi örneğini alır.
 /// Gönderim `droppable()`: çift dokunma ikinci istek oluşturmaz.
+///
+/// Durak dizisi her değiştiğinde karayolu ön hesabı (bizim OSRM,
+/// `routes/preview`) istenir (`restartable()`: yalnızca son dizinin yanıtı
+/// uygulanır); "Sırayı optimize et" sunucunun karayolu süre matrisini
+/// kullanır. İkisi de alınamazsa kuş uçuşuna düşülür.
 @injectable
 class RouteBuilderBloc extends Bloc<RouteBuilderEvent, RouteBuilderState> {
   RouteBuilderBloc(
@@ -28,6 +34,8 @@ class RouteBuilderBloc extends Bloc<RouteBuilderEvent, RouteBuilderState> {
     this._getRoute,
     this._saveRoute,
     this._optimize,
+    this._preview,
+    this._travelMatrix,
   ) : super(const RouteBuilderState()) {
     on<RouteBuilderStarted>(_onStarted, transformer: restartable());
     on<RouteBuilderEditRequested>(_onEditRequested, transformer: restartable());
@@ -43,7 +51,11 @@ class RouteBuilderBloc extends Bloc<RouteBuilderEvent, RouteBuilderState> {
     on<RouteBuilderBreakChanged>(_onBreakChanged);
     on<RouteBuilderBreakRemoved>(_onBreakRemoved);
     on<RouteBuilderNameChanged>(_onNameChanged);
-    on<RouteBuilderOrderOptimized>(_onOrderOptimized);
+    on<RouteBuilderOrderOptimized>(_onOrderOptimized, transformer: droppable());
+    on<RouteBuilderPreviewRequested>(
+      _onPreviewRequested,
+      transformer: restartable(),
+    );
     on<RouteBuilderSubmitted>(_onSubmitted, transformer: droppable());
     on<RouteBuilderReset>(_onReset);
   }
@@ -55,6 +67,19 @@ class RouteBuilderBloc extends Bloc<RouteBuilderEvent, RouteBuilderState> {
   final GetRouteUseCase _getRoute;
   final SaveRouteUseCase _saveRoute;
   final OptimizeStopOrderUseCase _optimize;
+  final PreviewRouteUseCase _preview;
+  final GetTravelMatrixUseCase _travelMatrix;
+
+  @override
+  void onChange(Change<RouteBuilderState> change) {
+    super.onChange(change);
+    if (!listEquals(
+      change.currentState.monumentIds,
+      change.nextState.monumentIds,
+    )) {
+      add(const RouteBuilderEvent.previewRequested());
+    }
+  }
 
   Future<void> _onStarted(
     RouteBuilderStarted event,
@@ -319,25 +344,57 @@ class RouteBuilderBloc extends Bloc<RouteBuilderEvent, RouteBuilderState> {
     emit(state.copyWith(name: event.name, saveFailure: null));
   }
 
-  void _onOrderOptimized(
+  Future<void> _onPreviewRequested(
+    RouteBuilderPreviewRequested event,
+    Emitter<RouteBuilderState> emit,
+  ) async {
+    final ids = state.monumentIds;
+    if (ids.length < RoutePlanRules.minStops) {
+      emit(state.copyWith(preview: null));
+      return;
+    }
+    if (state.currentPreview != null) {
+      return;
+    }
+    final result = await _preview(ids);
+    // Yanıt beklenirken dizi değiştiyse daha yeni istek sonucu uygular.
+    if (emit.isDone || !listEquals(state.monumentIds, ids)) {
+      return;
+    }
+    // Hata kullanıcıya yansımaz: kuş uçuşu gösterilmeye devam eder.
+    result.fold((_) {}, (preview) => emit(state.copyWith(preview: preview)));
+  }
+
+  Future<void> _onOrderOptimized(
     RouteBuilderOrderOptimized event,
     Emitter<RouteBuilderState> emit,
-  ) {
+  ) async {
     final points = state.stopLocations;
+    final ids = state.monumentIds;
     if (points == null || points.length < 3) {
       return;
     }
-    final order = _optimize(points);
-    final reordered = [for (final index in order) state.stops[index]];
-    final before = OptimizeStopOrderUseCase.pathLength(points);
-    final after = OptimizeStopOrderUseCase.pathLength([
-      for (final index in order) points[index],
-    ]);
+    emit(state.copyWith(isOptimizing: true));
+    final matrix = (await _travelMatrix(ids))
+        .fold<TravelMatrix?>((_) => null, (matrix) => matrix);
+    if (!listEquals(state.monumentIds, ids)) {
+      emit(state.copyWith(isOptimizing: false));
+      return;
+    }
+    final byRoad = matrix != null && matrix.size == ids.length;
+    double cost(int from, int to) => byRoad
+        ? matrix.durations[from][to].inSeconds.toDouble()
+        : points[from].distanceTo(points[to]);
+    final order = _optimize.byCost(ids.length, cost);
     emit(
-      _edited(stops: reordered).copyWith(
+      _edited(stops: [for (final index in order) state.stops[index]]).copyWith(
+        isOptimizing: false,
         optimization: RouteOptimizationOutcome(
-          beforeMeters: before,
-          afterMeters: after,
+          basis: byRoad
+              ? RouteOptimizationBasis.roadTravelSeconds
+              : RouteOptimizationBasis.straightLineMeters,
+          before: OptimizeStopOrderUseCase.pathCost(ids.length, cost),
+          after: OptimizeStopOrderUseCase.pathCost(ids.length, cost, order),
           sequence: (state.optimization?.sequence ?? 0) + 1,
         ),
       ),

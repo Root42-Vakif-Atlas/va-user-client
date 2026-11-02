@@ -33,58 +33,72 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     required this.success,
     required this.warning,
     required this.info,
+    required this.brandAccentContainer,
+    required this.onBrandAccentContainer,
+    required this.complexAccentContainer,
+    required this.onComplexAccentContainer,
+    required this.mapShadow,
+    required this.mapHighlight,
+    required this.mapBackground,
   });
 
-  /// Koyu tema: marka Koyu Yeşil zemin, Sıcak Fildişi metin. Birincil
-  /// eylemler yeşilin açık tonudur (M3 koyu tema kuralı); Antik Altın
-  /// yalnızca marka vurgusudur.
+  /// Koyu tema: soğuk nötr mürekkep yüzeyler ve nötr metin. Marka yeşili
+  /// yalnızca eylemlerde (birincil, seçim) görünür; Antik Altın yalnızca
+  /// marka vurgusudur.
   static const AppColorScheme dark = AppColorScheme(
     brightness: Brightness.dark,
     isHighContrast: false,
-    primary: AppColors.green80,
-    onPrimary: AppColors.green20,
+    primary: AppColors.tealOnDark,
+    onPrimary: AppColors.green10,
     primaryContainer: AppColors.green30,
     onPrimaryContainer: AppColors.green90,
-    secondaryContainer: AppColors.neutralVariant30,
+    secondaryContainer: AppColors.tealSelectedDark,
     onSecondaryContainer: AppColors.neutralVariant90,
-    surface: AppColors.darkGreen,
-    surfaceVariant: AppColors.darkGreen17,
-    surfaceElevated: AppColors.darkGreen22,
-    onSurface: AppColors.warmIvory,
-    onSurfaceVariant: AppColors.warmIvoryDimmed,
-    accentText: AppColors.green80,
+    surface: AppColors.ink,
+    surfaceVariant: AppColors.inkVariant,
+    surfaceElevated: AppColors.inkElevated,
+    onSurface: AppColors.inkText,
+    onSurfaceVariant: AppColors.inkTextVariant,
+    accentText: AppColors.tealOnDark,
     brandAccent: AppColors.antiqueGold,
-    onBrandAccent: AppColors.darkGreen,
+    onBrandAccent: AppColors.ink,
     complexAccent: AppColors.iznikBlueLight,
-    onComplexAccent: AppColors.darkGreen,
+    onComplexAccent: AppColors.ink,
     outline: AppColors.neutralVariant60,
-    outlineVariant: AppColors.neutralVariant30,
+    outlineVariant: AppColors.inkOutlineVariant,
     error: AppColors.errorOnDark,
-    onError: AppColors.darkGreen,
+    onError: AppColors.ink,
     success: AppColors.successOnDark,
     warning: AppColors.warningOnDark,
     info: AppColors.infoOnDark,
+    brandAccentContainer: AppColors.goldContainerDark,
+    onBrandAccentContainer: AppColors.onGoldContainerDark,
+    complexAccentContainer: AppColors.blueContainerDark,
+    onComplexAccentContainer: AppColors.iznikBlueLight,
+    mapShadow: AppColors.mapShadowDark,
+    mapHighlight: AppColors.mapHighlightDark,
+    mapBackground: AppColors.mapShadowDark,
   );
 
-  /// Açık tema: nötr (hafif yeşil tonlu) zeminler, beyaz yüzen yüzeyler,
-  /// Koyu Yeşil metin ve birincil eylemler.
+  /// Açık tema: soğuk nötr zeminler, beyaz yüzen yüzeyler, nötr koyu metin;
+  /// logonun koyu yeşili birincil eylem rengidir.
   static const AppColorScheme light = AppColorScheme(
     brightness: Brightness.light,
     isHighContrast: false,
     primary: AppColors.green30,
     onPrimary: AppColors.white,
-    primaryContainer: AppColors.green90,
+    primaryContainer: AppColors.tealContainerLight,
     onPrimaryContainer: AppColors.green10,
-    secondaryContainer: AppColors.neutralVariant90,
+    secondaryContainer: AppColors.tealSelectedLight,
     onSecondaryContainer: AppColors.neutralVariant10,
     surface: AppColors.neutral98,
     surfaceVariant: AppColors.neutral94,
     surfaceElevated: AppColors.white,
-    onSurface: AppColors.darkGreen,
+    onSurface: AppColors.slateText,
     onSurfaceVariant: AppColors.neutralVariant30,
     accentText: AppColors.green30,
     brandAccent: AppColors.antiqueGold,
-    onBrandAccent: AppColors.darkGreen,
+    onBrandAccent: AppColors.ink,
     complexAccent: AppColors.iznikBlue,
     onComplexAccent: AppColors.white,
     outline: AppColors.neutralVariant50,
@@ -94,6 +108,13 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     success: AppColors.success,
     warning: AppColors.warning,
     info: AppColors.info,
+    brandAccentContainer: AppColors.goldContainerLight,
+    onBrandAccentContainer: AppColors.onGoldContainerLight,
+    complexAccentContainer: AppColors.blueContainerLight,
+    onComplexAccentContainer: AppColors.iznikBlue,
+    mapShadow: AppColors.mapShadowDark,
+    mapHighlight: AppColors.mapHighlightDark,
+    mapBackground: AppColors.neutral94,
   );
 
   static const AppColorScheme highContrastDark = AppColorScheme(
@@ -122,6 +143,13 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     success: AppColors.hcSuccessOnDark,
     warning: AppColors.hcWarningOnDark,
     info: AppColors.hcInfoOnDark,
+    brandAccentContainer: AppColors.hcSurfaceDark,
+    onBrandAccentContainer: AppColors.hcAccent,
+    complexAccentContainer: AppColors.hcSurfaceDark,
+    onComplexAccentContainer: AppColors.hcComplexOnDark,
+    mapShadow: AppColors.hcBlack,
+    mapHighlight: AppColors.hcGreyLight,
+    mapBackground: AppColors.hcBlack,
   );
 
   static const AppColorScheme highContrastLight = AppColorScheme(
@@ -150,6 +178,13 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     success: AppColors.hcAccentOnLight,
     warning: AppColors.hcWarning,
     info: AppColors.hcInfo,
+    brandAccentContainer: AppColors.hcSurfaceLight,
+    onBrandAccentContainer: AppColors.hcAccentOnLight,
+    complexAccentContainer: AppColors.hcSurfaceLight,
+    onComplexAccentContainer: AppColors.hcComplexOnLight,
+    mapShadow: AppColors.hcBlack,
+    mapHighlight: AppColors.hcGreyLight,
+    mapBackground: AppColors.hcSurfaceLight,
   );
 
   final Brightness brightness;
@@ -215,6 +250,55 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   final Color warning;
   final Color info;
 
+  /// [brandAccent]'in tonal kabı: miras/eser temalı ikon kutusu, rozet.
+  final Color brandAccentContainer;
+
+  /// [brandAccentContainer] üzerindeki ikon ve metin (≥ 4.5:1).
+  final Color onBrandAccentContainer;
+
+  /// [complexAccent]'in tonal kabı: külliye ve rota temalı ikon kutusu.
+  final Color complexAccentContainer;
+
+  /// [complexAccentContainer] üzerindeki ikon ve metin (≥ 4.5:1).
+  final Color onComplexAccentContainer;
+
+  /// Koyu harita altlığının gölge ucu (kara, su, yol ayrımı bu uçtan açılır).
+  /// Yüzeylerden bağımsız soğuk nötrdür; haritayı uygulama yeşiline boyamaz.
+  final Color mapShadow;
+
+  /// Koyu harita altlığının parlak ucu (yol ve etiketler).
+  final Color mapHighlight;
+
+  /// Karolar yüklenirken görünen harita zemini.
+  final Color mapBackground;
+
+  /// Ters renk ekranı (erişilebilirlik) açıkken kullanılacak şema.
+  ///
+  /// Filtre pikselleri ters çevirdiğinden koyu temanın açık pastel durum
+  /// renkleri koyu ve soluk görünür (kontrast < 4.5:1). Koyu temada durum
+  /// renkleri, çevrildikten sonra açık temanın durum renklerine eşit olacak
+  /// biçimde seçilir; diğer roller zaten yeterli kontrasttadır. Açık ve
+  /// yüksek kontrastlı şemalar değişmez.
+  AppColorScheme forInvertedDisplay() {
+    if (brightness != Brightness.dark || isHighContrast) {
+      return this;
+    }
+    Color flip(Color c) =>
+        Color.from(alpha: c.a, red: 1 - c.r, green: 1 - c.g, blue: 1 - c.b);
+    return copyWith(
+      error: flip(light.error),
+      success: flip(light.success),
+      warning: flip(light.warning),
+      info: flip(light.info),
+    );
+  }
+
+  /// [accent]'in [over] (varsayılan [surface]) üzerine [strength] oranında
+  /// karıştırılmış düz tonal zemini: bildirim ve rozet dolgusu. Durum yalnızca
+  /// bu tonla değil ikon + metinle de verilir (WCAG 1.4.1).
+  Color tonal(Color accent, {Color? over, double strength = 0.1}) =>
+      Color.alphaBlend(accent.withValues(alpha: strength), over ?? surface);
+
   @override
   AppColorScheme copyWith({
     Brightness? brightness,
@@ -242,6 +326,13 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     Color? success,
     Color? warning,
     Color? info,
+    Color? brandAccentContainer,
+    Color? onBrandAccentContainer,
+    Color? complexAccentContainer,
+    Color? onComplexAccentContainer,
+    Color? mapShadow,
+    Color? mapHighlight,
+    Color? mapBackground,
   }) {
     return AppColorScheme(
       brightness: brightness ?? this.brightness,
@@ -269,6 +360,16 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       success: success ?? this.success,
       warning: warning ?? this.warning,
       info: info ?? this.info,
+      brandAccentContainer: brandAccentContainer ?? this.brandAccentContainer,
+      onBrandAccentContainer:
+          onBrandAccentContainer ?? this.onBrandAccentContainer,
+      complexAccentContainer:
+          complexAccentContainer ?? this.complexAccentContainer,
+      onComplexAccentContainer:
+          onComplexAccentContainer ?? this.onComplexAccentContainer,
+      mapShadow: mapShadow ?? this.mapShadow,
+      mapHighlight: mapHighlight ?? this.mapHighlight,
+      mapBackground: mapBackground ?? this.mapBackground,
     );
   }
 
@@ -307,6 +408,25 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       success: mix(success, other.success),
       warning: mix(warning, other.warning),
       info: mix(info, other.info),
+      brandAccentContainer: mix(
+        brandAccentContainer,
+        other.brandAccentContainer,
+      ),
+      onBrandAccentContainer: mix(
+        onBrandAccentContainer,
+        other.onBrandAccentContainer,
+      ),
+      complexAccentContainer: mix(
+        complexAccentContainer,
+        other.complexAccentContainer,
+      ),
+      onComplexAccentContainer: mix(
+        onComplexAccentContainer,
+        other.onComplexAccentContainer,
+      ),
+      mapShadow: mix(mapShadow, other.mapShadow),
+      mapHighlight: mix(mapHighlight, other.mapHighlight),
+      mapBackground: mix(mapBackground, other.mapBackground),
     );
   }
 }

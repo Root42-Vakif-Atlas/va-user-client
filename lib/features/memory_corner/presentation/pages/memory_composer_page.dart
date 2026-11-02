@@ -13,8 +13,10 @@ import 'package:vakif_atlas/features/memory_corner/domain/entities/memory_draft.
 import 'package:vakif_atlas/features/memory_corner/presentation/bloc/memory_composer_bloc.dart';
 import 'package:vakif_atlas/features/memory_corner/presentation/memory_presentation.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
-import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/leading_icon_tile.dart';
+import 'package:vakif_atlas/shared/widgets/molecules/confirm_dialog.dart';
+import 'package:vakif_atlas/shared/widgets/templates/bottom_action_bar.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/app_snack_bar.dart';
 import 'package:vakif_atlas/shared/widgets/molecules/inline_message.dart';
 import 'package:vakif_atlas/shared/widgets/organisms/photo_draft_strip.dart';
@@ -102,27 +104,16 @@ class _MemoryComposerPageState extends State<MemoryComposerPage> {
       return;
     }
     final l10n = context.l10n;
-    final discard = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.memoryDiscardTitle),
-        content: Text(l10n.memoryDiscardBody),
-        actions: [
-          TextButton(
-            key: const Key('memory_discard_cancel'),
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.memoryKeepEditing),
-          ),
-          TextButton(
-            key: const Key('memory_discard_confirm'),
-            style: TextButton.styleFrom(foregroundColor: context.colors.error),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.memoryDiscardConfirm),
-          ),
-        ],
-      ),
+    final discard = await showConfirmDialog(
+      context,
+      title: l10n.memoryDiscardTitle,
+      body: l10n.memoryDiscardBody,
+      confirmLabel: l10n.memoryDiscardConfirm,
+      cancelLabel: l10n.memoryKeepEditing,
+      confirmKey: const Key('memory_discard_confirm'),
+      cancelKey: const Key('memory_discard_cancel'),
     );
-    if ((discard ?? false) && mounted) {
+    if (discard && mounted) {
       widget.onClose();
     }
   }
@@ -526,17 +517,9 @@ class _MonumentContext extends StatelessWidget {
     return MergeSemantics(
       child: Row(
         children: [
-          Container(
-            width: AppSizes.minTouchTarget,
-            height: AppSizes.minTouchTarget,
-            decoration: BoxDecoration(
-              color: colors.surfaceVariant,
-              borderRadius: BorderRadius.circular(AppRadius.md),
-            ),
-            child: AppIcon.decorative(
-              Icons.account_balance_outlined,
-              color: colors.accentText,
-            ),
+          const LeadingIconTile(
+            icon: Icons.account_balance_outlined,
+            tone: LeadingIconTone.heritage,
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
@@ -660,58 +643,34 @@ class _SubmitBar extends StatelessWidget {
     final l10n = context.l10n;
     final colors = context.colors;
     final progress = state.uploadProgress;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: Border(
-          top: BorderSide(
-            color: colors.outlineVariant,
-            width: AppSizes.borderThin,
-          ),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Align(
-          heightFactor: 1,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: AppSizes.maxContentWidth,
+    return BottomActionBar(
+      header: progress == null
+          ? null
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppText(
+                  l10n.photosUploading((progress * 100).round()),
+                  role: AppTextRole.bodySmall,
+                  color: colors.onSurfaceVariant,
+                ),
+                const SizedBox(height: AppSpacing.xxs),
+                LinearProgressIndicator(
+                  key: const Key('memory_composer_progress'),
+                  value: progress,
+                  semanticsLabel: l10n.photosUploadingSemantics,
+                  semanticsValue: '%${(progress * 100).round()}',
+                ),
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (progress != null) ...[
-                    AppText(
-                      l10n.photosUploading((progress * 100).round()),
-                      role: AppTextRole.bodySmall,
-                      color: colors.onSurfaceVariant,
-                    ),
-                    const SizedBox(height: AppSpacing.xxs),
-                    LinearProgressIndicator(
-                      key: const Key('memory_composer_progress'),
-                      value: progress,
-                      semanticsLabel: l10n.photosUploadingSemantics,
-                      semanticsValue: '%${(progress * 100).round()}',
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                  ],
-                  AppButton.primary(
-                    key: const Key('memory_composer_submit'),
-                    label: l10n.memorySubmit,
-                    icon: Icons.send_outlined,
-                    expand: true,
-                    isLoading: state.isSubmitting,
-                    onPressed: state.processingPhotos > 0 ? null : onSubmit,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+      primary: AppButton.primary(
+        key: const Key('memory_composer_submit'),
+        label: l10n.memorySubmit,
+        icon: Icons.send_outlined,
+        expand: true,
+        isLoading: state.isSubmitting,
+        onPressed: state.processingPhotos > 0 ? null : onSubmit,
       ),
     );
   }

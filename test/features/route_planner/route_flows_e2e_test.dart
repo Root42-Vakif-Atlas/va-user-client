@@ -6,6 +6,7 @@ import 'package:vakif_atlas/core/router/app_router.dart';
 import 'package:vakif_atlas/core/router/routes.dart';
 import 'package:vakif_atlas/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vakif_atlas/features/catalog/presentation/widgets/monument_search_view.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 
 import '../../helpers/catalog_test_utils.dart';
 import '../../helpers/test_di.dart';
@@ -80,7 +81,15 @@ void main() {
       'bursa-ulu-camii',
     ]);
     expect(find.text('Duraklar (3/10)'), findsOneWidget);
-    expect(find.textContaining('Selimiye Camii'), findsWidgets);
+    expect(find.textContaining('Süleymaniye Camii'), findsWidgets);
+    // Ön hesap bizim OSRM'den (sahte backend'de OSRM fikstürleri) gelir.
+    expect(find.textContaining('Sonraki durağa karayolu'), findsWidgets);
+    expect(
+      tester
+          .widget<AppText>(find.byKey(const Key('route_builder_summary')))
+          .data,
+      startsWith('3 durak · karayolu'),
+    );
     expect(
       dependencies.announcements,
       contains('Selimiye Camii rotaya eklendi'),

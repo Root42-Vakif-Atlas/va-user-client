@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vakif_atlas/core/a11y/a11y_announcer.dart';
 import 'package:vakif_atlas/core/a11y/haptic_feedback_service.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/config/app_config.dart';
 import 'package:vakif_atlas/core/config/app_environment.dart';
 import 'package:vakif_atlas/core/di/injection.dart';
@@ -1234,6 +1235,7 @@ class _AccountButton extends StatelessWidget {
   Future<void> _openMenu(BuildContext context, UserEntity? user) async {
     final destination = await showModalBottomSheet<String>(
       context: context,
+      sheetAnimationStyle: context.motionAnimationStyle,
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,

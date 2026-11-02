@@ -30,6 +30,14 @@ abstract class RoutePlannerModule {
   ) => WatchRouteChangesUseCase(repository);
 
   @lazySingleton
+  PreviewRouteUseCase previewRouteUseCase(RouteRepository repository) =>
+      PreviewRouteUseCase(repository);
+
+  @lazySingleton
+  GetTravelMatrixUseCase getTravelMatrixUseCase(RouteRepository repository) =>
+      GetTravelMatrixUseCase(repository);
+
+  @lazySingleton
   OptimizeStopOrderUseCase get optimizeStopOrderUseCase =>
       const OptimizeStopOrderUseCase();
 
@@ -42,5 +50,14 @@ abstract class RoutePlannerModule {
     GetRouteUseCase getRoute,
     SaveRouteUseCase saveRoute,
     OptimizeStopOrderUseCase optimize,
-  ) => RouteBuilderBloc(getMonuments, getRoute, saveRoute, optimize);
+    PreviewRouteUseCase preview,
+    GetTravelMatrixUseCase travelMatrix,
+  ) => RouteBuilderBloc(
+    getMonuments,
+    getRoute,
+    saveRoute,
+    optimize,
+    preview,
+    travelMatrix,
+  );
 }

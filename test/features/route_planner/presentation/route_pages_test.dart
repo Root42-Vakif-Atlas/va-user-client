@@ -202,7 +202,7 @@ void main() {
       expect(
         find.bySemanticsLabel(
           RegExp(
-            r'^Marmara\. 2 durak: İstanbul, Bursa\. Toplam .*Oluşturulma: \d+ \w+ 2026',
+            r'^Marmara\. 2 durak: İstanbul, Bursa\. Toplam .*Oluşturulma: \d+ \S+ 2026',
           ),
         ),
         findsOneWidget,
@@ -575,6 +575,8 @@ void main() {
                   GetRouteUseCase(repository),
                   SaveRouteUseCase(repository),
                   const OptimizeStopOrderUseCase(),
+                  PreviewRouteUseCase(repository),
+                  GetTravelMatrixUseCase(repository),
                 );
                 for (final id in stops) {
                   bloc.add(RouteBuilderEvent.monumentToggled(id));
@@ -613,6 +615,28 @@ void main() {
         _bursa,
       ]);
       expect(announcements, contains('Selimiye Camii 2. sıraya taşındı'));
+    });
+
+    testWidgets('karayolu ön hesabı özet, durak kartı ve haritada gösterilir', (
+      tester,
+    ) async {
+      await pumpBuilder(tester, stops: [_selimiye, _bursa]);
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+      await tester.pumpAndSettle();
+
+      expect(bloc.state.currentPreview, isNotNull);
+      expect(find.textContaining('Sonraki durağa karayolu'), findsOneWidget);
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('route_builder_map')),
+        300,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const Key('route_builder_list')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
+      expect(find.byKey(const Key('route_builder_map')), findsOneWidget);
     });
 
     testWidgets('süre ayarlayıcı ekran okuyucuya ayarlanabilir sunulur', (

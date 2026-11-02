@@ -66,12 +66,12 @@ class StatusMessageView extends StatelessWidget {
   }
 }
 
-/// İkon dairesi, başlık, kısa açıklama ve isteğe bağlı tek birincil eylem.
+/// Düz ikon, başlık, kısa açıklama ve isteğe bağlı tek birincil eylem.
 ///
 /// - Boş durumda bir sonraki adım varsa eylem verilir (ör. "Haritada
 ///   keşfet"); sayfada aynı eylem zaten görünüyorsa tekrarlanmaz.
 /// - İkon dekoratiftir; başlık ekran okuyucu başlığıdır.
-/// - [compact]: liste içinde (filtre sonucu boş vb.) daha küçük daire ve
+/// - [compact]: liste içinde (filtre sonucu boş vb.) daha küçük ikon ve
 ///   başlık.
 class StatusMessageContent extends StatelessWidget {
   const StatusMessageContent({
@@ -101,35 +101,20 @@ class StatusMessageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final action = actionLabel;
-    final (Color badge, Color foreground) = switch (tone) {
-      StatusMessageTone.neutral => (
-        colors.secondaryContainer,
-        colors.onSecondaryContainer,
-      ),
-      StatusMessageTone.error => (
-        Color.alphaBlend(colors.error.withValues(alpha: 0.12), colors.surface),
-        colors.error,
-      ),
+    final foreground = switch (tone) {
+      StatusMessageTone.neutral => colors.onSurfaceVariant,
+      StatusMessageTone.error => colors.error,
     };
-    final badgeSize = compact
-        ? AppSizes.statusBadgeCompact
-        : AppSizes.statusBadge;
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: AppSizes.statusTextWidth),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: badgeSize,
-            height: badgeSize,
-            decoration: BoxDecoration(color: badge, shape: BoxShape.circle),
-            alignment: Alignment.center,
-            child: AppIcon.decorative(
-              icon,
-              size: compact ? AppSizes.iconLg : AppSizes.iconXl,
-              color: foreground,
-            ),
+          AppIcon.decorative(
+            icon,
+            size: compact ? AppSizes.iconLg : AppSizes.iconXl,
+            color: foreground,
           ),
           SizedBox(height: compact ? AppSpacing.sm : AppSpacing.lg),
           AppText(

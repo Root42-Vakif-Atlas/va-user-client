@@ -66,7 +66,7 @@ class MapClusterMarker extends StatelessWidget {
                   color: colors.onBrandAccent,
                   width: AppSizes.borderThick,
                 ),
-                boxShadow: AppShadows.cardShadow,
+                boxShadow: AppShadows.marker(colors),
               ),
               child: Text(
                 label,

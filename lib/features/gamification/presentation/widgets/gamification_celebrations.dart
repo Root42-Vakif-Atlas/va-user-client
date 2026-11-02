@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vakif_atlas/core/a11y/a11y_announcer.dart';
 import 'package:vakif_atlas/core/a11y/haptic_feedback_service.dart';
+import 'package:vakif_atlas/core/a11y/reduce_motion.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
 import 'package:vakif_atlas/features/gamification/domain/entities/gamification_profile.dart';
 import 'package:vakif_atlas/features/gamification/presentation/cubit/gamification_cubit.dart';
 import 'package:vakif_atlas/features/gamification/presentation/widgets/achievement_visuals.dart';
+import 'package:vakif_atlas/shared/widgets/atoms/app_button.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_icon.dart';
 import 'package:vakif_atlas/shared/widgets/atoms/app_text.dart';
 
@@ -61,6 +63,7 @@ class _GamificationCelebrationsState extends State<GamificationCelebrations> {
     );
     final viewBadges = await showDialog<bool>(
       context: dialogContext,
+      animationStyle: dialogContext.motionAnimationStyle,
       builder: (_) =>
           GamificationCelebrationDialog(profile: profile, unlocks: unlocks),
     );
@@ -175,15 +178,15 @@ class GamificationCelebrationDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(
+        AppButton.ghost(
           key: const Key('gamification_celebration_badges'),
+          label: l10n.gamificationCelebrationViewBadges,
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.gamificationCelebrationViewBadges),
         ),
-        FilledButton(
+        AppButton.primary(
           key: const Key('gamification_celebration_close'),
+          label: l10n.gamificationCelebrationClose,
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text(l10n.gamificationCelebrationClose),
         ),
       ],
     );

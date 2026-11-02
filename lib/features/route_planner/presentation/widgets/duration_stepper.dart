@@ -48,7 +48,7 @@ class DurationStepper extends StatelessWidget {
         children: [
           IconButton(
             tooltip: l10n.routeDurationDecrease(label),
-            icon: const Icon(Icons.remove_circle_outline),
+            icon: const Icon(Icons.remove_circle_outlined),
             onPressed: canDecrease ? decrease : null,
           ),
           ExcludeSemantics(

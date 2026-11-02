@@ -1160,7 +1160,7 @@
   "routeAddMonuments": "Eser ekle",
   "routePickerDone": "Tamam",
   "routeOptimize": "Sırayı optimize et",
-  "routeOptimizeHint": "İlk durak başlangıç olarak kalır; diğerleri en kısa kuş uçuşu mesafeye göre sıralanır.",
+  "routeOptimizeHint": "İlk durak başlangıç olarak kalır; diğerleri en kısa karayolu yolculuk süresine göre sıralanır.",
   "routeOptimizedAnnouncement": "Sıra optimize edildi: kuş uçuşu {before} yerine {after}.",
   "@routeOptimizedAnnouncement": {
     "placeholders": {
@@ -1287,6 +1287,43 @@
       }
     }
   },
+  "routeOptimizedRoadAnnouncement": "Sıra optimize edildi: yolculuk {before} yerine {after}.",
+  "@routeOptimizedRoadAnnouncement": {
+    "placeholders": {
+      "before": {
+        "type": "String"
+      },
+      "after": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderRoadSummary": "{stops} · karayolu {distance} · yolculuk ≈ {duration}",
+  "@routeBuilderRoadSummary": {
+    "placeholders": {
+      "stops": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeRoadToNext": "Sonraki durağa karayolu {distance} · ≈ {duration}",
+  "@routeRoadToNext": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "routeBuilderMapHeading": "Karayolu önizlemesi",
   "routeBuilderTimes": "Ziyaret {visit} · Mola {breaks}",
   "@routeBuilderTimes": {
     "placeholders": {
@@ -1298,7 +1335,7 @@
       }
     }
   },
-  "routeBuilderTravelNote": "Karayolu mesafesi ve yolculuk süresi rota oluşturulunca hesaplanır.",
+  "routeBuilderTravelNote": "Karayolu mesafesi ve yolculuk süresi durakları değiştirdikçe hesaplanır; bağlantı yoksa kuş uçuşu gösterilir.",
   "routeCreate": "Rotayı oluştur",
   "routeSaveChanges": "Değişiklikleri kaydet",
   "routeCreatedAnnouncement": "Rota oluşturuldu: {stops}, {distance}, toplam {duration}.",
@@ -1606,6 +1643,7 @@
       }
     }
   },
+  "onboardingBack": "Geri",
   "onboardingSkip": "Atla",
   "onboardingSkipSemantics": "Tanıtımı atla",
   "onboardingStart": "Başlayın",
@@ -1689,8 +1727,8 @@
   "routeExportSignIn": "Giriş yap",
   "routeExportShareFailed": "Paylaşım penceresi açılamadı.",
   "routeExportPrintFailed": "Yazdırma penceresi açılamadı.",
-  "routeExportSketchHeading": "Rota çizimi",
-  "routeExportSketchCaption": "Şematik çizimdir, kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.",
+  "routeExportSketchHeading": "Rota haritası",
+  "routeExportSketchCaption": "Kuzey yukarıdadır. Numaralar aşağıdaki durak listesine karşılık gelir; içi dolu işaret başlangıç durağıdır.",
   "routeExportStopsHeading": "Duraklar ve yolculuk",
   "routeExportMapLink": "Konumu haritada aç",
   "routeExportAttribution": "Yol verisi © OpenStreetMap katkıcıları (ODbL); mesafe ve süreler OSRM ile hesaplanmıştır.",

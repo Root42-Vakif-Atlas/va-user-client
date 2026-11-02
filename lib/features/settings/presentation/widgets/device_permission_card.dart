@@ -57,7 +57,7 @@ class DevicePermissionCard extends StatelessWidget {
         l10n.permissionStatusChecking,
       ),
       PermissionAccess.granted => (
-        Icons.check_circle_outline,
+        Icons.check_circle_outlined,
         colors.success,
         l10n.permissionStatusGranted,
       ),

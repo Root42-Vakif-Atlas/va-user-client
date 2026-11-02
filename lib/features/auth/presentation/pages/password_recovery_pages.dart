@@ -101,7 +101,7 @@ class ForgotPasswordPage extends StatelessWidget {
               AppButton.primary(
                 key: const Key('forgot_submit_button'),
                 label: l10n.forgotPasswordSubmit,
-                icon: Icons.mail_outline,
+                icon: Icons.mail_outlined,
                 isLoading: state.isSubmitting,
                 expand: true,
                 onPressed: submit,

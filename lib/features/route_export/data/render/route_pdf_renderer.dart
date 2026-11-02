@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:vakif_atlas/core/map/map_tile_source.dart';
 import 'package:vakif_atlas/core/theme/brand_emblem_shape.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_colors.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/geo_point.dart';
+import 'package:vakif_atlas/features/route_export/data/render/route_basemap.dart';
 import 'package:vakif_atlas/features/route_export/domain/entities/route_document.dart';
 
 /// PDF'te kullanılan yazı tipleri (Inter'in statik örnekleri; `pdf` paketi
@@ -34,26 +36,31 @@ final class RoutePdfFonts {
 /// - Metin gerçek metindir (seçilebilir, aranabilir, ekran okuyucuyla
 ///   okunabilir); en küçük punto 9, gövde 10,5.
 /// - Bilgi yalnızca renkle verilmez; gri tonda yazdırıldığında da okunur.
-/// - Harita karosu yerine vektör rota çizimi kullanılır (lisans ve ağ
-///   gerektirmez, yazdırmada keskin kalır). Yol verisi atfı (ODbL) her
-///   sayfanın altındadır.
+/// - Rota haritası: uygulama haritasının altlığı ([RouteBasemapRenderer],
+///   soluklaştırılmış) üzerinde vektör rota çizgisi ve numaralı duraklar
+///   (yazdırmada keskin kalır). Altlık alınamazsa (çevrimdışı) yalnızca
+///   vektör çizim kalır. Altlık atfı haritanın üzerinde, yol verisi atfı
+///   (ODbL) her sayfanın altındadır.
 /// - Başlıklar PDF ana hattına (yer imleri) eklenir; belge başlığı ve
 ///   yazarı meta veride yer alır.
 @lazySingleton
 class RoutePdfRenderer {
-  RoutePdfRenderer() : this.withFonts(RoutePdfFonts.load);
+  RoutePdfRenderer(RouteBasemapRenderer basemap)
+    : this.withFonts(RoutePdfFonts.load, basemap: basemap);
 
-  RoutePdfRenderer.withFonts(this._loadFonts);
+  /// `basemap` yoksa harita altlıksız vektör çizimdir.
+  RoutePdfRenderer.withFonts(this._loadFonts, {this._basemap});
 
   final Future<RoutePdfFonts> Function() _loadFonts;
+  final RouteBasemapRenderer? _basemap;
   Future<RoutePdfFonts>? _fonts;
 
   /// Çizimdeki en fazla nokta; uzun karayolu geometrisi seyreltilir.
   static const int maxSketchPoints = 1200;
 
   static const pw.EdgeInsets _margin = pw.EdgeInsets.fromLTRB(48, 40, 48, 36);
-  static const double _sketchHeight = 210;
-  static const double _sketchPadding = 22;
+  static const double _sketchHeight = 260;
+  static const double _sketchPadding = 28;
   static const double _markerSize = 16;
 
   static final PdfColor _ink = PdfColor.fromInt(AppColors.green10.toARGB32());
@@ -76,6 +83,12 @@ class RoutePdfRenderer {
 
   Future<Uint8List> render(RouteDocument document) async {
     final fonts = await (_fonts ??= _loadFonts());
+    final sketch = _SketchGeometry.of(document);
+    final basemap = await _basemap?.render(
+      sketch.fit.window,
+      widthPt: _sketchWidth,
+      heightPt: _sketchHeight,
+    );
     final theme = pw.ThemeData.withFont(
       base: pw.Font.ttf(fonts.regular),
       bold: pw.Font.ttf(fonts.semiBold),
@@ -125,7 +138,7 @@ class RoutePdfRenderer {
           _facts(document.facts),
           pw.SizedBox(height: 18),
           _sectionHeading(labels.sketchHeading),
-          _sketch(document),
+          _sketch(sketch, basemap),
           pw.SizedBox(height: 4),
           pw.Text(
             labels.sketchCaption,
@@ -256,16 +269,10 @@ class RoutePdfRenderer {
     ],
   );
 
-  pw.Widget _sketch(RouteDocument document) {
-    final stops = [for (final stop in document.stops) stop.location];
-    final path = _thin(document.path.isEmpty ? stops : document.path);
-    final width = PdfPageFormat.a4.width - _margin.horizontal;
-    final fit = _SketchProjection.fit(
-      [...path, ...stops],
-      width: width,
-      height: _sketchHeight,
-      padding: _sketchPadding,
-    );
+  static double get _sketchWidth => PdfPageFormat.a4.width - _margin.horizontal;
+
+  pw.Widget _sketch(_SketchGeometry sketch, RouteBasemap? basemap) {
+    final width = _sketchWidth;
     return pw.Container(
       width: width,
       height: _sketchHeight,
@@ -273,16 +280,48 @@ class RoutePdfRenderer {
         border: pw.Border.all(color: _rule, width: 0.6),
         borderRadius: pw.BorderRadius.circular(6),
       ),
-      child: pw.Stack(
-        children: [
-          pw.CustomPaint(
-            size: PdfPoint(width, _sketchHeight),
-            painter: (canvas, size) => _paintPath(canvas, path, fit),
-          ),
-          // Numaralı işaretler aşağıdaki durak listesine karşılık gelir.
-          for (final (index, stop) in stops.indexed)
-            _marker(index + 1, fit.place(stop), isStart: index == 0),
-        ],
+      child: pw.ClipRRect(
+        horizontalRadius: 6,
+        verticalRadius: 6,
+        child: pw.Stack(
+          children: [
+            if (basemap != null)
+              pw.Image(
+                pw.MemoryImage(basemap.image),
+                width: width,
+                height: _sketchHeight,
+                fit: pw.BoxFit.fill,
+              ),
+            pw.CustomPaint(
+              size: PdfPoint(width, _sketchHeight),
+              painter: (canvas, size) => _paintPath(
+                canvas,
+                sketch.path,
+                sketch.fit,
+                cased: basemap != null,
+              ),
+            ),
+            // Numaralı işaretler aşağıdaki durak listesine karşılık gelir.
+            for (final (index, stop) in sketch.stops.indexed)
+              _marker(index + 1, sketch.fit.place(stop), isStart: index == 0),
+            if (basemap != null)
+              pw.Positioned(
+                right: 0,
+                bottom: 0,
+                child: pw.Container(
+                  color: _paper,
+                  padding: const pw.EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 1,
+                  ),
+                  child: pw.Text(
+                    basemap.attribution,
+                    style: pw.TextStyle(fontSize: 9, color: _muted),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -399,26 +438,36 @@ class RoutePdfRenderer {
     ];
   }
 
+  /// Harita üzerinde çizgi beyaz kenarlıklıdır ([cased]): yollardan ve
+  /// yazılardan ayrışır.
   void _paintPath(
     PdfGraphics canvas,
     List<GeoPoint> path,
-    _SketchProjection fit,
-  ) {
+    _SketchProjection fit, {
+    required bool cased,
+  }) {
     if (path.length < 2) {
       return;
     }
-    final first = fit.place(path.first);
-    canvas
-      ..setStrokeColor(_primary)
-      ..setLineWidth(2)
-      ..setLineJoin(PdfLineJoin.round)
-      ..setLineCap(PdfLineCap.round)
-      ..moveTo(first.x, first.y);
-    for (final point in path.skip(1)) {
-      final p = fit.place(point);
-      canvas.lineTo(p.x, p.y);
+    void stroke(PdfColor color, double width) {
+      final first = fit.place(path.first);
+      canvas
+        ..setStrokeColor(color)
+        ..setLineWidth(width)
+        ..setLineJoin(PdfLineJoin.round)
+        ..setLineCap(PdfLineCap.round)
+        ..moveTo(first.x, first.y);
+      for (final point in path.skip(1)) {
+        final p = fit.place(point);
+        canvas.lineTo(p.x, p.y);
+      }
+      canvas.strokePath();
     }
-    canvas.strokePath();
+
+    if (cased) {
+      stroke(_paper, 4.5);
+    }
+    stroke(_primary, cased ? 2.4 : 2);
   }
 
   /// Uygulama amblemi ([BrandEmblemShape], birim kare; PDF'te y yukarı).
@@ -457,8 +506,35 @@ class RoutePdfRenderer {
   }
 }
 
-/// Noktaları Web Mercator'da kutuya oranı koruyarak sığdırır; kuzey
-/// yukarıdadır (PDF'te y yukarı doğru artar).
+/// Çizimin noktaları ve izdüşümü (altlık penceresi de buradan gelir).
+final class _SketchGeometry {
+  const _SketchGeometry(this.stops, this.path, this.fit);
+
+  factory _SketchGeometry.of(RouteDocument document) {
+    final stops = [for (final stop in document.stops) stop.location];
+    final path = RoutePdfRenderer._thin(
+      document.path.isEmpty ? stops : document.path,
+    );
+    return _SketchGeometry(
+      stops,
+      path,
+      _SketchProjection.fit(
+        [...path, ...stops],
+        width: RoutePdfRenderer._sketchWidth,
+        height: RoutePdfRenderer._sketchHeight,
+        padding: RoutePdfRenderer._sketchPadding,
+      ),
+    );
+  }
+
+  final List<GeoPoint> stops;
+  final List<GeoPoint> path;
+  final _SketchProjection fit;
+}
+
+/// Noktaları normalize Web Mercator'da (karo koordinatlarıyla aynı) kutuya
+/// oranı koruyarak sığdırır; kuzey yukarıdadır (PDF'te y yukarı doğru
+/// artar). Çok yakın duraklarda ölçek bir sokak görünümüyle sınırlanır.
 final class _SketchProjection {
   const _SketchProjection._(
     this._minX,
@@ -466,6 +542,8 @@ final class _SketchProjection {
     this._scale,
     this._offsetX,
     this._offsetY,
+    this._width,
+    this._height,
   );
 
   factory _SketchProjection.fit(
@@ -476,17 +554,28 @@ final class _SketchProjection {
   }) {
     final projected = points.map(_project).toList();
     if (projected.isEmpty) {
-      return _SketchProjection._(0, 0, 1, width / 2, height / 2);
+      return _SketchProjection._(
+        0.5,
+        0.5,
+        maxScale,
+        width / 2,
+        height / 2,
+        width,
+        height,
+      );
     }
     final minX = projected.map((p) => p.x).reduce(math.min);
     final maxX = projected.map((p) => p.x).reduce(math.max);
     final minY = projected.map((p) => p.y).reduce(math.min);
     final maxY = projected.map((p) => p.y).reduce(math.max);
-    final spanX = math.max(maxX - minX, 1e-9);
-    final spanY = math.max(maxY - minY, 1e-9);
+    final spanX = maxX - minX;
+    final spanY = maxY - minY;
     final scale = math.min(
-      (width - 2 * padding) / spanX,
-      (height - 2 * padding) / spanY,
+      maxScale,
+      math.min(
+        spanX == 0 ? double.infinity : (width - 2 * padding) / spanX,
+        spanY == 0 ? double.infinity : (height - 2 * padding) / spanY,
+      ),
     );
     return _SketchProjection._(
       minX,
@@ -494,28 +583,50 @@ final class _SketchProjection {
       scale,
       (width - spanX * scale) / 2,
       (height - spanY * scale) / 2,
+      width,
+      height,
     );
   }
+
+  /// En yakın görünüm: yakınlaştırma 17'de karo pikseli başına
+  /// [RouteBasemapRenderer.pixelsPerPoint]'in tersi kadar nokta.
+  static const double maxScale =
+      MapTileSource.tileSize * (1 << 17) / RouteBasemapRenderer.pixelsPerPoint;
 
   final double _minX;
   final double _minY;
   final double _scale;
   final double _offsetX;
   final double _offsetY;
+  final double _width;
+  final double _height;
+
+  /// Kutunun tamamının kapsadığı alan (altlık bu pencereden üretilir).
+  MercatorWindow get window {
+    final left = _minX - _offsetX / _scale;
+    final top = _minY - _offsetY / _scale;
+    return MercatorWindow(
+      left: left,
+      top: top,
+      right: left + _width / _scale,
+      bottom: top + _height / _scale,
+    );
+  }
 
   PdfPoint place(GeoPoint point) {
     final p = _project(point);
     return PdfPoint(
       _offsetX + (p.x - _minX) * _scale,
-      _offsetY + (p.y - _minY) * _scale,
+      _height - (_offsetY + (p.y - _minY) * _scale),
     );
   }
 
+  /// Normalize Web Mercator: x batıdan doğuya, y kuzeyden güneye 0…1.
   static math.Point<double> _project(GeoPoint point) {
     final latitude = point.latitude * math.pi / 180;
     return math.Point(
-      point.longitude * math.pi / 180,
-      math.log(math.tan(math.pi / 4 + latitude / 2)),
+      (point.longitude + 180) / 360,
+      (1 - math.log(math.tan(math.pi / 4 + latitude / 2)) / math.pi) / 2,
     );
   }
 }
