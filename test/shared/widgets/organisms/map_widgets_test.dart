@@ -188,17 +188,17 @@ void main() {
       RetinaMode resolved(WidgetTester tester) =>
           tester.widget<TileLayer>(find.byType(TileLayer)).resolvedRetinaMode;
 
-      testWidgets('OSM + yüksek yoğunluklu ekran: retina benzetimi', (
-        tester,
-      ) async {
-        tester.view.devicePixelRatio = 2;
+      testWidgets('OSM + yüksek yoğunluklu ekran: retina benzetimi yok '
+          '(görünür alan başına ~4× istek OSM sınırına takılıp gri karo '
+          'bırakıyordu)', (tester) async {
+        tester.view.devicePixelRatio = 3;
         addTearDown(tester.view.resetDevicePixelRatio);
         await pumpMap(
           tester,
           theme: AppTheme.light(),
           config: MapTileConfig.openStreetMap,
         );
-        expect(resolved(tester), RetinaMode.simulation);
+        expect(resolved(tester), RetinaMode.disabled);
       });
 
       testWidgets('OSM + 1× ekran: ek yük yok', (tester) async {

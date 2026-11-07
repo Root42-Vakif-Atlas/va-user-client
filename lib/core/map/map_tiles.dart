@@ -63,6 +63,21 @@ abstract final class MapTiles {
   /// Kamera yakınlaştırmasından karo seviyesi (aşağı yuvarlanır, sınırlı).
   static int zoomLevel(double zoom) => zoom.floor().clamp(minZoom, maxZoom);
 
+  /// Eser karolarının istendiği seviye.
+  ///
+  /// Kümeleme seviyelerinde ([singlesZoom] altı) bir seviye düşük, yani
+  /// ekranda iki kat büyük karo istenir: her karo 4× alan kaplar, görünür
+  /// alan başına istek ~9'dan ~2–4'e iner ve küçük kaydırmalar karo
+  /// sınırını nadiren geçer. Sunucunun 4×4 hücreli kümeleri ekranda ~128 dp
+  /// olur; yakın kümeler yine `declutter` ile birleşir.
+  ///
+  /// [singlesZoom] ve üstünde değişmez: tekil eserler ve külliye açılımı
+  /// ([complexExpandZoom]) aynı seviyelerde gelir.
+  static int requestLevel(double zoom) {
+    final level = zoomLevel(zoom);
+    return level < singlesZoom ? math.max(minZoom, level - 1) : level;
+  }
+
   /// Coğrafi alanı kaplayan karolar; [padding] karo kadar kenar payı
   /// eklenir (kaydırırken kenarda boşluk kalmaz).
   static Set<TileId> tilesCovering({

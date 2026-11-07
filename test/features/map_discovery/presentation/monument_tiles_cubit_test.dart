@@ -115,6 +115,130 @@ void main() {
     });
   });
 
+  group('arka plan ön yüklemesi', () {
+    // İstanbul tarihi yarımada (telefon görünür alanı).
+    const istanbul = GeoBounds(
+      south: 40.995,
+      west: 28.955,
+      north: 41.03,
+      east: 28.99,
+    );
+    const zoom = 13.5;
+    final visible = MapTiles.tilesCovering(
+      south: istanbul.south,
+      west: istanbul.west,
+      north: istanbul.north,
+      east: istanbul.east,
+      zoom: MapTiles.requestLevel(zoom),
+    );
+
+    late _MockGetTile getTile;
+    late List<TileId> requested;
+    late List<Completer<Result<List<MapTileItem>>>> slow;
+
+    setUp(() {
+      requested = [];
+      slow = [];
+      getTile = _MockGetTile();
+      // Görünür karolar hemen gelir; ön yükleme istekleri test bitirene
+      // kadar bekler.
+      when(() => getTile(any())).thenAnswer((invocation) {
+        final params =
+            invocation.positionalArguments.single as GetMapTileParams;
+        requested.add(params.tile);
+        // Türkiye görünümünün (zoom 6 → seviye ≤ 5) karoları da hızlıdır.
+        if (visible.contains(params.tile) || params.tile.z <= 5) {
+          return Future.value(const Right([]));
+        }
+        final completer = Completer<Result<List<MapTileItem>>>();
+        slow.add(completer);
+        return completer.future;
+      });
+    });
+
+    Future<MonumentTilesCubit> configured() async {
+      final cubit = MonumentTilesCubit(getTile);
+      await cubit.configure(
+        version: 'v',
+        languageCode: 'tr',
+        query: MonumentSearchQuery.empty,
+      );
+      return cubit;
+    }
+
+    test('görünür alandan sonra çevresi ve bir üst seviye istenir; '
+        'gösterge açılmaz', () async {
+      final cubit = await configured();
+      await cubit.viewportChanged(zoom: zoom, bounds: istanbul);
+
+      // Önce görünür karolar.
+      expect(requested.take(visible.length).toSet(), visible);
+      // Sonra çevre halkası / üst seviye (en çok 4 eşzamanlı).
+      expect(slow, hasLength(MonumentTilesCubit.prefetchConcurrency));
+      expect(
+        requested.skip(visible.length).every((tile) => !visible.contains(tile)),
+        isTrue,
+      );
+
+      await Future<void>.delayed(MonumentTilesCubit.loadingIndicatorDelay * 2);
+      expect(cubit.state.isLoading, isFalse);
+
+      for (final completer in slow) {
+        completer.complete(const Right([]));
+      }
+      await cubit.close();
+    });
+
+    test('kamera başka yere gidince kalan ön yükleme başlatılmaz', () async {
+      final cubit = await configured();
+      await cubit.viewportChanged(zoom: zoom, bounds: istanbul);
+      final firstWave = [...slow];
+      final before = requested.length;
+
+      // Yeni görünüm (yeni nesil); ilk dalganın istekleri sonra biter.
+      await cubit.viewportChanged(zoom: 6, bounds: _turkey);
+      final afterNewView = requested.length;
+      for (final completer in firstWave) {
+        completer.complete(const Right([]));
+      }
+      await Future<void>.delayed(Duration.zero);
+
+      // İlk neslin (İstanbul: seviye 11–12) kuyruğundan yeni istek
+      // çıkmadı; yeni istekler yalnızca Türkiye görünümünün (≤ 5).
+      final firstGeneration = requested
+          .skip(before)
+          .where((tile) => tile.z >= 11);
+      expect(firstGeneration, isEmpty);
+      expect(afterNewView, greaterThan(before));
+      for (final completer in slow.skip(firstWave.length)) {
+        completer.complete(const Right([]));
+      }
+      await cubit.close();
+    });
+  });
+
+  test('karo yüklemesi beklenmedik biçimde fırlatırsa gösterge takılı '
+      'kalmaz', () async {
+    final getTile = _MockGetTile();
+    when(() => getTile(any())).thenAnswer((_) async {
+      await Future<void>.delayed(MonumentTilesCubit.loadingIndicatorDelay * 2);
+      throw TypeError();
+    });
+    final cubit = MonumentTilesCubit(getTile);
+    await cubit.configure(
+      version: 'v',
+      languageCode: 'tr',
+      query: MonumentSearchQuery.empty,
+    );
+
+    await cubit.viewportChanged(zoom: 6, bounds: _turkey);
+    await Future<void>.delayed(MonumentTilesCubit.loadingIndicatorDelay);
+
+    expect(cubit.state.isLoading, isFalse);
+    expect(cubit.state.failure, isA<UnexpectedFailure>());
+    await cubit.close();
+  });
+
   test('sorgu değişince karolar filtreyle yeniden istenir', () async {
     final cubit = MonumentTilesCubit(catalogUseCases().tile);
     await cubit.viewportChanged(zoom: 6, bounds: _turkey);
@@ -152,9 +276,16 @@ void main() {
     );
     await cubit.viewportChanged(zoom: 6, bounds: _turkey);
 
-    final requested = verify(() => getTile(captureAny())).captured.length;
+    // Görünür karolar (arka plan ön yüklemesi sonuca katılmaz).
+    final visible = MapTiles.tilesCovering(
+      south: _turkey.south,
+      west: _turkey.west,
+      north: _turkey.north,
+      east: _turkey.east,
+      zoom: MapTiles.requestLevel(6),
+    ).length;
     expect(cubit.state.items, hasLength(1));
-    expect(_total(cubit.state.items), 2 * requested);
+    expect(_total(cubit.state.items), 2 * visible);
     await cubit.close();
   });
 

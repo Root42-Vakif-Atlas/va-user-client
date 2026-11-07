@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:vakif_atlas/core/config/map_tile_config.dart';
+import 'package:vakif_atlas/core/map/tile_http_client.dart';
 import 'package:vakif_atlas/core/observability/app_logger.dart';
 
 /// Tek bir karonun görüntüsünü getirir; ulaşılamazsa `null`.
@@ -87,8 +88,18 @@ class MapTileSource {
   int get fetchedTilePixels =>
       supportsRetina(Brightness.light) ? 2 * tileSize : tileSize;
 
-  static TileProvider _networkProvider() =>
-      NetworkTileProvider(cachingProvider: _cache);
+  /// Zaman aşımı + yeniden deneme ([TileHttpClient]); başarısız karolar
+  /// `AppMap`'te ayrıca yeniden yüklenir.
+  ///
+  /// `abortObsoleteRequests: false`: hızlı kaydırmada iptal edilen karonun
+  /// saydam (boş) görüntüsü görüntü önbelleğine girip geri dönüldüğünde gri
+  /// kalabiliyordu. İstek tamamlanır ve disk önbelleğini doldurur; geri
+  /// kaydırınca karo ağa gitmeden gelir.
+  static TileProvider _networkProvider() => NetworkTileProvider(
+    httpClient: TileHttpClient(),
+    cachingProvider: _cache,
+    abortObsoleteRequests: false,
+  );
 
   static MapCachingProvider get _cache =>
       BuiltInMapCachingProvider.getOrCreateInstance(

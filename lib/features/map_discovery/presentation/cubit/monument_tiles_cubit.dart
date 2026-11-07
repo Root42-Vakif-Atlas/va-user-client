@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:vakif_atlas/core/error/failures.dart';
 import 'package:vakif_atlas/core/map/map_tiles.dart';
+import 'package:vakif_atlas/core/utils/typedefs.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/geo_point.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/map_tile.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_search.dart';
@@ -74,6 +75,10 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
     await _load();
   }
 
+  /// Arka plan ön yüklemesinde aynı anda en çok bu kadar istek (ağ geçidinin
+  /// hız sınırı: 20 istek/sn).
+  static const int prefetchConcurrency = 4;
+
   Future<void> _load() async {
     final version = state.version;
     final zoom = _zoom;
@@ -82,14 +87,16 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
       return;
     }
     final generation = ++_generation;
-    final level = MapTiles.zoomLevel(zoom);
-    final tiles = MapTiles.tilesCovering(
+    final level = MapTiles.requestLevel(zoom);
+    Set<TileId> covering(int zoom, {int padding = 0}) => MapTiles.tilesCovering(
       south: bounds.south,
       west: bounds.west,
       north: bounds.north,
       east: bounds.east,
-      zoom: level,
+      zoom: zoom,
+      padding: padding,
     );
+    final tiles = covering(level);
     if (state.failure != null) {
       emit(state.copyWith(failure: null));
     }
@@ -98,18 +105,23 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
         emit(state.copyWith(isLoading: true));
       }
     });
-    final results = await Future.wait([
-      for (final tile in tiles)
-        _getTile(
-          GetMapTileParams(
-            tile: tile,
-            query: state.query,
-            version: version,
-            languageCode: state.languageCode,
-          ),
-        ),
-    ]);
-    indicator.cancel();
+    final List<Result<List<MapTileItem>>> results;
+    try {
+      results = await Future.wait([
+        for (final tile in tiles) _fetch(tile, version),
+      ]);
+    } on Object {
+      // Beklenmeyen hata (ör. ayrıştırma `TypeError`): gösterge takılı
+      // kalmaz, son başarılı öğeler korunur.
+      if (!isClosed && generation == _generation) {
+        emit(
+          state.copyWith(isLoading: false, failure: const UnexpectedFailure()),
+        );
+      }
+      return;
+    } finally {
+      indicator.cancel();
+    }
     if (isClosed || generation != _generation) {
       return;
     }
@@ -142,6 +154,52 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
         ),
       ),
     );
+    // Görünür alan çizildikten sonra çevresi ve bir uzaklaşma seviyesi
+    // arka planda önbelleğe alınır: küçük kaydırma ve uzaklaştırma ağ
+    // beklemeden gelir. Gösterge ve durum değişmez.
+    final outer = MapTiles.requestLevel(zoom - 1);
+    unawaited(
+      _prefetch(
+        [
+          ...covering(level, padding: 1).difference(tiles),
+          if (outer != level) ...covering(outer),
+        ],
+        version: version,
+        generation: generation,
+      ),
+    );
+  }
+
+  Future<Result<List<MapTileItem>>> _fetch(TileId tile, String version) =>
+      _getTile(
+        GetMapTileParams(
+          tile: tile,
+          query: state.query,
+          version: version,
+          languageCode: state.languageCode,
+        ),
+      );
+
+  /// Sonuçlar repository önbelleğine girer; burada kullanılmaz. Kamera
+  /// başka bir yere gidince (yeni nesil) kalan istekler başlatılmaz.
+  Future<void> _prefetch(
+    List<TileId> tiles, {
+    required String version,
+    required int generation,
+  }) async {
+    final queue = [...tiles];
+    Future<void> worker() async {
+      while (queue.isNotEmpty && !isClosed && generation == _generation) {
+        final tile = queue.removeLast();
+        try {
+          await _fetch(tile, version);
+        } on Object {
+          // Ön yükleme en iyi çabadır; hata görünür yüklemede ele alınır.
+        }
+      }
+    }
+
+    await Future.wait([for (var i = 0; i < prefetchConcurrency; i++) worker()]);
   }
 
   /// Birleşen öğeler tek kümeye indirgenir: sayılar toplanır, merkez

@@ -127,6 +127,38 @@ class CatalogRepositoryImpl implements CatalogRepository {
       _tiles[key] = cached;
       return Right(cached);
     }
+    // Aynı karo hâlâ yükleniyorsa (görünür alan + arka plan ön yüklemesi)
+    // ikinci istek atılmaz; aynı sonuç paylaşılır.
+    final pending = _inFlight[key];
+    if (pending != null) {
+      return pending;
+    }
+    final load = _loadMapTile(
+      key: key,
+      tile: tile,
+      query: query,
+      version: version,
+      languageCode: languageCode,
+    );
+    _inFlight[key] = load;
+    try {
+      return await load;
+    } finally {
+      // Kaldırılan, yukarıda zaten beklenen aynı Future'dır.
+      _inFlight.remove(key)?.ignore();
+    }
+  }
+
+  /// Süren karo yüklemeleri (bellek anahtarıyla).
+  final Map<String, Future<Either<Failure, List<MapTileItem>>>> _inFlight = {};
+
+  Future<Either<Failure, List<MapTileItem>>> _loadMapTile({
+    required String key,
+    required TileId tile,
+    required MonumentSearchQuery query,
+    required String version,
+    required String languageCode,
+  }) async {
     // Varsayılan harita (arama / filtre yok) karoları cihazda kalıcıdır:
     // içerik katalog sürümüyle değişmez, uygulama yeniden açıldığında ve
     // çevrimdışıyken ağa gitmeden çizilir. Arama sonuçlarının karoları

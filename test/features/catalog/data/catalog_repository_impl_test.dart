@@ -231,6 +231,16 @@ void main() {
         expect(requests, 1);
       });
 
+      test('aynı anda istenen aynı karo için tek ağ isteği atılır', () async {
+        const query = MonumentSearchQuery(text: 'cami');
+        final results = await Future.wait([
+          loadTile(repository, query: query),
+          loadTile(repository, query: query),
+        ]);
+        expect(results.first, results.last);
+        expect(requests, 1);
+      });
+
       test('arama / filtre karoları cihaza yazılmaz', () async {
         const query = MonumentSearchQuery(text: 'cami');
         await loadTile(repository, query: query);

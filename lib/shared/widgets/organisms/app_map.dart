@@ -9,6 +9,7 @@ import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/map/map_defaults.dart';
 import 'package:vakif_atlas/core/map/map_tile_filters.dart';
 import 'package:vakif_atlas/core/map/map_tile_source.dart';
+import 'package:vakif_atlas/core/network/network_status.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_durations.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
@@ -157,6 +158,14 @@ class AppMap extends StatefulWidget {
   /// Kamera bu süre hareketsiz kalınca [onCameraIdle] çağrılır.
   static const Duration cameraIdleDelay = Duration(milliseconds: 250);
 
+  /// Başarısız altlık karoları bu süre toplanıp birlikte yeniden yüklenir
+  /// (aynı anda düşen karolar tek yenilemede).
+  static const Duration tileRetryDelay = Duration(seconds: 3);
+
+  /// İki yenileme arasında en az bu süre (sunucu hâlâ reddediyorsa döngü
+  /// olmasın).
+  static const Duration tileRetryMinInterval = Duration(seconds: 30);
+
   /// `false` → atıf haritanın sağ alt köşesine çizilmez; çağıran
   /// [MapAttribution]'ı kendi kontrollerinin hizasında **göstermek
   /// zorundadır** (ODbL / OSM karo politikası: atıf sürekli görünür).
@@ -184,6 +193,19 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
   bool _ready = false;
   void Function(double progress)? _cameraStep;
 
+  // ── Başarısız altlık karolarının yeniden yüklenmesi ─────────────────
+  // Hata veren karo görünür kaldıkça flutter_map onu yeniden istemez (gri
+  // kalır). Hatalar kısa süre toplanıp tek bir `reset` ile yeniden
+  // yüklenir; sağlam karolar önbellekten gelir. Bağlantı geri gelince ve
+  // uygulamaya dönülünce de (o arada hata olduysa) yenilenir.
+
+  final StreamController<void> _tileReset = StreamController<void>.broadcast();
+  bool _tileErrorsPending = false;
+  Timer? _tileRetryTimer;
+  DateTime? _lastTileReset;
+  StreamSubscription<bool>? _networkChanges;
+  late final AppLifecycleListener _lifecycle;
+
   static final Animatable<double> _panCurve = CurveTween(
     curve: const Interval(0, 0.7, curve: Curves.easeInOutCubic),
   );
@@ -195,6 +217,47 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     widget.controller?._attach(this);
+    _lifecycle = AppLifecycleListener(onResume: _retryFailedTiles);
+    _networkChanges = _networkStatus()?.changes.listen((online) {
+      if (online) {
+        _retryFailedTiles();
+      }
+    });
+  }
+
+  /// Ağ durumu kökte sağlanır; tek başına çizilen haritada (testler,
+  /// önizlemeler) yoktur.
+  NetworkStatus? _networkStatus() {
+    try {
+      return context.read<NetworkStatus>();
+    } on ProviderNotFoundException {
+      return null;
+    }
+  }
+
+  void _onTileError(TileImage tile, Object error, StackTrace? stackTrace) {
+    _tileErrorsPending = true;
+    if (_tileRetryTimer?.isActive ?? false) {
+      return;
+    }
+    final last = _lastTileReset;
+    final sinceLast = last == null
+        ? AppMap.tileRetryMinInterval
+        : DateTime.now().difference(last);
+    final wait = sinceLast >= AppMap.tileRetryMinInterval
+        ? AppMap.tileRetryDelay
+        : AppMap.tileRetryMinInterval - sinceLast;
+    _tileRetryTimer = Timer(wait, _retryFailedTiles);
+  }
+
+  void _retryFailedTiles() {
+    _tileRetryTimer?.cancel();
+    if (!mounted || !_tileErrorsPending) {
+      return;
+    }
+    _tileErrorsPending = false;
+    _lastTileReset = DateTime.now();
+    _tileReset.add(null);
   }
 
   @override
@@ -212,6 +275,10 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _idleTimer?.cancel();
+    _tileRetryTimer?.cancel();
+    unawaited(_networkChanges?.cancel());
+    _lifecycle.dispose();
+    unawaited(_tileReset.close());
     widget.controller?._detach(this);
     _camera.dispose();
     _map.dispose();
@@ -236,11 +303,27 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
     }
     _idleTimer?.cancel();
     _idleTimer = Timer(AppMap.cameraIdleDelay, () {
-      if (mounted) {
-        onIdle(_map.camera);
+      if (!mounted) {
+        return;
       }
+      final camera = _map.camera;
+      // Dokunma, uzun basma, sürükleme bitişi gibi olaylar kamerayı
+      // değiştirmez: görünür alan aynıysa yeniden yükleme istenmez.
+      final previous = _idleCamera;
+      if (previous != null &&
+          previous.center == camera.center &&
+          previous.zoom == camera.zoom &&
+          previous.rotation == camera.rotation &&
+          previous.nonRotatedSize == camera.nonRotatedSize) {
+        return;
+      }
+      _idleCamera = camera;
+      onIdle(camera);
     });
   }
+
+  /// [AppMap.onCameraIdle]'a en son bildirilen kamera.
+  MapCamera? _idleCamera;
 
   void _onCameraTick() => _cameraStep?.call(_camera.value);
 
@@ -312,10 +395,18 @@ class _AppMapState extends State<AppMap> with SingleTickerProviderStateMixin {
       urlTemplate: source.urlTemplateFor(brightness),
       userAgentPackageName: source.userAgentPackageName,
       tileProvider: _tileProvider,
-      // Yüksek yoğunluklu ekranda keskin harita: `{r}` destekleyen sunucudan
-      // gerçek @2x tile, desteklemeyenden (OSM) bir üst yakınlaştırma
-      // seviyesi yarı boyda çizilir (flutter_map retina benzetimi).
-      retinaMode: RetinaMode.isHighDensity(context),
+      // Yüksek yoğunluklu ekranda `{r}` destekleyen sunucudan gerçek @2x
+      // karo istenir. Desteklemeyen sunucuda (OSM) retina benzetimi
+      // kapalıdır: bir üst seviyenin karolarını yarı boyda çizmek görünür
+      // alan başına ~4× istek demekti ve OSM'nin hız sınırına takılıp gri
+      // karolara yol açıyordu.
+      retinaMode:
+          source.supportsRetina(brightness) &&
+          RetinaMode.isHighDensity(context),
+      // Geri kaydırınca karolar yeniden istenmez.
+      keepBuffer: 3,
+      reset: _tileReset.stream,
+      errorTileCallback: _onTileError,
       tileDisplay: context.reduceMotion
           ? const TileDisplay.instantaneous()
           : const TileDisplay.fadeIn(),

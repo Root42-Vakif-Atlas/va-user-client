@@ -36,6 +36,33 @@ void main() {
       expect(MapTiles.zoomLevel(7.9), 7);
     });
 
+    test('kümeleme seviyelerinde bir seviye büyük karo istenir; tekil eser '
+        've külliye seviyeleri değişmez', () {
+      expect(MapTiles.requestLevel(4), MapTiles.minZoom);
+      expect(MapTiles.requestLevel(5.5), 4);
+      expect(MapTiles.requestLevel(14.9), 13);
+      // Tekil eserler (15) ve külliye açılımı (17) aynı seviyede gelir.
+      expect(MapTiles.requestLevel(15), MapTiles.singlesZoom);
+      expect(MapTiles.requestLevel(16.5), 16);
+      expect(MapTiles.requestLevel(17), MapTiles.complexExpandZoom);
+      expect(MapTiles.requestLevel(18), MapTiles.maxZoom);
+    });
+
+    test('büyük karo görünür alan başına istek sayısını düşürür', () {
+      // İstanbul tarihi yarımada, telefon görünür alanı (~zoom 13.5).
+      Set<TileId> at(int zoom) => MapTiles.tilesCovering(
+        south: 40.995,
+        west: 28.955,
+        north: 41.03,
+        east: 28.99,
+        zoom: zoom,
+      );
+      expect(
+        at(MapTiles.requestLevel(13.5)).length,
+        lessThan(at(MapTiles.zoomLevel(13.5)).length),
+      );
+    });
+
     test('declutter ekranda 48 dp içindeki öğeleri birleştirir, sayıyı '
         'korur', () {
       // (enlem, boylam, sayı)
