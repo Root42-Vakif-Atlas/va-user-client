@@ -71,6 +71,25 @@ class CacheStore {
     await box.delete(key);
   }
 
+  /// [test]'i sağlayan anahtarların kayıtlarını siler (ör. eski katalog
+  /// sürümünün harita karoları; okunmayan kayıtlar süresi dolsa da
+  /// kendiliğinden silinmez).
+  Future<void> removeWhere(bool Function(String key) test) async {
+    final box = await _database.openBox<String>(boxName);
+    final keys = [
+      for (final key in box.keys)
+        if (key is String && test(key)) key,
+    ];
+    if (keys.isEmpty) {
+      return;
+    }
+    try {
+      await box.deleteAll(keys);
+    } on Exception {
+      throw const CacheException('cache.write');
+    }
+  }
+
   Future<void> clear() async {
     final box = await _database.openBox<String>(boxName);
     await box.clear();

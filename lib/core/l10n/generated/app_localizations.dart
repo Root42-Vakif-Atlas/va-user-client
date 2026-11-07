@@ -5964,6 +5964,114 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{details} · Konum yok, rotaya eklenemez'**
   String routePickerNoLocation(String details);
+
+  /// No description provided for @settingsNotificationsSection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bildirimler'**
+  String get settingsNotificationsSection;
+
+  /// No description provided for @nearbyAlertsSettingTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eser bildirimleri'**
+  String get nearbyAlertsSettingTitle;
+
+  /// No description provided for @nearbyAlertsSettingDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir vakıf eserinin yanından geçerken fotoğrafı ve kısa bilgisiyle haber verilir. Konumunuz saklanmaz; çevrenizdeki eserleri bulmak için yalnızca yaklaşık bölgeniz kullanılır.'**
+  String get nearbyAlertsSettingDescription;
+
+  /// No description provided for @nearbyAlertsBackgroundNote.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama arka plandayken de çalışır. Açıkken Android\'de kalıcı bir bildirim, iOS\'ta konum göstergesi görünür.'**
+  String get nearbyAlertsBackgroundNote;
+
+  /// No description provided for @nearbyAlertsNotificationsBlocked.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vakıf Atlas için bildirimler kapalı. Uyarı alabilmek için sistem ayarlarından açın.'**
+  String get nearbyAlertsNotificationsBlocked;
+
+  /// No description provided for @nearbyAlertsLocationBlocked.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum erişimi kapalı. Uyarı alabilmek için uygulama kullanılırken konuma izin verin.'**
+  String get nearbyAlertsLocationBlocked;
+
+  /// No description provided for @nearbyAlertsOpenSettings.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayarları aç'**
+  String get nearbyAlertsOpenSettings;
+
+  /// No description provided for @nearbyAlertsEnabled.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eser bildirimleri açıldı.'**
+  String get nearbyAlertsEnabled;
+
+  /// No description provided for @nearbyAlertsDisabled.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eser bildirimleri kapatıldı.'**
+  String get nearbyAlertsDisabled;
+
+  /// No description provided for @nearbyAlertsChannelName.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eserler'**
+  String get nearbyAlertsChannelName;
+
+  /// No description provided for @nearbyAlertsChannelDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir vakıf eserinin yakınından geçtiğinizde'**
+  String get nearbyAlertsChannelDescription;
+
+  /// No description provided for @nearbyAlertTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'{name} yakınındasınız'**
+  String nearbyAlertTitle(String name);
+
+  /// No description provided for @nearbyAlertSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'{distance} uzakta · {category}'**
+  String nearbyAlertSubtitle(String distance, String category);
+
+  /// No description provided for @nearbyAlertCallToAction.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayrıntılar için dokunun.'**
+  String get nearbyAlertCallToAction;
+
+  /// No description provided for @nearbyAlertsTrackingTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eser bildirimleri açık'**
+  String get nearbyAlertsTrackingTitle;
+
+  /// No description provided for @nearbyAlertsTrackingText.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir vakıf eserine yaklaştığınızda size haber vereceğiz.'**
+  String get nearbyAlertsTrackingText;
+
+  /// No description provided for @nearbyAlertsTrackingChannel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki eserler için konum'**
+  String get nearbyAlertsTrackingChannel;
+
+  /// No description provided for @nearbyAlertSubtitleApproximate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakınınızda · {category}'**
+  String nearbyAlertSubtitleApproximate(String category);
 }
 
 class _AppLocalizationsDelegate

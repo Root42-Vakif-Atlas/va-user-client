@@ -20,6 +20,12 @@ abstract class RegisterModule {
 
   /// iOS Keychain (yalnızca bu cihaz, ilk kilit açılışından sonra) ve
   /// Android Keystore destekli şifreli depolama.
+  ///
+  /// macOS'ta "data protection" anahtar zinciri kullanılmaz: o,
+  /// `keychain-access-groups` yetkisi ve hazırlama profili (Apple ekibi)
+  /// ister; yetkisiz imzalı derlemede her yazma `-34018` ile başarısız olur
+  /// ve giriş "yerel veri okunamadı" hatası verir. Klasik anahtar zinciri
+  /// sandbox'ta yetki gerektirmez; uygulama anahtar paylaşmadığından yeterlidir.
   @lazySingleton
   FlutterSecureStorage get secureStorage => const FlutterSecureStorage(
     iOptions: IOSOptions(
@@ -27,6 +33,7 @@ abstract class RegisterModule {
     ),
     mOptions: MacOsOptions(
       accessibility: KeychainAccessibility.first_unlock_this_device,
+      usesDataProtectionKeychain: false,
     ),
   );
 

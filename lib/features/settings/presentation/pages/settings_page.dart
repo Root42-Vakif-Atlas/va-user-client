@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/theme/theme_context.dart';
 import 'package:vakif_atlas/core/theme/tokens/app_spacing.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/widgets/nearby_alerts_setting.dart';
 import 'package:vakif_atlas/features/settings/presentation/cubit/app_settings_cubit.dart';
 import 'package:vakif_atlas/features/settings/presentation/cubit/app_settings_state.dart';
 import 'package:vakif_atlas/features/settings/presentation/widgets/app_about_card.dart';
@@ -19,7 +21,7 @@ import 'package:vakif_atlas/shared/widgets/molecules/section_header.dart';
 /// Erişilebilirlik sayfasındadır; buradaki satır yalnızca oraya götürür.
 /// İlk açılış tanıtımında seçilen tercihler burada değiştirilir.
 /// `LocationPermissionCubit` ve `DevicePermissionsCubit` üst ağaçtan
-/// (router) sağlanır.
+/// (router), `NearbyAlertsCubit` uygulama kökünden sağlanır.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
     required this.onReplayOnboarding,
@@ -88,6 +90,12 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: AppSpacing.lg),
+                  if (context.read<NearbyAlertsCubit>().isSupported) ...[
+                    SectionHeader(l10n.settingsNotificationsSection),
+                    const SizedBox(height: AppSpacing.xs),
+                    const NearbyAlertsSetting(),
+                    const SizedBox(height: AppSpacing.lg),
+                  ],
                   SectionHeader(l10n.settingsPermissionsSection),
                   const SizedBox(height: AppSpacing.xs),
                   const PermissionCardList(),

@@ -61,6 +61,60 @@ void main() {
     },
   );
 
+  group('"Eserler yükleniyor" göstergesi', () {
+    Future<MonumentTilesCubit> configured(_MockGetTile getTile) async {
+      final cubit = MonumentTilesCubit(getTile);
+      await cubit.configure(
+        version: CatalogMockApi.catalogVersion,
+        languageCode: 'tr',
+        query: MonumentSearchQuery.empty,
+      );
+      return cubit;
+    }
+
+    test(
+      'karolar hızlı gelirse (bellek / cihaz) gösterge hiç açılmaz',
+      () async {
+        final getTile = _MockGetTile();
+        when(() => getTile(any())).thenAnswer((_) async => const Right([]));
+        final cubit = await configured(getTile);
+        final loading = <bool>[];
+        final subscription = cubit.stream.listen(
+          (state) => loading.add(state.isLoading),
+        );
+
+        for (var i = 0; i < 5; i++) {
+          await cubit.viewportChanged(zoom: 6 + i * 0.1, bounds: _turkey);
+        }
+        await Future<void>.delayed(
+          MonumentTilesCubit.loadingIndicatorDelay * 2,
+        );
+
+        expect(loading, isNot(contains(true)));
+        await subscription.cancel();
+        await cubit.close();
+      },
+    );
+
+    test('ağ yanıtı gecikirse gösterge açılır, yanıtla kapanır', () async {
+      final getTile = _MockGetTile();
+      final response = Completer<Result<List<MapTileItem>>>();
+      when(() => getTile(any())).thenAnswer((_) => response.future);
+      final cubit = await configured(getTile);
+
+      final load = cubit.viewportChanged(zoom: 6, bounds: _turkey);
+      await Future<void>.delayed(MonumentTilesCubit.loadingIndicatorDelay ~/ 2);
+      expect(cubit.state.isLoading, isFalse);
+      await Future<void>.delayed(MonumentTilesCubit.loadingIndicatorDelay);
+      expect(cubit.state.isLoading, isTrue);
+
+      response.complete(const Right([]));
+      await load;
+      expect(cubit.state.isLoading, isFalse);
+      await cubit.close();
+    });
+  });
+
   test('sorgu değişince karolar filtreyle yeniden istenir', () async {
     final cubit = MonumentTilesCubit(catalogUseCases().tile);
     await cubit.viewportChanged(zoom: 6, bounds: _turkey);

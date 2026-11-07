@@ -14,6 +14,7 @@ import 'package:vakif_atlas/core/di/injection.dart';
 import 'package:vakif_atlas/core/l10n/l10n.dart';
 import 'package:vakif_atlas/core/map/map_tile_source.dart';
 import 'package:vakif_atlas/core/network/network_status.dart';
+import 'package:vakif_atlas/core/notifications/local_notification_service.dart';
 import 'package:vakif_atlas/core/router/app_router.dart';
 import 'package:vakif_atlas/core/router/routes.dart';
 import 'package:vakif_atlas/core/security/device_integrity.dart';
@@ -27,6 +28,8 @@ import 'package:vakif_atlas/core/theme/color_blindness_filter.dart';
 import 'package:vakif_atlas/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vakif_atlas/features/gamification/presentation/cubit/gamification_cubit.dart';
 import 'package:vakif_atlas/features/gamification/presentation/widgets/gamification_celebrations.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/nearby_alert_notification.dart';
 import 'package:vakif_atlas/features/settings/domain/entities/accessibility_preferences.dart';
 import 'package:vakif_atlas/features/settings/domain/entities/app_settings.dart';
 import 'package:vakif_atlas/features/settings/presentation/app_settings_presentation.dart';
@@ -83,6 +86,9 @@ class VakifAtlasApp extends StatelessWidget {
         RepositoryProvider<DocumentShareService>.value(
           value: getIt<DocumentShareService>(),
         ),
+        RepositoryProvider<LocalNotificationService>.value(
+          value: getIt<LocalNotificationService>(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -92,6 +98,9 @@ class VakifAtlasApp extends StatelessWidget {
           BlocProvider<AuthBloc>.value(value: getIt<AuthBloc>()),
           BlocProvider<GamificationCubit>.value(
             value: getIt<GamificationCubit>(),
+          ),
+          BlocProvider<NearbyAlertsCubit>.value(
+            value: getIt<NearbyAlertsCubit>(),
           ),
         ],
         child: _AppView(
@@ -231,11 +240,15 @@ class _AppShell extends StatelessWidget {
                 child: _SessionNotifications(
                   showIntegrityWarning: showIntegrityWarning,
                   child: _GamificationSession(
-                    child: GamificationCelebrations(
-                      navigatorKey: router.navigatorKey,
-                      onOpenAchievements: () =>
-                          unawaited(router.router.push(AppRoutes.achievements)),
-                      child: child,
+                    child: _NearbyAlertsSession(
+                      router: router,
+                      child: GamificationCelebrations(
+                        navigatorKey: router.navigatorKey,
+                        onOpenAchievements: () => unawaited(
+                          router.router.push(AppRoutes.achievements),
+                        ),
+                        child: child,
+                      ),
                     ),
                   ),
                 ),
@@ -396,6 +409,111 @@ class _GamificationSessionState extends State<_GamificationSession> {
         }
         _sync(auth);
       },
+      child: widget.child,
+    );
+  }
+}
+
+/// Yakındaki eser bildirimlerini ayara, dile ve uygulama yaşam döngüsüne
+/// bağlar; bildirime dokunulunca eser detayını açar.
+///
+/// İzin burada istenmez: ayar açıksa izinler yalnızca denetlenir. Uygulamaya
+/// dönülünce yeniden denetlenir (kullanıcı sistem ayarlarından izni açmış
+/// veya kapatmış olabilir).
+class _NearbyAlertsSession extends StatefulWidget {
+  const _NearbyAlertsSession({required this.router, required this.child});
+
+  final AppRouter router;
+  final Widget child;
+
+  @override
+  State<_NearbyAlertsSession> createState() => _NearbyAlertsSessionState();
+}
+
+class _NearbyAlertsSessionState extends State<_NearbyAlertsSession> {
+  late final AppLifecycleListener _lifecycle;
+  late final StreamSubscription<String> _taps;
+  String? _languageCode;
+
+  NearbyAlertsCubit get _alerts => context.read<NearbyAlertsCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle = AppLifecycleListener(onResume: _sync);
+    final notifications = context.read<LocalNotificationService>();
+    _taps = notifications.taps.listen(
+      (payload) => _open(payload, coldStart: false),
+    );
+    unawaited(
+      notifications.initialize().then((_) async {
+        final payload = await notifications.takeLaunchPayload();
+        if (payload != null && mounted) {
+          _open(payload, coldStart: true);
+        }
+      }),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final languageCode = Localizations.localeOf(context).languageCode;
+    if (languageCode != _languageCode) {
+      _languageCode = languageCode;
+      _sync();
+    }
+  }
+
+  void _sync() {
+    final languageCode = _languageCode;
+    if (!mounted || languageCode == null) {
+      return;
+    }
+    final settings = context.read<AppSettingsCubit>().state.settings;
+    if (settings.nearbyAlerts) {
+      unawaited(
+        _alerts.start(
+          languageCode: languageCode,
+          includeImages: !settings.accessibility.hideImages,
+        ),
+      );
+    } else if (_alerts.state != NearbyAlertsStatus.off) {
+      unawaited(_alerts.stop());
+    }
+  }
+
+  /// Soğuk açılışta `go`: açılış / tanıtım / oturum yönlendirmeleri hedefi
+  /// korur ve geri tuşu haritaya döner. Uygulama açıkken `push`: kullanıcı
+  /// geri dönünce bulunduğu ekrana döner.
+  void _open(String payload, {required bool coldStart}) {
+    final route = NearbyAlertNotification.routeOf(payload);
+    if (route == null) {
+      return;
+    }
+    final router = widget.router.router;
+    if (coldStart) {
+      router.go(route);
+    } else {
+      unawaited(router.push(route));
+    }
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    unawaited(_taps.cancel());
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<AppSettingsCubit, AppSettingsState>(
+      listenWhen: (previous, current) =>
+          previous.settings.nearbyAlerts != current.settings.nearbyAlerts ||
+          previous.settings.accessibility.hideImages !=
+              current.settings.accessibility.hideImages,
+      listener: (_, _) => _sync(),
       child: widget.child,
     );
   }

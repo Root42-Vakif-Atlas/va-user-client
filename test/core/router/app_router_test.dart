@@ -45,6 +45,7 @@ import 'package:vakif_atlas/features/monument_detail/presentation/cubit/complex_
 import 'package:vakif_atlas/features/monument_detail/presentation/cubit/monument_detail_cubit.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/pages/complex_members_page.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/pages/complex_detail_page.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart';
 import 'package:vakif_atlas/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:vakif_atlas/features/route_export/domain/usecases/route_export_usecases.dart';
 import 'package:vakif_atlas/features/route_export/presentation/cubit/route_export_cubit.dart';
@@ -69,6 +70,7 @@ import '../../helpers/location_test_utils.dart';
 import '../../helpers/map_test_utils.dart';
 import '../../helpers/memory_test_utils.dart';
 import '../../helpers/network_test_utils.dart';
+import '../../helpers/notification_test_utils.dart';
 import '../../helpers/onboarding_test_utils.dart';
 import '../../helpers/permission_test_utils.dart';
 import '../../helpers/route_export_test_utils.dart';
@@ -152,6 +154,10 @@ void main() {
       )
       ..registerFactory<DevicePermissionsCubit>(
         () => DevicePermissionsCubit(FakePermissionService()),
+      )
+      ..registerLazySingleton<NearbyAlertsCubit>(
+        testNearbyAlertsCubit,
+        dispose: (cubit) => cubit.close(),
       );
     final exports = testRouteExportRepository(
       renderer: FakeRoutePdfRenderer(),

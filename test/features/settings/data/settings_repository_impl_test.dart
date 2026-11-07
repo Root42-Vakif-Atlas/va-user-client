@@ -28,6 +28,7 @@ void main() {
           feature: feature.levels,
       }).withLevel(AccessibilityFeature.haptics, 0),
       showAccessibilityButton: false,
+      nearbyAlerts: true,
     );
 
     final result = await repository.save(settings);
@@ -62,6 +63,15 @@ void main() {
       expect(a11y.hapticFeedback, isFalse);
     },
   );
+
+  test('yakındaki eser bildirimleri varsayılan kapalıdır', () async {
+    SharedPreferences.setMockInitialValues({});
+    final repository = SettingsRepositoryImpl(
+      PreferencesService(await SharedPreferences.getInstance()),
+    );
+
+    expect(repository.load().nearbyAlerts, isFalse);
+  });
 
   test('bozuk panel kaydı eski anahtarlara (varsayılanlara) düşer', () async {
     SharedPreferences.setMockInitialValues({

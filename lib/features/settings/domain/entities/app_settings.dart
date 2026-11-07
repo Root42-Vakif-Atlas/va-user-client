@@ -9,6 +9,7 @@ final class AppSettings {
     required this.languageCode,
     required this.accessibility,
     this.showAccessibilityButton = true,
+    this.nearbyAlerts = false,
   });
 
   /// İlk açılış değerleri: cihazın açık/koyu ayarı ve dili.
@@ -32,6 +33,10 @@ final class AppSettings {
   /// Haritadaki Erişilebilirlik butonu gösterilir. Erişilebilirlik tercihi
   /// değildir (görünürlük ayarı): "Varsayılanlara dön" bunu değiştirmez.
   final bool showAccessibilityButton;
+
+  /// Bir vakıf eserinin yakınındayken bildirim gönderilir. Konum tabanlı
+  /// olduğundan varsayılan kapalıdır; kullanıcı Ayarlar'dan açar.
+  final bool nearbyAlerts;
 
   // Kökte en sık okunan erişilebilirlik değerleri.
   bool get highContrast => accessibility.highContrast;
@@ -65,6 +70,7 @@ final class AppSettings {
     Object? languageCode = _unchanged,
     AccessibilityPreferences? accessibility,
     bool? showAccessibilityButton,
+    bool? nearbyAlerts,
   }) {
     return AppSettings(
       themePreference: themePreference ?? this.themePreference,
@@ -74,6 +80,7 @@ final class AppSettings {
       accessibility: accessibility ?? this.accessibility,
       showAccessibilityButton:
           showAccessibilityButton ?? this.showAccessibilityButton,
+      nearbyAlerts: nearbyAlerts ?? this.nearbyAlerts,
     );
   }
 
@@ -84,7 +91,8 @@ final class AppSettings {
           other.themePreference == themePreference &&
           other.languageCode == languageCode &&
           other.accessibility == accessibility &&
-          other.showAccessibilityButton == showAccessibilityButton;
+          other.showAccessibilityButton == showAccessibilityButton &&
+          other.nearbyAlerts == nearbyAlerts;
 
   @override
   int get hashCode => Object.hash(
@@ -92,10 +100,12 @@ final class AppSettings {
     languageCode,
     accessibility,
     showAccessibilityButton,
+    nearbyAlerts,
   );
 
   @override
   String toString() =>
       'AppSettings(theme: $themePreference, language: $languageCode, '
-      'a11yButton: $showAccessibilityButton, $accessibility)';
+      'a11yButton: $showAccessibilityButton, nearbyAlerts: $nearbyAlerts, '
+      '$accessibility)';
 }

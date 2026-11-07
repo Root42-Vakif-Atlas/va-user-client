@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:vakif_atlas/core/map/map_tiles.dart';
+import 'package:vakif_atlas/features/catalog/data/dtos/map_tile_dtos.dart';
 import 'package:vakif_atlas/features/catalog/data/dtos/monument_dtos.dart';
 import 'package:vakif_atlas/features/catalog/data/repositories/catalog_repository_impl.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_local_data_source.dart';
@@ -103,6 +105,37 @@ class InMemoryCatalogLocalDataSource implements CatalogLocalDataSource {
     String languageCode,
     MonumentDetailDto monument,
   ) async => details['$languageCode/${monument.key}'] = monument;
+
+  /// `sürüm/dil/z/x/y` → ham karo yanıtı.
+  final Map<String, Map<String, dynamic>> tiles = {};
+  final Map<String, MapExtentDto> extents = {};
+
+  @override
+  Future<Map<String, dynamic>?> readMapTile({
+    required String version,
+    required String languageCode,
+    required TileId tile,
+  }) async => tiles['$version/$languageCode/$tile'];
+
+  @override
+  Future<void> saveMapTile({
+    required String version,
+    required String languageCode,
+    required TileId tile,
+    required Map<String, dynamic> json,
+  }) async => tiles['$version/$languageCode/$tile'] = json;
+
+  @override
+  Future<MapExtentDto?> readMapExtent(String languageCode) async =>
+      extents[languageCode];
+
+  @override
+  Future<void> saveMapExtent(String languageCode, MapExtentDto extent) async =>
+      extents[languageCode] = extent;
+
+  @override
+  Future<void> pruneMapTiles({required String keepVersion}) async =>
+      tiles.removeWhere((key, _) => !key.startsWith('$keepVersion/'));
 }
 
 /// Sayfalama testleri için [count] eserlik yapay veri seti (yalnızca test):

@@ -36,6 +36,11 @@ class AppSettingsCubit extends Cubit<AppSettingsState> {
   Future<void> setShowAccessibilityButton({required bool visible}) =>
       _update(state.settings.copyWith(showAccessibilityButton: visible));
 
+  /// Yakındaki eser bildirimlerini açar / kapatır. İzinler önceden
+  /// `NearbyAlertsCubit.requestActivation` ile alınır.
+  Future<void> setNearbyAlerts({required bool enabled}) =>
+      _update(state.settings.copyWith(nearbyAlerts: enabled));
+
   /// Erişilebilirlik panelindeki kutucuğu bir sonraki seviyeye geçirir
   /// (son seviyeden sonra kapalı). Titreşim açılırken tek bir seçim tıkıyla
   /// yeni durum hissettirilir.

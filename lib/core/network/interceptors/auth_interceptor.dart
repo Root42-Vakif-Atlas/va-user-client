@@ -42,20 +42,25 @@ class AuthInterceptor extends Interceptor {
       handler.next(options);
       return;
     }
+    String? token;
     try {
       final pendingRefresh = _refreshInFlight;
       if (pendingRefresh != null) {
         await pendingRefresh;
       }
-      final token = await _storage.getAccessToken();
-      if (token != null) {
-        options.headers[NetworkConstants.authorizationHeader] =
-            '$_bearerPrefix$token';
-      }
-      handler.next(options);
-    } on Exception catch (error) {
-      handler.reject(DioException(requestOptions: options, error: error), true);
+      token = await _storage.getAccessToken();
+    } on Exception {
+      // Anahtar şu an okunamıyor (ör. cihaz kilitli). İstek engellenmez:
+      // herkese açık içerik (katalog, anılar) yine yüklenir; korumalı uç
+      // nokta 401 döner ve olağan yenileme / oturum akışı işler. Aksi halde
+      // her istek "yerel veri okunamadı" hatasıyla düşerdi.
+      token = null;
     }
+    if (token != null) {
+      options.headers[NetworkConstants.authorizationHeader] =
+          '$_bearerPrefix$token';
+    }
+    handler.next(options);
   }
 
   @override

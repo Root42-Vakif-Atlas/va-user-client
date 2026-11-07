@@ -108,22 +108,142 @@ class GeolocatorLocationService implements LocationService {
     }
   }
 
+  /// Arka plan takibinde bu mesafeden küçük hareketler bildirilmez. Yürüyüş
+  /// hızında ~20 saniyede bir konum: yakınlık uyarısı için yeterli, pil
+  /// için ölçülü.
+  static const int backgroundDistanceFilterMeters = 25;
+
+  /// Android'de arka plan takibinin en sık konum aralığı.
+  static const Duration backgroundInterval = Duration(seconds: 10);
+
+  /// Android ön plan servisi bildiriminin tek renkli simgesi
+  /// (`res/drawable/ic_stat_vakif_atlas.xml`; R8'den `res/raw/keep.xml`
+  /// ile korunur).
+  static const String notificationIconName = 'ic_stat_vakif_atlas';
+
+  /// Eklenti tek bir konum akışı tutar ve sonraki çağrılarda ayarları yok
+  /// sayıp aynı akışı döndürür. Bu yüzden tüm dinleyiciler tek kaynak
+  /// aboneliğini paylaşır; bir dinleyici arka plan isterse kaynak arka plan
+  /// ayarlarıyla yeniden başlatılır.
+  final Map<StreamController<DevicePosition>, BackgroundTracking?> _listeners =
+      {};
+  StreamSubscription<Position>? _source;
+  BackgroundTracking? _sourceTracking;
+
   @override
-  Stream<DevicePosition> positionUpdates() {
+  Stream<DevicePosition> positionUpdates({BackgroundTracking? background}) {
     if (!isSupported) {
       return const Stream.empty();
     }
-    return Geolocator.getPositionStream(
-          locationSettings: const LocationSettings(
-            distanceFilter: distanceFilterMeters,
-          ),
-        )
-        .map(_toDevicePosition)
-        .transform(
-          StreamTransformer.fromHandlers(
-            handleError: (_, _, sink) => sink.close(),
-          ),
+    late final StreamController<DevicePosition> controller;
+    controller = StreamController<DevicePosition>(
+      onListen: () {
+        _listeners[controller] = background;
+        _reconcileSource();
+      },
+      onCancel: () {
+        _listeners.remove(controller);
+        _reconcileSource();
+      },
+    );
+    return controller.stream;
+  }
+
+  /// Sürekli takip ayarları olan platformlar. macOS'ta "arka plan" kavramı
+  /// yoktur (pencere açık kaldıkça uygulama çalışır); takip ayarı yine de
+  /// uygulanır (bkz. [_settings]).
+  bool get _supportsBackground =>
+      !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.android ||
+          defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.macOS);
+
+  void _reconcileSource() {
+    if (_listeners.isEmpty) {
+      _stopSource();
+      return;
+    }
+    final wanted = _supportsBackground
+        ? _listeners.values.nonNulls.firstOrNull
+        : null;
+    if (_source != null && wanted == _sourceTracking) {
+      return;
+    }
+    _stopSource();
+    _sourceTracking = wanted;
+    _source = Geolocator.getPositionStream(locationSettings: _settings(wanted))
+        .listen(
+          (position) {
+            final devicePosition = _toDevicePosition(position);
+            for (final listener in [..._listeners.keys]) {
+              listener.add(devicePosition);
+            }
+          },
+          // İzin geri alındı veya servis kapandı: dinleyicilerin akışı
+          // kapanır (önceki davranış).
+          onError: (Object _) => _closeAll(),
+          onDone: _closeAll,
+          cancelOnError: true,
         );
+  }
+
+  void _stopSource() {
+    final cancelled = _source?.cancel();
+    _source = null;
+    _sourceTracking = null;
+    if (cancelled != null) {
+      unawaited(cancelled);
+    }
+  }
+
+  void _closeAll() {
+    final listeners = [..._listeners.keys];
+    _listeners.clear();
+    _source = null;
+    _sourceTracking = null;
+    for (final listener in listeners) {
+      unawaited(listener.close());
+    }
+  }
+
+  static LocationSettings _settings(BackgroundTracking? background) {
+    if (background == null) {
+      return const LocationSettings(distanceFilter: distanceFilterMeters);
+    }
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android => AndroidSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: backgroundDistanceFilterMeters,
+        intervalDuration: backgroundInterval,
+        foregroundNotificationConfig: ForegroundNotificationConfig(
+          notificationTitle: background.title,
+          notificationText: background.text,
+          notificationChannelName: background.channelName,
+          notificationIcon: const AndroidResource(name: notificationIconName),
+          setOngoing: true,
+        ),
+      ),
+      // Duraklatma kapalı: iOS duraklatılan güncellemeleri arka planda
+      // kendiliğinden sürdürmez (yürüyüşte mola sonrası uyarı kaçardı).
+      TargetPlatform.iOS => AppleSettings(
+        accuracy: LocationAccuracy.high,
+        activityType: ActivityType.fitness,
+        distanceFilter: backgroundDistanceFilterMeters,
+        pauseLocationUpdatesAutomatically: false,
+        showBackgroundLocationIndicator: true,
+        allowBackgroundLocationUpdates: true,
+      ),
+      // Masaüstü sabit durur ve konum Wi-Fi'den gelir: doğruluk zamanla
+      // iyileşir ama konum pek değişmez. Mesafe filtresi bu iyileşmeleri
+      // yuttuğundan kapalıdır (güç sorunu yok).
+      TargetPlatform.macOS => AppleSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 0,
+        pauseLocationUpdatesAutomatically: false,
+        allowBackgroundLocationUpdates: false,
+      ),
+      _ => const LocationSettings(distanceFilter: distanceFilterMeters),
+    };
   }
 
   @override

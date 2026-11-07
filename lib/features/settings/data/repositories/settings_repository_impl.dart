@@ -21,6 +21,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       languageCode: _preferences.languageCode,
       accessibility: _loadAccessibility(),
       showAccessibilityButton: _preferences.showAccessibilityButton,
+      nearbyAlerts: _preferences.nearbyAlerts,
     );
   }
 
@@ -53,6 +54,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await _preferences.setShowAccessibilityButton(
         visible: settings.showAccessibilityButton,
       );
+      await _preferences.setNearbyAlerts(enabled: settings.nearbyAlerts);
       await _preferences.setAccessibilityLevels({
         for (final MapEntry(:key, :value)
             in settings.accessibility.levels.entries)

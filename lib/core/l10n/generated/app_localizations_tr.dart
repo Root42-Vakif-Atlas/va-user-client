@@ -3695,4 +3695,70 @@ class AppLocalizationsTr extends AppLocalizations {
   String routePickerNoLocation(String details) {
     return '$details · Konum yok, rotaya eklenemez';
   }
+
+  @override
+  String get settingsNotificationsSection => 'Bildirimler';
+
+  @override
+  String get nearbyAlertsSettingTitle => 'Yakındaki eser bildirimleri';
+
+  @override
+  String get nearbyAlertsSettingDescription =>
+      'Bir vakıf eserinin yanından geçerken fotoğrafı ve kısa bilgisiyle haber verilir. Konumunuz saklanmaz; çevrenizdeki eserleri bulmak için yalnızca yaklaşık bölgeniz kullanılır.';
+
+  @override
+  String get nearbyAlertsBackgroundNote =>
+      'Uygulama arka plandayken de çalışır. Açıkken Android\'de kalıcı bir bildirim, iOS\'ta konum göstergesi görünür.';
+
+  @override
+  String get nearbyAlertsNotificationsBlocked =>
+      'Vakıf Atlas için bildirimler kapalı. Uyarı alabilmek için sistem ayarlarından açın.';
+
+  @override
+  String get nearbyAlertsLocationBlocked =>
+      'Konum erişimi kapalı. Uyarı alabilmek için uygulama kullanılırken konuma izin verin.';
+
+  @override
+  String get nearbyAlertsOpenSettings => 'Ayarları aç';
+
+  @override
+  String get nearbyAlertsEnabled => 'Yakındaki eser bildirimleri açıldı.';
+
+  @override
+  String get nearbyAlertsDisabled => 'Yakındaki eser bildirimleri kapatıldı.';
+
+  @override
+  String get nearbyAlertsChannelName => 'Yakındaki eserler';
+
+  @override
+  String get nearbyAlertsChannelDescription =>
+      'Bir vakıf eserinin yakınından geçtiğinizde';
+
+  @override
+  String nearbyAlertTitle(String name) {
+    return '$name yakınındasınız';
+  }
+
+  @override
+  String nearbyAlertSubtitle(String distance, String category) {
+    return '$distance uzakta · $category';
+  }
+
+  @override
+  String get nearbyAlertCallToAction => 'Ayrıntılar için dokunun.';
+
+  @override
+  String get nearbyAlertsTrackingTitle => 'Yakındaki eser bildirimleri açık';
+
+  @override
+  String get nearbyAlertsTrackingText =>
+      'Bir vakıf eserine yaklaştığınızda size haber vereceğiz.';
+
+  @override
+  String get nearbyAlertsTrackingChannel => 'Yakındaki eserler için konum';
+
+  @override
+  String nearbyAlertSubtitleApproximate(String category) {
+    return 'Yakınınızda · $category';
+  }
 }

@@ -5,6 +5,13 @@
     <!-- Harita "konumumu göster": yalnızca uygulama açıkken, cihazda kullanılır. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- Yakındaki eser bildirimleri: kullanıcı Ayarlar'dan açtığında konum
+         takibi uygulama arka plandayken görünür bir ön plan servisiyle
+         sürer (izin yine "uygulama kullanılırken"; ACCESS_BACKGROUND_LOCATION
+         istenmez). Bildirim izni (Android 13+) ayar açılırken istenir. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- Anı Köşesi ve Sivil Koruma'da fotoğraf çekmek; çekimden önce
          uygulama içinde istenir. Galeri sistem fotoğraf seçicisini kullanır,
          depolama/medya izni istenmez. -->

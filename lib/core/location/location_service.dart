@@ -73,6 +73,42 @@ enum LocationAccess {
   };
 }
 
+/// Uygulama arka plandayken konum takibinin sürmesi ve kullanıcıya görünür
+/// olması için gereken metinler.
+///
+/// İzin yine "uygulama kullanılırken"dir; takip uygulama ön plandayken
+/// başlatılır ve şeffaf biçimde sürdürülür: Android'de kapatılamayan bir
+/// ön plan servisi bildirimi ([title], [text]), iOS'ta durum çubuğundaki
+/// mavi konum göstergesi. "Her zaman" konum izni istenmez.
+@immutable
+final class BackgroundTracking {
+  const BackgroundTracking({
+    required this.title,
+    required this.text,
+    required this.channelName,
+  });
+
+  /// Android ön plan servisi bildiriminin başlığı.
+  final String title;
+
+  /// Android ön plan servisi bildiriminin metni.
+  final String text;
+
+  /// Sistem bildirim ayarlarında görünen kanal adı (Android).
+  final String channelName;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BackgroundTracking &&
+          other.title == title &&
+          other.text == text &&
+          other.channelName == channelName;
+
+  @override
+  int get hashCode => Object.hash(title, text, channelName);
+}
+
 /// [LocationService.currentPosition] sonucu.
 sealed class LocationResult {
   const LocationResult();
@@ -111,7 +147,12 @@ abstract interface class LocationService {
 
   /// İzin verildikten sonra konum değişimleri. Hata olursa akış sessizce
   /// kapanır.
-  Stream<DevicePosition> positionUpdates();
+  ///
+  /// [background] verilirse takip uygulama arka plandayken de sürer
+  /// (yalnızca Android ve iOS; diğer platformlarda yok sayılır). Aynı anda
+  /// birden fazla dinleyici olabilir; dinleyicilerden biri arka plan
+  /// istiyorsa tek ortak akış arka plan ayarlarıyla çalışır.
+  Stream<DevicePosition> positionUpdates({BackgroundTracking? background});
 
   /// [issue] sistem ayarlarından çözülebiliyorsa `true` (web'de ayar
   /// sayfası açılamaz).

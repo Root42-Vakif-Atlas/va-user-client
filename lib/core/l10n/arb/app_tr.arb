@@ -2801,5 +2801,47 @@
         "type": "String"
       }
     }
+  },
+  "settingsNotificationsSection": "Bildirimler",
+  "nearbyAlertsSettingTitle": "Yakındaki eser bildirimleri",
+  "nearbyAlertsSettingDescription": "Bir vakıf eserinin yanından geçerken fotoğrafı ve kısa bilgisiyle haber verilir. Konumunuz saklanmaz; çevrenizdeki eserleri bulmak için yalnızca yaklaşık bölgeniz kullanılır.",
+  "nearbyAlertsBackgroundNote": "Uygulama arka plandayken de çalışır. Açıkken Android'de kalıcı bir bildirim, iOS'ta konum göstergesi görünür.",
+  "nearbyAlertsNotificationsBlocked": "Vakıf Atlas için bildirimler kapalı. Uyarı alabilmek için sistem ayarlarından açın.",
+  "nearbyAlertsLocationBlocked": "Konum erişimi kapalı. Uyarı alabilmek için uygulama kullanılırken konuma izin verin.",
+  "nearbyAlertsOpenSettings": "Ayarları aç",
+  "nearbyAlertsEnabled": "Yakındaki eser bildirimleri açıldı.",
+  "nearbyAlertsDisabled": "Yakındaki eser bildirimleri kapatıldı.",
+  "nearbyAlertsChannelName": "Yakındaki eserler",
+  "nearbyAlertsChannelDescription": "Bir vakıf eserinin yakınından geçtiğinizde",
+  "nearbyAlertTitle": "{name} yakınındasınız",
+  "@nearbyAlertTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nearbyAlertSubtitle": "{distance} uzakta · {category}",
+  "@nearbyAlertSubtitle": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "nearbyAlertCallToAction": "Ayrıntılar için dokunun.",
+  "nearbyAlertsTrackingTitle": "Yakındaki eser bildirimleri açık",
+  "nearbyAlertsTrackingText": "Bir vakıf eserine yaklaştığınızda size haber vereceğiz.",
+  "nearbyAlertsTrackingChannel": "Yakındaki eserler için konum",
+  "nearbyAlertSubtitleApproximate": "Yakınınızda · {category}",
+  "@nearbyAlertSubtitleApproximate": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
   }
 }

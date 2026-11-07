@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bildirim simgeleri koddan adla (yansıma) çözülür; R8 kaynak küçültmesi
+     bunları silmesin (flutter_local_notifications, geolocator ön plan
+     servisi). -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_stat_*" />

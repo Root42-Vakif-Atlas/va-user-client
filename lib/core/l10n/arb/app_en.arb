@@ -2429,5 +2429,47 @@
   "monumentLocationPending": "This monument's location has not been entered yet, so it is not on the map or in the route planner.",
   "monumentNickname": "Also known as: {name}",
   "monumentPartFallback": "Section {index}",
-  "routePickerNoLocation": "{details} · No location, cannot be added to a route"
+  "routePickerNoLocation": "{details} · No location, cannot be added to a route",
+  "settingsNotificationsSection": "Notifications",
+  "nearbyAlertsSettingTitle": "Nearby monument alerts",
+  "nearbyAlertsSettingDescription": "Get a photo and a short note when you pass by a foundation monument. Your location isn't stored; only your approximate area is used to find monuments around you.",
+  "nearbyAlertsBackgroundNote": "Keeps working while the app is in the background. Android shows an ongoing notification and iOS shows the location indicator while this is on.",
+  "nearbyAlertsNotificationsBlocked": "Notifications are turned off for Vakıf Atlas. Turn them on in system settings to receive alerts.",
+  "nearbyAlertsLocationBlocked": "Location access is off. Allow location access while using the app to receive alerts.",
+  "nearbyAlertsOpenSettings": "Open settings",
+  "nearbyAlertsEnabled": "Nearby monument alerts are on.",
+  "nearbyAlertsDisabled": "Nearby monument alerts are off.",
+  "nearbyAlertsChannelName": "Nearby monuments",
+  "nearbyAlertsChannelDescription": "When you pass near a foundation monument",
+  "nearbyAlertTitle": "You're near {name}",
+  "@nearbyAlertTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nearbyAlertSubtitle": "{distance} away · {category}",
+  "@nearbyAlertSubtitle": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "nearbyAlertCallToAction": "Tap to learn more.",
+  "nearbyAlertsTrackingTitle": "Nearby monument alerts are on",
+  "nearbyAlertsTrackingText": "We'll let you know when you get close to a foundation monument.",
+  "nearbyAlertsTrackingChannel": "Location for nearby alerts",
+  "nearbyAlertSubtitleApproximate": "Nearby · {category}",
+  "@nearbyAlertSubtitleApproximate": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  }
 }

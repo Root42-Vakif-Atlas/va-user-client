@@ -5,6 +5,8 @@ import 'package:vakif_atlas/core/error/failures.dart';
 import 'package:vakif_atlas/core/map/map_tiles.dart';
 import 'package:vakif_atlas/core/utils/either.dart';
 import 'package:vakif_atlas/core/utils/typedefs.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:vakif_atlas/features/catalog/data/dtos/map_tile_dtos.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_local_data_source.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_remote_data_source.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/complex.dart';
@@ -108,8 +110,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
   /// Oturum boyunca bellekte tutulan en fazla karo (~birkaç ekranlık gezinti).
   static const int tileCacheCapacity = 300;
 
-  /// En son kullanılan sona taşınır (LRU). Kalıcı önbellek yoktur: karo
-  /// URL'leri katalog sürümüyle CDN'de önbelleklenir.
+  /// En son kullanılan sona taşınır (LRU).
   final Map<String, List<MapTileItem>> _tiles = <String, List<MapTileItem>>{};
 
   @override
@@ -126,23 +127,70 @@ class CatalogRepositoryImpl implements CatalogRepository {
       _tiles[key] = cached;
       return Right(cached);
     }
+    // Varsayılan harita (arama / filtre yok) karoları cihazda kalıcıdır:
+    // içerik katalog sürümüyle değişmez, uygulama yeniden açıldığında ve
+    // çevrimdışıyken ağa gitmeden çizilir. Arama sonuçlarının karoları
+    // (sınırsız kombinasyon) yalnızca bellektedir.
+    final persistent = query.isEmpty;
+    if (persistent) {
+      final stored = await _readCache(
+        () => _local.readMapTile(
+          version: version,
+          languageCode: languageCode,
+          tile: tile,
+        ),
+      );
+      final entities = stored == null ? null : _parseTile(stored);
+      if (entities != null) {
+        _remember(key, entities);
+        return Right(entities);
+      }
+    }
     try {
-      final items = await _remote.fetchMapTile(
+      final json = await _remote.fetchMapTileJson(
         tile: tile,
         query: query,
         version: version,
         languageCode: languageCode,
       );
-      final entities = List<MapTileItem>.unmodifiable(
-        items.map((item) => item.toDomain()).nonNulls,
-      );
-      _tiles[key] = entities;
-      if (_tiles.length > tileCacheCapacity) {
-        _tiles.remove(_tiles.keys.first);
+      final entities = _parseTile(json);
+      if (entities == null) {
+        throw const UnexpectedException('catalog.tile.decode');
+      }
+      _remember(key, entities);
+      if (persistent) {
+        await _writeCache(
+          () => _local.saveMapTile(
+            version: version,
+            languageCode: languageCode,
+            tile: tile,
+            json: json,
+          ),
+        );
       }
       return Right(entities);
     } on Exception catch (error) {
       return Left(ErrorMapper.toFailure(error));
+    }
+  }
+
+  void _remember(String key, List<MapTileItem> entities) {
+    _tiles[key] = entities;
+    if (_tiles.length > tileCacheCapacity) {
+      _tiles.remove(_tiles.keys.first);
+    }
+  }
+
+  /// Bozuk / eski şemadaki yanıtta `null` (yerel kayıt ıska sayılır).
+  static List<MapTileItem>? _parseTile(Map<String, dynamic> json) {
+    try {
+      return List<MapTileItem>.unmodifiable(
+        MapTileResponseDto.fromJson(json).items
+            .map((item) => item.toDomain())
+            .nonNulls,
+      );
+    } on CheckedFromJsonException {
+      return null;
     }
   }
 
@@ -156,9 +204,27 @@ class CatalogRepositoryImpl implements CatalogRepository {
         query: query,
         languageCode: languageCode,
       );
+      if (query.isEmpty) {
+        await _writeCache(() => _local.saveMapExtent(languageCode, extent));
+        // Yeni katalog sürümü: eski sürümün karoları artık okunmaz.
+        await _writeCache(
+          () => _local.pruneMapTiles(keepVersion: extent.version),
+        );
+      }
       return Right(extent.toDomain());
     } on Exception catch (error) {
-      return Left(ErrorMapper.toFailure(error));
+      final failure = ErrorMapper.toFailure(error);
+      // Ağ yokken varsayılan harita son bilinen sürümle yerel karolardan
+      // açılır; arama kapsamı ağ gerektirir.
+      if (query.isEmpty && failure is NetworkFailure) {
+        final stored = await _readCache(
+          () => _local.readMapExtent(languageCode),
+        );
+        if (stored != null) {
+          return Right(stored.toDomain());
+        }
+      }
+      return Left(failure);
     }
   }
 

@@ -26,6 +26,8 @@ class PreferencesService {
   static const String _accessibilityKey = 'settings.accessibility.v1';
   static const String _accessibilityButtonKey =
       'settings.show_accessibility_button';
+  static const String _nearbyAlertsKey = 'settings.nearby_alerts';
+  static const String _nearbyAlertLogKey = 'nearby_alerts.log.v1';
   static const String _onboardingVersionKey = 'onboarding.completed_version';
   static const String _installationIdKey = 'device.installation_id';
 
@@ -67,6 +69,37 @@ class PreferencesService {
 
   Future<void> setShowAccessibilityButton({required bool visible}) =>
       _guard(() => _preferences.setBool(_accessibilityButtonKey, visible));
+
+  /// Yakındaki eser bildirimleri; varsayılan kapalı (konum tabanlı
+  /// bildirim açık rızayla açılır).
+  bool get nearbyAlerts => _preferences.getBool(_nearbyAlertsKey) ?? false;
+
+  Future<void> setNearbyAlerts({required bool enabled}) =>
+      _guard(() => _preferences.setBool(_nearbyAlertsKey, enabled));
+
+  /// Son yakınlık bildirimlerinin zamanları (`anahtar → epoch ms`). Yalnızca
+  /// cihazda tutulur; kayıt yoksa veya bozuksa boş.
+  Map<String, int> get nearbyAlertLog {
+    final raw = _preferences.getString(_nearbyAlertLogKey);
+    if (raw == null) {
+      return const {};
+    }
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map<String, dynamic>) {
+        return const {};
+      }
+      return {
+        for (final MapEntry(:key, :value) in decoded.entries)
+          if (value is int) key: value,
+      };
+    } on FormatException {
+      return const {};
+    }
+  }
+
+  Future<void> setNearbyAlertLog(Map<String, int> log) =>
+      _guard(() => _preferences.setString(_nearbyAlertLogKey, jsonEncode(log)));
 
   Future<void> setAccessibilityLevels(Map<String, int> levels) => _guard(
     () => _preferences.setString(_accessibilityKey, jsonEncode(levels)),

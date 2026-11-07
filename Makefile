@@ -52,6 +52,10 @@ adb-reverse: ## Android cihaz/emülatörde localhost:8080 (API) ve :8333 (ön im
 		echo "adb reverse ($$serial): 8080, 8333"; \
 	done
 
+ios-release:
+	flutter build ios --release -t lib/main_dev.dart --dart-define-from-file=config/remote.json
+	flutter install --release
+
 run-dev: adb-reverse ## Yerel backend'e (backend/deploy/compose, http://localhost:8080/v1/) karşı dev flavor ile çalıştır
 	flutter run --flavor dev -t lib/main_dev.dart --dart-define-from-file=config/dev.json
 

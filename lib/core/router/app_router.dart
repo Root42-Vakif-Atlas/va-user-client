@@ -63,6 +63,7 @@ import 'package:vakif_atlas/features/monument_detail/presentation/pages/complex_
 import 'package:vakif_atlas/features/monument_detail/presentation/pages/complex_members_page.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/pages/monument_detail_page.dart';
 import 'package:vakif_atlas/features/monument_detail/presentation/widgets/monument_route_button.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart';
 import 'package:vakif_atlas/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:vakif_atlas/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:vakif_atlas/features/profile/presentation/pages/profile_page.dart';
@@ -608,6 +609,10 @@ class AppRouter {
               ),
               BlocProvider<DevicePermissionsCubit>(
                 create: (_) => getIt<DevicePermissionsCubit>(),
+              ),
+              // Uygulama geneli tekil; kökteki oturum da aynı örneği kullanır.
+              BlocProvider<NearbyAlertsCubit>.value(
+                value: getIt<NearbyAlertsCubit>(),
               ),
             ],
             child: SettingsPage(

@@ -10,6 +10,7 @@ import 'package:vakif_atlas/core/media/photo_picker_service.dart';
 import 'package:vakif_atlas/core/media/photo_processor.dart';
 import 'package:vakif_atlas/core/network/http_transport.dart';
 import 'package:vakif_atlas/core/network/network_status.dart';
+import 'package:vakif_atlas/core/notifications/local_notification_service.dart';
 import 'package:vakif_atlas/core/permissions/permission_service.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_local_data_source.dart';
 import 'package:vakif_atlas/features/onboarding/data/repositories/onboarding_repository_impl.dart';
@@ -35,6 +36,7 @@ import 'catalog_test_utils.dart';
 import 'location_test_utils.dart';
 import 'map_test_utils.dart';
 import 'network_test_utils.dart';
+import 'notification_test_utils.dart';
 import 'memory_test_utils.dart';
 import 'permission_test_utils.dart';
 import 'speech_test_utils.dart';
@@ -145,6 +147,9 @@ final class TestDependencies {
       )
       ..registerSingleton<MapTileSource>(testMapTileSource())
       ..registerSingleton<LocationService>(FakeLocationService())
+      ..registerSingleton<LocalNotificationService>(
+        FakeLocalNotificationService(),
+      )
       ..registerSingleton<PhotoPickerService>(FakePhotoPickerService())
       ..registerSingleton<PermissionService>(FakePermissionService())
       ..registerSingleton<SpeechInputService>(FakeSpeechInputService())

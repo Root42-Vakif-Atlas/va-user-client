@@ -45,6 +45,10 @@ import 'package:vakif_atlas/core/network/interceptors/correlation_interceptor.da
     as _i964;
 import 'package:vakif_atlas/core/network/network_status.dart' as _i958;
 import 'package:vakif_atlas/core/network/session_events.dart' as _i121;
+import 'package:vakif_atlas/core/notifications/flutter_local_notification_service.dart'
+    as _i51;
+import 'package:vakif_atlas/core/notifications/local_notification_service.dart'
+    as _i279;
 import 'package:vakif_atlas/core/observability/app_bloc_observer.dart' as _i858;
 import 'package:vakif_atlas/core/observability/app_logger.dart' as _i1016;
 import 'package:vakif_atlas/core/observability/telemetry_service.dart' as _i326;
@@ -192,6 +196,20 @@ import 'package:vakif_atlas/features/monument_detail/presentation/cubit/complex_
     as _i580;
 import 'package:vakif_atlas/features/monument_detail/presentation/cubit/monument_detail_cubit.dart'
     as _i218;
+import 'package:vakif_atlas/features/nearby_alerts/data/repositories/nearby_alert_log_repository_impl.dart'
+    as _i719;
+import 'package:vakif_atlas/features/nearby_alerts/data/repositories/nearby_monuments_repository_impl.dart'
+    as _i628;
+import 'package:vakif_atlas/features/nearby_alerts/di/nearby_alerts_module.dart'
+    as _i426;
+import 'package:vakif_atlas/features/nearby_alerts/domain/entities/nearby_alert_policy.dart'
+    as _i927;
+import 'package:vakif_atlas/features/nearby_alerts/domain/repositories/nearby_alerts_repositories.dart'
+    as _i635;
+import 'package:vakif_atlas/features/nearby_alerts/domain/usecases/nearby_alert_usecases.dart'
+    as _i789;
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart'
+    as _i414;
 import 'package:vakif_atlas/features/onboarding/data/repositories/onboarding_repository_impl.dart'
     as _i274;
 import 'package:vakif_atlas/features/onboarding/di/onboarding_module.dart'
@@ -282,6 +300,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
+    final nearbyAlertsModule = _$NearbyAlertsModule();
     final routePlannerModule = _$RoutePlannerModule();
     final settingsModule = _$SettingsModule();
     final mapModule = _$MapModule();
@@ -332,6 +351,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1019.LocalDbService>(
       () => _i1019.LocalDbService(),
       dispose: (i) => i.close(),
+    );
+    gh.lazySingleton<_i927.NearbyAlertPolicy>(
+      () => nearbyAlertsModule.nearbyAlertPolicy,
     );
     gh.lazySingleton<_i617.OptimizeStopOrderUseCase>(
       () => routePlannerModule.optimizeStopOrderUseCase,
@@ -397,6 +419,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i898.DioFactory>(
       () => _i898.DioFactory(gh<_i634.AppConfig>(), gh<_i618.HttpTransport>()),
     );
+    gh.lazySingleton<_i635.NearbyAlertLogRepository>(
+      () => _i719.NearbyAlertLogRepositoryImpl(gh<_i620.PreferencesService>()),
+    );
     gh.lazySingleton<_i958.NetworkStatus>(
       () => _i958.DeviceNetworkStatus(gh<_i895.Connectivity>()),
       dispose: (i) => i.dispose(),
@@ -419,6 +444,12 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           settingsModule.saveAppSettingsUseCase(gh<_i579.SettingsRepository>()),
     );
+    gh.lazySingleton<_i789.RecordNearbyAlertUseCase>(
+      () => nearbyAlertsModule.recordNearbyAlertUseCase(
+        gh<_i635.NearbyAlertLogRepository>(),
+        gh<_i927.NearbyAlertPolicy>(),
+      ),
+    );
     gh.lazySingleton<_i942.RouteExportLocalDataSource>(
       () => _i942.RouteExportLocalDataSourceImpl(gh<_i1019.LocalDbService>()),
     );
@@ -427,6 +458,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1016.AppLogger>(
       () => _i1016.AppLogger(gh<_i634.AppConfig>()),
+    );
+    gh.lazySingleton<_i789.ClearNearbyAlertLogUseCase>(
+      () => nearbyAlertsModule.clearNearbyAlertLogUseCase(
+        gh<_i635.NearbyAlertLogRepository>(),
+      ),
     );
     gh.lazySingleton<_i1068.MapTileSource>(
       () => mapModule.mapTileSource(
@@ -462,6 +498,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i731.GetAppSettingsUseCase>(),
         gh<_i1038.SaveAppSettingsUseCase>(),
         gh<_i1053.HapticFeedbackService>(),
+      ),
+    );
+    gh.lazySingleton<_i279.LocalNotificationService>(
+      () => _i51.FlutterLocalNotificationService(
+        gh<_i361.Dio>(instanceName: 'storageDio'),
+        gh<_i1016.AppLogger>(),
       ),
     );
     gh.lazySingleton<_i862.DeviceIntegrityService>(
@@ -859,6 +901,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i173.MonumentSearchBloc>(
       () => _i173.MonumentSearchBloc(gh<_i735.SearchMonumentsUseCase>()),
     );
+    gh.lazySingleton<_i635.NearbyMonumentsRepository>(
+      () => _i628.NearbyMonumentsRepositoryImpl(gh<_i211.CatalogRepository>()),
+    );
     gh.factory<_i71.LoginBloc>(() => _i71.LoginBloc(gh<_i743.LoginUseCase>()));
     gh.lazySingleton<_i548.GamificationCubit>(
       () => _i548.GamificationCubit(
@@ -1070,8 +1115,25 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i498.WatchRouteExportChangesUseCase>(),
       ),
     );
+    gh.lazySingleton<_i789.FindNearbyAlertUseCase>(
+      () => nearbyAlertsModule.findNearbyAlertUseCase(
+        gh<_i635.NearbyMonumentsRepository>(),
+        gh<_i635.NearbyAlertLogRepository>(),
+        gh<_i927.NearbyAlertPolicy>(),
+      ),
+    );
     gh.factory<_i306.FeedbackFormCubit>(
       () => _i306.FeedbackFormCubit(gh<_i146.SubmitFeedbackUseCase>()),
+    );
+    gh.lazySingleton<_i414.NearbyAlertsCubit>(
+      () => _i414.NearbyAlertsCubit(
+        gh<_i963.LocationService>(),
+        gh<_i279.LocalNotificationService>(),
+        gh<_i789.FindNearbyAlertUseCase>(),
+        gh<_i789.RecordNearbyAlertUseCase>(),
+        gh<_i789.ClearNearbyAlertLogUseCase>(),
+        gh<_i1016.AppLogger>(),
+      ),
     );
     gh.lazySingleton<_i330.InAppCameraLauncher>(
       () => _i276.NavigatorCameraLauncher(gh<_i532.AppRouter>()),
@@ -1106,6 +1168,8 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$RegisterModule extends _i407.RegisterModule {}
+
+class _$NearbyAlertsModule extends _i426.NearbyAlertsModule {}
 
 class _$RoutePlannerModule extends _i242.RoutePlannerModule {}
 

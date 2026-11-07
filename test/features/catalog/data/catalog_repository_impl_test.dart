@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vakif_atlas/core/error/failures.dart';
+import 'package:vakif_atlas/core/map/map_tiles.dart';
 import 'package:vakif_atlas/core/storage/cache_store.dart';
 import 'package:vakif_atlas/core/storage/local_db_service.dart';
 import 'package:vakif_atlas/core/utils/either.dart';
@@ -13,6 +14,7 @@ import 'package:vakif_atlas/features/catalog/data/dtos/monument_search_dtos.dart
 import 'package:vakif_atlas/features/catalog/data/repositories/catalog_repository_impl.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_local_data_source.dart';
 import 'package:vakif_atlas/features/catalog/data/sources/catalog_remote_data_source.dart';
+import 'package:vakif_atlas/features/catalog/domain/entities/map_tile.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_classification.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_detail.dart';
 import 'package:vakif_atlas/features/catalog/domain/entities/monument_search.dart';
@@ -173,6 +175,132 @@ void main() {
           ServerFailure(kind: ServerFailureKind.notFound, statusCode: 404),
         ),
       );
+    });
+
+    group('harita karoları ve katalog sürümü', () {
+      const tile = TileId(6, 37, 23);
+      const version = CatalogMockApi.catalogVersion;
+
+      /// Aynı cihaz verisiyle yeniden açılan uygulama (bellek önbelleği boş).
+      CatalogRepositoryImpl relaunch({bool offline = false}) {
+        final dio = testDio(CatalogMockApi().routes)
+          ..interceptors.add(
+            InterceptorsWrapper(
+              onRequest: (options, handler) {
+                requests++;
+                if (offline) {
+                  handler.reject(
+                    DioException(
+                      requestOptions: options,
+                      type: DioExceptionType.connectionError,
+                    ),
+                  );
+                  return;
+                }
+                handler.next(options);
+              },
+            ),
+          );
+        return CatalogRepositoryImpl(
+          CatalogRemoteDataSourceImpl(dio),
+          CatalogLocalDataSourceImpl(CacheStore.withClock(database, () => now)),
+        );
+      }
+
+      Future<List<MapTileItem>> loadTile(
+        CatalogRepositoryImpl repository, {
+        MonumentSearchQuery query = MonumentSearchQuery.empty,
+        String? tileVersion,
+      }) async {
+        final result = await repository.getMapTile(
+          tile: tile,
+          query: query,
+          version: tileVersion ?? version,
+          languageCode: 'tr',
+        );
+        return result.getOrNull()!;
+      }
+
+      test('varsayılan harita karosu yeniden açılışta ve çevrimdışı ağa '
+          'gitmeden gelir', () async {
+        final first = await loadTile(repository);
+        expect(requests, 1);
+
+        expect(await loadTile(relaunch()), first);
+        expect(await loadTile(relaunch(offline: true)), first);
+        expect(requests, 1);
+      });
+
+      test('arama / filtre karoları cihaza yazılmaz', () async {
+        const query = MonumentSearchQuery(text: 'cami');
+        await loadTile(repository, query: query);
+        await loadTile(relaunch(), query: query);
+        expect(requests, 2);
+      });
+
+      test('çevrimdışı açılışta son bilinen katalog sürümü kullanılır; '
+          'arama kapsamı ağ ister', () async {
+        final online = await repository.getMapExtent(
+          query: MonumentSearchQuery.empty,
+          languageCode: 'tr',
+        );
+
+        final offline = relaunch(offline: true);
+        final cached = await offline.getMapExtent(
+          query: MonumentSearchQuery.empty,
+          languageCode: 'tr',
+        );
+        expect(cached.getOrNull()!.version, online.getOrNull()!.version);
+
+        final search = await offline.getMapExtent(
+          query: const MonumentSearchQuery(text: 'cami'),
+          languageCode: 'tr',
+        );
+        expect(search.isLeft, isTrue);
+      });
+
+      test('yeni katalog sürümünde eski sürümün karoları silinir', () async {
+        await loadTile(repository, tileVersion: 'eski-surum');
+        final local = CatalogLocalDataSourceImpl(
+          CacheStore.withClock(database, () => now),
+        );
+        expect(
+          await local.readMapTile(
+            version: 'eski-surum',
+            languageCode: 'tr',
+            tile: tile,
+          ),
+          isNotNull,
+        );
+
+        await repository.getMapExtent(
+          query: MonumentSearchQuery.empty,
+          languageCode: 'tr',
+        );
+
+        expect(
+          await local.readMapTile(
+            version: 'eski-surum',
+            languageCode: 'tr',
+            tile: tile,
+          ),
+          isNull,
+        );
+      });
+
+      test('bozuk karo kaydı yok sayılır ve ağdan yeniden alınır', () async {
+        await CatalogLocalDataSourceImpl(
+          CacheStore.withClock(database, () => now),
+        ).saveMapTile(
+          version: version,
+          languageCode: 'tr',
+          tile: tile,
+          json: const {'unexpected': true},
+        );
+
+        await loadTile(repository);
+        expect(requests, 1);
+      });
     });
 
     test('bozuk önbellek kaydı silinir ve API yeniden çağrılır', () async {

@@ -4,8 +4,15 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<!-- Yakındaki eser bildirimleri: kullanıcı açtığında konum takibi
+		     uygulama arka plandayken mavi konum göstergesiyle sürer
+		     ("uygulama kullanılırken" izniyle; "her zaman" istenmez). -->
+		<string>location</string>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Yakınınızdaki vakıf eserlerini haritada göstermek için konumunuz kullanılır. Haritada konumunuz cihazınızdan çıkmaz; yalnızca bir hasar bildirimine eklemeyi seçerseniz o bildirimle gönderilir.</string>
+	<string>Yakınınızdaki vakıf eserlerini haritada göstermek ve açarsanız bir eserin yanından geçerken size haber vermek için konumunuz kullanılır. Konumunuz saklanmaz; çevredeki eserleri bulmak için yalnızca yaklaşık bölgeniz kullanılır. Kesin konumunuz yalnızca bir hasar bildirimine eklemeyi seçerseniz o bildirimle gönderilir.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Anı Köşesi'nde ve hasar bildirimlerinde paylaşmak istediğiniz fotoğrafı çekmek için kamera kullanılır. Fotoğraf yalnızca siz paylaştığınızda yüklenir.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

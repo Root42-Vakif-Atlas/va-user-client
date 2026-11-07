@@ -3764,4 +3764,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String routePickerNoLocation(String details) {
     return '$details · No location, cannot be added to a route';
   }
+
+  @override
+  String get settingsNotificationsSection => 'Notifications';
+
+  @override
+  String get nearbyAlertsSettingTitle => 'Nearby monument alerts';
+
+  @override
+  String get nearbyAlertsSettingDescription =>
+      'Get a photo and a short note when you pass by a foundation monument. Your location isn\'t stored; only your approximate area is used to find monuments around you.';
+
+  @override
+  String get nearbyAlertsBackgroundNote =>
+      'Keeps working while the app is in the background. Android shows an ongoing notification and iOS shows the location indicator while this is on.';
+
+  @override
+  String get nearbyAlertsNotificationsBlocked =>
+      'Notifications are turned off for Vakıf Atlas. Turn them on in system settings to receive alerts.';
+
+  @override
+  String get nearbyAlertsLocationBlocked =>
+      'Location access is off. Allow location access while using the app to receive alerts.';
+
+  @override
+  String get nearbyAlertsOpenSettings => 'Open settings';
+
+  @override
+  String get nearbyAlertsEnabled => 'Nearby monument alerts are on.';
+
+  @override
+  String get nearbyAlertsDisabled => 'Nearby monument alerts are off.';
+
+  @override
+  String get nearbyAlertsChannelName => 'Nearby monuments';
+
+  @override
+  String get nearbyAlertsChannelDescription =>
+      'When you pass near a foundation monument';
+
+  @override
+  String nearbyAlertTitle(String name) {
+    return 'You\'re near $name';
+  }
+
+  @override
+  String nearbyAlertSubtitle(String distance, String category) {
+    return '$distance away · $category';
+  }
+
+  @override
+  String get nearbyAlertCallToAction => 'Tap to learn more.';
+
+  @override
+  String get nearbyAlertsTrackingTitle => 'Nearby monument alerts are on';
+
+  @override
+  String get nearbyAlertsTrackingText =>
+      'We\'ll let you know when you get close to a foundation monument.';
+
+  @override
+  String get nearbyAlertsTrackingChannel => 'Location for nearby alerts';
+
+  @override
+  String nearbyAlertSubtitleApproximate(String category) {
+    return 'Nearby · $category';
+  }
 }

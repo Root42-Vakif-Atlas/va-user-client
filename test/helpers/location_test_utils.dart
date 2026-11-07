@@ -55,8 +55,14 @@ class FakeLocationService implements LocationService {
     return result;
   }
 
+  /// Son [positionUpdates] çağrısında istenen arka plan takibi.
+  BackgroundTracking? lastBackground;
+
   @override
-  Stream<DevicePosition> positionUpdates() => updates.stream;
+  Stream<DevicePosition> positionUpdates({BackgroundTracking? background}) {
+    lastBackground = background;
+    return updates.stream;
+  }
 
   @override
   bool canOpenSettings(LocationIssue issue) =>

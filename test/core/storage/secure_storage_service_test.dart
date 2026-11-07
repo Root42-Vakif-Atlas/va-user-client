@@ -58,11 +58,38 @@ void main() {
     verify(() => storage.delete(key: 'auth.refresh_token')).called(1);
   });
 
-  test('platform hatası CacheException olarak fırlatılır', () async {
-    when(() => storage.read(key: any(named: 'key')))
-        .thenThrow(PlatformException(code: 'keystore'));
+  test('kalıcı olarak okunamayan kayıt silinir ve yokmuş gibi döner '
+      '(macOS: başka derlemenin kaydı, -128)', () async {
+    when(() => storage.read(key: any(named: 'key'))).thenThrow(
+      PlatformException(
+        code: 'Unexpected security result code',
+        message: 'Code: -128, Message: User canceled the operation.',
+        details: -128,
+      ),
+    );
 
-    expect(service.getRefreshToken, throwsA(isA<CacheException>()));
+    expect(await service.getRefreshToken(), isNull);
+    expect(await service.getAccessToken(), isNull);
+    verify(() => storage.delete(key: 'auth.refresh_token')).called(1);
+    verify(() => storage.delete(key: 'auth.access_token')).called(1);
+
+    // Erişim anahtarı yeniden okunmaz (macOS her okumada izin sorardı).
+    await service.getAccessToken();
+    verify(() => storage.read(key: 'auth.access_token')).called(1);
+  });
+
+  test('cihaz kilitliyken (geçici) kayıt silinmez, CacheException '
+      'fırlatılır', () async {
+    when(() => storage.read(key: any(named: 'key'))).thenThrow(
+      PlatformException(
+        code: 'Unexpected security result code',
+        message: 'Code: -25308, Message: User interaction is not allowed.',
+        details: SecureStorageService.interactionNotAllowed,
+      ),
+    );
+
+    await expectLater(service.getRefreshToken, throwsA(isA<CacheException>()));
+    verifyNever(() => storage.delete(key: any(named: 'key')));
   });
 
   test('clearAll tüm depoyu siler', () async {

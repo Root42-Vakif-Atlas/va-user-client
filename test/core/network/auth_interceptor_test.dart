@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vakif_atlas/core/error/exceptions.dart';
 import 'package:vakif_atlas/core/network/interceptors/auth_interceptor.dart';
 import 'package:vakif_atlas/core/network/network_constants.dart';
 import 'package:vakif_atlas/core/network/session_events.dart';
@@ -67,6 +68,26 @@ void main() {
     final response = await dio.get<Map<String, dynamic>>('protected');
 
     expect(response.data, {'data': 'gizli'});
+  });
+
+  test('anahtar okunamazsa istek engellenmez; anahtarsız gönderilir', () async {
+    when(storage.getAccessToken)
+        .thenThrow(const CacheException('secure_storage.read'));
+    String? sentAuthorization = 'unset';
+    final dio = buildDio(
+      _FakeRefresher(() async => null),
+      routes: [
+        MockRoute('GET', 'public', (request) {
+          sentAuthorization = request.bearerToken;
+          return const MockResponse.ok({'data': 'açık'});
+        }),
+      ],
+    );
+
+    final response = await dio.get<Map<String, dynamic>>('public');
+
+    expect(response.data, {'data': 'açık'});
+    expect(sentAuthorization, isNull);
   });
 
   test('401 → anahtar yenilenir → istek otomatik tekrarlanır', () async {

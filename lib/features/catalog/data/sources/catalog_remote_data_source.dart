@@ -38,6 +38,16 @@ abstract interface class CatalogRemoteDataSource {
     required String languageCode,
   });
 
+  /// [fetchMapTile]'ın ham yanıt gövdesi (`{"items": [...]}`): yerel
+  /// önbelleğe sunucu biçiminde yazılır, okunurken aynı DTO ayrıştırmasından
+  /// geçer.
+  Future<Map<String, dynamic>> fetchMapTileJson({
+    required TileId tile,
+    required MonumentSearchQuery query,
+    required String version,
+    required String languageCode,
+  });
+
   Future<MapExtentDto> fetchMapExtent({
     required MonumentSearchQuery query,
     required String languageCode,
@@ -139,6 +149,22 @@ class CatalogRemoteDataSourceImpl implements CatalogRemoteDataSource {
     required String version,
     required String languageCode,
   }) async {
+    final json = await fetchMapTileJson(
+      tile: tile,
+      query: query,
+      version: version,
+      languageCode: languageCode,
+    );
+    return MapTileResponseDto.fromJson(json).items;
+  }
+
+  @override
+  Future<Map<String, dynamic>> fetchMapTileJson({
+    required TileId tile,
+    required MonumentSearchQuery query,
+    required String version,
+    required String languageCode,
+  }) async {
     final response = await _dio.get<Map<String, dynamic>>(
       CatalogEndpoints.mapTile(tile),
       queryParameters: {
@@ -147,7 +173,7 @@ class CatalogRemoteDataSourceImpl implements CatalogRemoteDataSource {
       },
       options: _options(languageCode),
     );
-    return MapTileResponseDto.fromJson(_body(response)).items;
+    return _body(response);
   }
 
   @override

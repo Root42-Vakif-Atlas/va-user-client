@@ -10,6 +10,7 @@ import 'package:vakif_atlas/core/permissions/permission_service.dart';
 import 'package:vakif_atlas/core/theme/app_theme.dart';
 import 'package:vakif_atlas/core/theme/color_blindness_profile.dart';
 import 'package:vakif_atlas/core/theme/theme_preference.dart';
+import 'package:vakif_atlas/features/nearby_alerts/presentation/cubit/nearby_alerts_cubit.dart';
 import 'package:vakif_atlas/features/settings/domain/entities/app_settings.dart';
 import 'package:vakif_atlas/features/settings/presentation/cubit/app_settings_cubit.dart';
 import 'package:vakif_atlas/features/settings/presentation/cubit/app_settings_state.dart';
@@ -18,6 +19,7 @@ import 'package:vakif_atlas/features/settings/presentation/cubit/location_permis
 import 'package:vakif_atlas/features/settings/presentation/pages/settings_page.dart';
 
 import '../../../helpers/location_test_utils.dart';
+import '../../../helpers/notification_test_utils.dart';
 import '../../../helpers/permission_test_utils.dart';
 
 class _MockCubit extends MockCubit<AppSettingsState>
@@ -28,6 +30,7 @@ void main() {
   late FakeLocationService location;
   late FakePermissionService permissions;
   late List<String> opened;
+  late FakeLocalNotificationService notifications;
 
   setUpAll(() {
     registerFallbackValue(ThemePreference.dark);
@@ -47,6 +50,9 @@ void main() {
       access: {AppPermission.microphone: PermissionAccess.denied},
     );
     opened = [];
+    notifications = FakeLocalNotificationService();
+    when(() => cubit.setNearbyAlerts(enabled: any(named: 'enabled')))
+        .thenAnswer((_) async {});
   });
 
   Future<void> pumpPage(
@@ -65,6 +71,12 @@ void main() {
           ),
           BlocProvider<DevicePermissionsCubit>(
             create: (_) => DevicePermissionsCubit(permissions),
+          ),
+          BlocProvider<NearbyAlertsCubit>(
+            create: (_) => testNearbyAlertsCubit(
+              location: location,
+              notifications: notifications,
+            ),
           ),
         ],
         child: MaterialApp(
@@ -274,6 +286,84 @@ void main() {
       ),
       findsOneWidget,
     );
+  });
+
+  group('yakındaki eser bildirimleri', () {
+    Future<Finder> showToggle(WidgetTester tester) async {
+      final toggle = find.byKey(const Key('settings_nearby_alerts_switch'));
+      await tester.scrollUntilVisible(toggle, 200);
+      await tester.ensureVisible(toggle);
+      await tester.pumpAndSettle();
+      return toggle;
+    }
+
+    testWidgets('varsayılan kapalıdır; açılırken bildirim ve konum izni '
+        'istenir, sonra ayar açılır', (tester) async {
+      await pumpPage(tester);
+      final toggle = await showToggle(tester);
+      expect(tester.widget<SwitchListTile>(toggle).value, isFalse);
+
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+
+      expect(notifications.requestCalls, 1);
+      expect(location.requestAccessCalls, 1);
+      verify(() => cubit.setNearbyAlerts(enabled: true)).called(1);
+      expect(find.text('Yakındaki eser bildirimleri açıldı.'), findsOneWidget);
+    });
+
+    testWidgets('bildirim izni reddedilirse ayar kapalı kalır, konum '
+        'sorulmaz ve sistem ayarlarına gidilebilir', (tester) async {
+      notifications.accessAfterRequest = PermissionAccess.denied;
+      await pumpPage(tester);
+      final toggle = await showToggle(tester);
+
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+
+      verifyNever(() => cubit.setNearbyAlerts(enabled: true));
+      expect(location.requestAccessCalls, 0);
+      expect(
+        find.text(
+          'Vakıf Atlas için bildirimler kapalı. Uyarı alabilmek için '
+          'sistem ayarlarından açın.',
+        ),
+        findsOneWidget,
+      );
+      await tester.tap(find.text('Ayarları aç'));
+      expect(notifications.settingsOpened, 1);
+    });
+
+    testWidgets('konum izni reddedilirse ayar kapalı kalır', (tester) async {
+      location.accessAfterRequest = LocationAccess.deniedForever;
+      await pumpPage(tester);
+      final toggle = await showToggle(tester);
+
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+
+      verifyNever(() => cubit.setNearbyAlerts(enabled: true));
+      expect(find.textContaining('Konum erişimi kapalı.'), findsOneWidget);
+    });
+
+    testWidgets('açıkken kapatılınca ayar kapanır', (tester) async {
+      when(() => cubit.state).thenReturn(
+        AppSettingsState(
+          settings: AppSettings.defaults.copyWith(nearbyAlerts: true),
+        ),
+      );
+      await pumpPage(tester);
+      final toggle = await showToggle(tester);
+      expect(tester.widget<SwitchListTile>(toggle).value, isTrue);
+      // Açıkken arka plan göstergesi önceden açıklanır.
+      expect(find.textContaining('arka plandayken de çalışır'), findsOneWidget);
+
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+
+      verify(() => cubit.setNearbyAlerts(enabled: false)).called(1);
+      expect(notifications.requestCalls, 0);
+    });
   });
 
   testWidgets('%200 metin ölçeğinde taşma olmadan kaydırılabilir', (

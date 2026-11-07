@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -30,6 +32,12 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
   MonumentTilesCubit(this._getTile) : super(const MonumentTilesState());
 
   final GetMapTileUseCase _getTile;
+
+  /// "Eserler yükleniyor" yalnızca yanıt bu süreden uzun sürerse gösterilir.
+  /// Bellekten / cihazdan gelen karolar bundan önce biter: harita her
+  /// kaydırmada gösterge yanıp sönmez ve ekran okuyucu (canlı bölge) her
+  /// harekette "yükleniyor" demez.
+  static const Duration loadingIndicatorDelay = Duration(milliseconds: 300);
 
   int _generation = 0;
   double? _zoom;
@@ -82,7 +90,14 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
       east: bounds.east,
       zoom: level,
     );
-    emit(state.copyWith(isLoading: true, failure: null));
+    if (state.failure != null) {
+      emit(state.copyWith(failure: null));
+    }
+    final indicator = Timer(loadingIndicatorDelay, () {
+      if (!isClosed && generation == _generation && !state.isLoading) {
+        emit(state.copyWith(isLoading: true));
+      }
+    });
     final results = await Future.wait([
       for (final tile in tiles)
         _getTile(
@@ -94,6 +109,7 @@ class MonumentTilesCubit extends Cubit<MonumentTilesState> {
           ),
         ),
     ]);
+    indicator.cancel();
     if (isClosed || generation != _generation) {
       return;
     }

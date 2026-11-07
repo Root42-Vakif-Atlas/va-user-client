@@ -426,7 +426,7 @@ class _PointerOverlayState extends State<_PointerOverlay> {
               ),
             ),
           ),
-        if (widget.bigCursor > 0)
+        if (widget.bigCursor > 0) ...[
           Positioned.fill(
             child: IgnorePointer(
               child: ValueListenableBuilder<Offset?>(
@@ -441,6 +441,19 @@ class _PointerOverlayState extends State<_PointerOverlay> {
               ),
             ),
           ),
+          // Sistem imleci gizlenir; aksi halde büyük okun üstünde küçük
+          // gerçek imleç de görünür (iki imleç). En üstte olduğundan
+          // butonların "tıklama" imlecini de bastırır; saydam olduğundan
+          // dokunuşlar ve fare olayları alttaki içeriğe ulaşır.
+          const Positioned.fill(
+            child: MouseRegion(
+              key: Key('big_cursor_hide_system'),
+              cursor: SystemMouseCursors.none,
+              opaque: false,
+              hitTestBehavior: HitTestBehavior.translucent,
+            ),
+          ),
+        ],
       ],
     );
   }
