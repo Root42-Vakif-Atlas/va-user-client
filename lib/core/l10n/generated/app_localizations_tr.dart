@@ -3220,12 +3220,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get guideStartersHeading => 'Örnek sorular';
 
   @override
-  String get guideStarterMonument => 'Süleymaniye Camii\'ni kim yaptırdı?';
-
-  @override
-  String get guideStarterList => 'Konya\'daki Selçuklu eserleri';
-
-  @override
   String get guideStarterRoute => 'Rota nasıl planlarım?';
 
   @override

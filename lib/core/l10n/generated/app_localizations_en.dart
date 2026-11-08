@@ -3288,12 +3288,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get guideStartersHeading => 'Try asking';
 
   @override
-  String get guideStarterMonument => 'Who built the Süleymaniye Mosque?';
-
-  @override
-  String get guideStarterList => 'Seljuk monuments in Konya';
-
-  @override
   String get guideStarterRoute => 'How do I plan a route?';
 
   @override

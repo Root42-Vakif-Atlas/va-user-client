@@ -67,12 +67,16 @@ import 'package:vakif_atlas/core/storage/installation_id_service.dart' as _i808;
 import 'package:vakif_atlas/core/storage/local_db_service.dart' as _i1019;
 import 'package:vakif_atlas/core/storage/preferences_service.dart' as _i620;
 import 'package:vakif_atlas/core/storage/secure_storage_service.dart' as _i227;
+import 'package:vakif_atlas/features/ai_assistant/data/repositories/catalog_aware_digital_guide_repository.dart'
+    as _i676;
 import 'package:vakif_atlas/features/ai_assistant/data/repositories/digital_guide_repository_impl.dart'
     as _i189;
 import 'package:vakif_atlas/features/ai_assistant/data/sources/digital_guide_remote_data_source.dart'
     as _i481;
 import 'package:vakif_atlas/features/ai_assistant/di/ai_assistant_module.dart'
     as _i640;
+import 'package:vakif_atlas/features/ai_assistant/domain/catalog_guide/catalog_guide.dart'
+    as _i113;
 import 'package:vakif_atlas/features/ai_assistant/domain/repositories/digital_guide_repository.dart'
     as _i702;
 import 'package:vakif_atlas/features/ai_assistant/domain/usecases/digital_guide_usecases.dart'
@@ -179,7 +183,7 @@ import 'package:vakif_atlas/features/memory_corner/data/repositories/memory_repo
 import 'package:vakif_atlas/features/memory_corner/data/sources/memory_remote_data_source.dart'
     as _i34;
 import 'package:vakif_atlas/features/memory_corner/di/memory_corner_module.dart'
-    as _i114;
+    as _i115;
 import 'package:vakif_atlas/features/memory_corner/domain/repositories/memory_repository.dart'
     as _i673;
 import 'package:vakif_atlas/features/memory_corner/domain/usecases/memory_usecases.dart'
@@ -271,7 +275,7 @@ import 'package:vakif_atlas/features/saved_monuments/di/saved_monuments_module.d
 import 'package:vakif_atlas/features/saved_monuments/domain/repositories/saved_monuments_repository.dart'
     as _i1001;
 import 'package:vakif_atlas/features/saved_monuments/domain/usecases/saved_monuments_usecases.dart'
-    as _i113;
+    as _i114;
 import 'package:vakif_atlas/features/saved_monuments/presentation/cubit/saved_monuments_cubit.dart'
     as _i149;
 import 'package:vakif_atlas/features/saved_monuments/presentation/cubit/saved_monuments_list_cubit.dart'
@@ -306,9 +310,9 @@ extension GetItInjectableX on _i174.GetIt {
     final mapModule = _$MapModule();
     final networkModule = _$NetworkModule();
     final onboardingModule = _$OnboardingModule();
-    final aiAssistantModule = _$AiAssistantModule();
     final authModule = _$AuthModule();
     final catalogModule = _$CatalogModule();
+    final aiAssistantModule = _$AiAssistantModule();
     final civilProtectionModule = _$CivilProtectionModule();
     final savedMonumentsModule = _$SavedMonumentsModule();
     final gamificationModule = _$GamificationModule();
@@ -601,6 +605,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'apiDio'),
       ),
     );
+    gh.lazySingleton<_i189.DigitalGuideRepositoryImpl>(
+      () => _i189.DigitalGuideRepositoryImpl(
+        gh<_i481.DigitalGuideRemoteDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i47.LegalDocumentRemoteDataSource>(
       () => _i47.LegalDocumentRemoteDataSourceImpl(
         gh<_i361.Dio>(instanceName: 'apiDio'),
@@ -609,11 +618,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i769.FeedbackRemoteDataSource>(
       () => _i769.FeedbackRemoteDataSourceImpl(
         gh<_i361.Dio>(instanceName: 'apiDio'),
-      ),
-    );
-    gh.lazySingleton<_i702.DigitalGuideRepository>(
-      () => _i189.DigitalGuideRepositoryImpl(
-        gh<_i481.DigitalGuideRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i145.GamificationRemoteDataSource>(
@@ -632,15 +636,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i34.MemoryRemoteDataSourceImpl(
         gh<_i361.Dio>(instanceName: 'apiDio'),
         gh<_i361.Dio>(instanceName: 'storageDio'),
-      ),
-    );
-    gh.lazySingleton<_i976.AskGuideUseCase>(
-      () =>
-          aiAssistantModule.askGuideUseCase(gh<_i702.DigitalGuideRepository>()),
-    );
-    gh.lazySingleton<_i976.EndGuideConversationUseCase>(
-      () => aiAssistantModule.endGuideConversationUseCase(
-        gh<_i702.DigitalGuideRepository>(),
       ),
     );
     gh.lazySingleton<_i202.SavedMonumentsRemoteDataSource>(
@@ -775,6 +770,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i266.UserActivityEvents>(),
       ),
     );
+    gh.lazySingleton<_i113.CatalogGuide>(
+      () => aiAssistantModule.catalogGuide(gh<_i211.CatalogRepository>()),
+    );
     gh.lazySingleton<_i61.GetDamageReportsUseCase>(
       () => civilProtectionModule.getDamageReportsUseCase(
         gh<_i492.DamageReportRepository>(),
@@ -840,12 +838,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i145.GamificationRemoteDataSource>(),
       ),
     );
-    gh.factory<_i471.DigitalGuideBloc>(
-      () => _i471.DigitalGuideBloc(
-        gh<_i976.AskGuideUseCase>(),
-        gh<_i976.EndGuideConversationUseCase>(),
-      ),
-    );
     gh.factoryParam<_i323.VerifyEmailBloc, _i463.PendingVerification?, dynamic>(
       (pending, _) => _i323.VerifyEmailBloc(
         gh<_i743.VerifyEmailUseCase>(),
@@ -853,22 +845,22 @@ extension GetItInjectableX on _i174.GetIt {
         pending,
       ),
     );
-    gh.lazySingleton<_i113.GetSavedMonumentsUseCase>(
+    gh.lazySingleton<_i114.GetSavedMonumentsUseCase>(
       () => savedMonumentsModule.getSavedMonumentsUseCase(
         gh<_i1001.SavedMonumentsRepository>(),
       ),
     );
-    gh.lazySingleton<_i113.SaveMonumentUseCase>(
+    gh.lazySingleton<_i114.SaveMonumentUseCase>(
       () => savedMonumentsModule.saveMonumentUseCase(
         gh<_i1001.SavedMonumentsRepository>(),
       ),
     );
-    gh.lazySingleton<_i113.RemoveSavedMonumentUseCase>(
+    gh.lazySingleton<_i114.RemoveSavedMonumentUseCase>(
       () => savedMonumentsModule.removeSavedMonumentUseCase(
         gh<_i1001.SavedMonumentsRepository>(),
       ),
     );
-    gh.lazySingleton<_i113.WatchSavedMonumentsUseCase>(
+    gh.lazySingleton<_i114.WatchSavedMonumentsUseCase>(
       () => savedMonumentsModule.watchSavedMonumentsUseCase(
         gh<_i1001.SavedMonumentsRepository>(),
       ),
@@ -1034,9 +1026,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i418.SavedMonumentsListCubit>(
       () => _i418.SavedMonumentsListCubit(
-        gh<_i113.GetSavedMonumentsUseCase>(),
+        gh<_i114.GetSavedMonumentsUseCase>(),
         gh<_i735.GetMonumentPinsUseCase>(),
-        gh<_i113.WatchSavedMonumentsUseCase>(),
+        gh<_i114.WatchSavedMonumentsUseCase>(),
       ),
     );
     gh.factory<_i362.RouteBuilderBloc>(
@@ -1063,6 +1055,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i235.DeleteAccountBloc>(
       () => _i235.DeleteAccountBloc(gh<_i743.DeleteAccountUseCase>()),
     );
+    gh.lazySingleton<_i702.DigitalGuideRepository>(
+      () => _i676.CatalogAwareDigitalGuideRepository(
+        gh<_i189.DigitalGuideRepositoryImpl>(),
+        gh<_i113.CatalogGuide>(),
+      ),
+    );
     gh.lazySingleton<_i601.AuthBloc>(
       () => _i601.AuthBloc(
         gh<_i743.RestoreSessionUseCase>(),
@@ -1072,10 +1070,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i149.SavedMonumentsCubit>(
       () => _i149.SavedMonumentsCubit(
-        gh<_i113.GetSavedMonumentsUseCase>(),
-        gh<_i113.SaveMonumentUseCase>(),
-        gh<_i113.RemoveSavedMonumentUseCase>(),
-        gh<_i113.WatchSavedMonumentsUseCase>(),
+        gh<_i114.GetSavedMonumentsUseCase>(),
+        gh<_i114.SaveMonumentUseCase>(),
+        gh<_i114.RemoveSavedMonumentUseCase>(),
+        gh<_i114.WatchSavedMonumentsUseCase>(),
       ),
     );
     gh.factory<_i275.RouteExportCubit>(
@@ -1115,6 +1113,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i498.WatchRouteExportChangesUseCase>(),
       ),
     );
+    gh.lazySingleton<_i976.AskGuideUseCase>(
+      () =>
+          aiAssistantModule.askGuideUseCase(gh<_i702.DigitalGuideRepository>()),
+    );
+    gh.lazySingleton<_i976.EndGuideConversationUseCase>(
+      () => aiAssistantModule.endGuideConversationUseCase(
+        gh<_i702.DigitalGuideRepository>(),
+      ),
+    );
     gh.lazySingleton<_i789.FindNearbyAlertUseCase>(
       () => nearbyAlertsModule.findNearbyAlertUseCase(
         gh<_i635.NearbyMonumentsRepository>(),
@@ -1137,6 +1144,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i330.InAppCameraLauncher>(
       () => _i276.NavigatorCameraLauncher(gh<_i532.AppRouter>()),
+    );
+    gh.factory<_i471.DigitalGuideBloc>(
+      () => _i471.DigitalGuideBloc(
+        gh<_i976.AskGuideUseCase>(),
+        gh<_i976.EndGuideConversationUseCase>(),
+      ),
     );
     gh.lazySingleton<_i315.PhotoPickerService>(
       () => _i315.ImagePickerPhotoService(gh<_i330.InAppCameraLauncher>()),
@@ -1181,11 +1194,11 @@ class _$NetworkModule extends _i1000.NetworkModule {}
 
 class _$OnboardingModule extends _i588.OnboardingModule {}
 
-class _$AiAssistantModule extends _i640.AiAssistantModule {}
-
 class _$AuthModule extends _i621.AuthModule {}
 
 class _$CatalogModule extends _i1043.CatalogModule {}
+
+class _$AiAssistantModule extends _i640.AiAssistantModule {}
 
 class _$CivilProtectionModule extends _i932.CivilProtectionModule {}
 
@@ -1193,7 +1206,7 @@ class _$SavedMonumentsModule extends _i752.SavedMonumentsModule {}
 
 class _$GamificationModule extends _i457.GamificationModule {}
 
-class _$MemoryCornerModule extends _i114.MemoryCornerModule {}
+class _$MemoryCornerModule extends _i115.MemoryCornerModule {}
 
 class _$FeedbackModule extends _i884.FeedbackModule {}
 

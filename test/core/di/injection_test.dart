@@ -6,6 +6,8 @@ import 'package:vakif_atlas/core/config/app_environment.dart';
 import 'package:vakif_atlas/core/di/injection.dart';
 import 'package:vakif_atlas/core/observability/app_logger.dart';
 import 'package:vakif_atlas/core/observability/telemetry_service.dart';
+import 'package:vakif_atlas/features/ai_assistant/data/repositories/catalog_aware_digital_guide_repository.dart';
+import 'package:vakif_atlas/features/ai_assistant/domain/repositories/digital_guide_repository.dart';
 
 import '../../helpers/test_config.dart';
 
@@ -26,6 +28,12 @@ void main() {
       expect(getIt<PackageInfo>().version, '1.0.0');
       expect(getIt<AppLogger>(), isNotNull);
       expect(getIt<TelemetryService>(), isNotNull);
+      // Rehber eser sorularını katalogdan, diğerlerini Asistan servisinden
+      // yanıtlar.
+      expect(
+        getIt<DigitalGuideRepository>(),
+        isA<CatalogAwareDigitalGuideRepository>(),
+      );
     });
   }
 

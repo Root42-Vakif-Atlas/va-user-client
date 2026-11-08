@@ -290,8 +290,6 @@ class _Welcome extends StatelessWidget {
     final l10n = context.l10n;
     final colors = context.colors;
     final starters = [
-      (Icons.account_balance_outlined, l10n.guideStarterMonument),
-      (Icons.manage_search, l10n.guideStarterList),
       (Icons.route_outlined, l10n.guideStarterRoute),
       (Icons.add_alert_outlined, l10n.guideStarterDamage),
     ];

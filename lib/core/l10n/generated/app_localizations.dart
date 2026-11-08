@@ -5200,18 +5200,6 @@ abstract class AppLocalizations {
   /// **'Örnek sorular'**
   String get guideStartersHeading;
 
-  /// No description provided for @guideStarterMonument.
-  ///
-  /// In tr, this message translates to:
-  /// **'Süleymaniye Camii\'ni kim yaptırdı?'**
-  String get guideStarterMonument;
-
-  /// No description provided for @guideStarterList.
-  ///
-  /// In tr, this message translates to:
-  /// **'Konya\'daki Selçuklu eserleri'**
-  String get guideStarterList;
-
   /// No description provided for @guideStarterRoute.
   ///
   /// In tr, this message translates to:

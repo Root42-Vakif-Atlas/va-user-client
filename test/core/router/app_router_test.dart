@@ -704,7 +704,11 @@ void main() {
     expect(router().state.uri.path, '/ai-assistant');
     expect(find.byKey(const Key('guide_welcome')), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('guide_starter_0')));
+    await tester.enterText(
+      find.byKey(const Key('guide_input')),
+      "Süleymaniye Camii'ni kim yaptırdı?",
+    );
+    await tester.testTextInput.receiveAction(TextInputAction.send);
     await tester.pumpAndSettle();
     expect(find.textContaining('Kanuni Sultan Süleyman'), findsOneWidget);
 

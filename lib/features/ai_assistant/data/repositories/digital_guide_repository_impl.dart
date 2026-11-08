@@ -7,8 +7,11 @@ import 'package:vakif_atlas/features/ai_assistant/data/sources/digital_guide_rem
 import 'package:vakif_atlas/features/ai_assistant/domain/entities/guide_message.dart';
 import 'package:vakif_atlas/features/ai_assistant/domain/repositories/digital_guide_repository.dart';
 
+/// Asistan servisine soran rehber. Uygulamada doğrudan kullanılmaz;
+/// [CatalogAwareDigitalGuideRepository] eser dışı soruları buraya iletir.
+///
 /// Sohbet geçmişi cihazda saklanmaz; bağlam sunucudaki sohbettedir.
-@LazySingleton(as: DigitalGuideRepository)
+@lazySingleton
 class DigitalGuideRepositoryImpl implements DigitalGuideRepository {
   DigitalGuideRepositoryImpl(this._remote);
 

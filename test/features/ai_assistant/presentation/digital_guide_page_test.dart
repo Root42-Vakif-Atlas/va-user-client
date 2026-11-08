@@ -97,7 +97,9 @@ void main() {
     await pumpGuide(tester);
 
     expect(find.text('Size nasıl yardımcı olabilirim?'), findsOneWidget);
-    expect(find.text("Süleymaniye Camii'ni kim yaptırdı?"), findsOneWidget);
+    expect(find.text('Rota nasıl planlarım?'), findsOneWidget);
+    expect(find.text("Süleymaniye Camii'ni kim yaptırdı?"), findsNothing);
+    expect(find.text("Konya'daki Selçuklu eserleri"), findsNothing);
     expect(
       find.textContaining('Kişisel bilgilerinizi paylaşmayın'),
       findsOneWidget,
@@ -108,12 +110,16 @@ void main() {
     await expectAccessible(tester);
   });
 
-  testWidgets('örnek soru yanıtlanır, duyurulur ve eylem yönlendirir', (
+  testWidgets('soru yanıtlanır, duyurulur ve eylem yönlendirir', (
     tester,
   ) async {
     await pumpGuide(tester);
 
-    await tester.tap(find.byKey(const Key('guide_starter_0')));
+    await tester.enterText(
+      find.byKey(const Key('guide_input')),
+      "Süleymaniye Camii'ni kim yaptırdı?",
+    );
+    await tester.testTextInput.receiveAction(TextInputAction.send);
     await tester.pump();
     expect(find.text('Rehber yanıt hazırlıyor…'), findsOneWidget);
     await _settleRequests(tester);
@@ -172,7 +178,7 @@ void main() {
 
   testWidgets('yeni sohbet geçmişi temizler ve duyurur', (tester) async {
     await pumpGuide(tester);
-    await tester.tap(find.byKey(const Key('guide_starter_2')));
+    await tester.tap(find.byKey(const Key('guide_starter_0')));
     await _settleRequests(tester);
 
     await tester.tap(find.byKey(const Key('guide_new_conversation')));
@@ -219,7 +225,7 @@ void main() {
       ],
     );
 
-    await tester.tap(find.byKey(const Key('guide_starter_3')));
+    await tester.tap(find.byKey(const Key('guide_starter_1')));
     await _settleRequests(tester);
     expect(find.byKey(const Key('guide_send_error')), findsOneWidget);
     expect(announcements.last, startsWith('Soru gönderilemedi.'));
@@ -235,9 +241,10 @@ void main() {
     await pumpGuide(tester, textScale: 2);
     expect(tester.takeException(), isNull);
 
-    // Büyük metinde örnekler kaydırılarak ulaşılır.
+    // Büyük metinde örnekler kaydırılarak ulaşılır (son örneğe kadar
+    // kaydırılır; ilk örnek yazma çubuğunun altında kalmaz).
     await tester.scrollUntilVisible(
-      find.byKey(const Key('guide_starter_0')),
+      find.byKey(const Key('guide_starter_1')),
       200,
       scrollable: find.descendant(
         of: find.byKey(const Key('guide_welcome')),
@@ -252,7 +259,11 @@ void main() {
   testWidgets('İngilizce arayüzde İngilizce yanıt', (tester) async {
     await pumpGuide(tester, locale: const Locale('en'));
 
-    await tester.tap(find.byKey(const Key('guide_starter_0')));
+    await tester.enterText(
+      find.byKey(const Key('guide_input')),
+      'Who built the Süleymaniye Mosque?',
+    );
+    await tester.testTextInput.receiveAction(TextInputAction.send);
     await _settleRequests(tester);
 
     expect(find.textContaining('Suleiman the Magnificent'), findsOneWidget);
