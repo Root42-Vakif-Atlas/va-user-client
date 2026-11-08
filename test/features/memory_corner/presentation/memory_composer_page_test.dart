@@ -194,6 +194,33 @@ void main() {
     });
   }
 
+  testWidgets('metin alanı dışına dokununca klavye kapanır, metin korunur', (
+    tester,
+  ) async {
+    await pumpComposer(tester);
+    final field = find.byKey(const Key('memory_composer_text'));
+
+    await tester.showKeyboard(field);
+    await tester.enterText(field, 'Yarım kalan anı');
+    await tester.pump();
+    expect(tester.testTextInput.isVisible, isTrue);
+
+    await tester.tap(field);
+    await tester.pump();
+    expect(
+      tester.testTextInput.isVisible,
+      isTrue,
+      reason: 'Alanın içine dokunmak klavyeyi kapatmaz',
+    );
+
+    await tester.tap(find.byKey(const Key('memory_composer_monument_name')));
+    await tester.pump();
+
+    expect(tester.testTextInput.isVisible, isFalse);
+    expect(find.text('Yarım kalan anı'), findsOneWidget);
+    expect(submitted, 0);
+  });
+
   testWidgets('kaydedilmemiş içerikle kapatırken onay istenir', (tester) async {
     await pumpComposer(tester);
 

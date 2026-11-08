@@ -425,6 +425,10 @@ class _ComposerForm extends StatelessWidget {
                   maxLength: MemoryRules.maxTextLength,
                   keyboardType: TextInputType.multiline,
                   textCapitalization: TextCapitalization.sentences,
+                  // Çok satırlı iOS klavyesinde kapatma tuşu yok; "Paylaş"
+                  // çubuğu klavyenin arkasında kaldığından dışarı dokununca
+                  // klavye kapanır.
+                  onTapOutside: (_) => textFocus.unfocus(),
                   decoration: InputDecoration(
                     labelText: l10n.memoryTextLabel,
                     hintText: l10n.memoryTextHint,
